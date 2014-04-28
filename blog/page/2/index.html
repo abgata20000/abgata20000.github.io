@@ -9,12 +9,13 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="マスター側設定 レプリケーション用のユーザーを作成 1
-GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password'; my.cnf(winの場合はmy.ini)を修正（追加） 1
+  <meta name="description" content="npmでグローバルにインストール 1
+npm install -g pm2 スクリプトを登録 1
+pm2 start sample001.js スクリプトを確認 1
+pm2 list スクリプトを止める 1
 2
-3
-[mysqld]
-log-bin = &hellip;">
+# listで確認して、appで登録されたスクリプトを止めたい場合
+pm2 stop &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -94,7 +95,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mysql_replication/">MySQLのレプリケーション設定</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/pm2_install/">Node.jsのデーモン化ツールpm2をインストール</a></h1>
     
     
       <p class="meta">
@@ -110,126 +111,223 @@ $(document).ready( function () {
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>マスター側設定</h2>
-
-<h3>レプリケーション用のユーザーを作成</h3>
+  <div class="entry-content"><h2>npmでグローバルにインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
+<h2>スクリプトを登録</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを止める</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
+</span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ログを参照</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>モニタリング</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/linux_server_setting/">サーバーの初期設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>yumを最新状態にする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用言語を日本語に設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
+</span><span class='line'>sudo vim /etc/sysconfig/i18n</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/i18n</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]
-</span><span class='line'>log-bin = mysql-bin
-</span><span class='line'>server-id = 1001</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LANG="ja_JP.utf-8"
+</span><span class='line'>
+</span><span class='line'>SYSFONT="latarcyrheb-sun16"</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>mysqlを再起動</h3>
+<h2>サーバーに時間変更（日本時間）</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mv /etc/localtime /etc/localtime.org
+</span><span class='line'>sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>mysqlのスナップショットを作成</h3>
+<p>再度ログインで日本語化(dateで確認)</p>
 
-<h4>mysqlにて</h4>
+<h2>サーバーのホスト名を変更する</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/network /etc/sysconfig/network.org
+</span><span class='line'>sudo vim /etc/sysconfig/network</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/network</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># DBロック
-</span><span class='line'>FLUSH TABLES WITH READ LOCK;
-</span><span class='line'>
-</span><span class='line'># 現在のバイナリポジションを取得
-</span><span class='line'>SHOW MASTER STATUS;
-</span><span class='line'>
-</span><span class='line'># File、Positionはスレーブ側の設定に必要なので控えておく
+</pre></td><td class='code'><pre><code class=''><span class='line'>NETWORKING=yes
+</span><span class='line'>NETWORKING_IPV6=yes
+</span><span class='line'>HOSTNAME=sample.abgata.org</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>hostsの設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/hosts /etc/hosts.org
+</span><span class='line'>sudo vim /etc/hosts</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/hosts</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1 sample.abgata.org localhost.localdomain
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
+<h3>設定後はネットワークを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/rc.d/init.d/network restart</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>DBロックを解除</h3>
-
-<h4>mysqlにて</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>UNLOCK TABLES;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>スレーブ側設定</h2>
-
-<h3>my.cnfを修正(追加)</h3>
+<h2>ユーザーを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]
-</span><span class='line'>log-bin=mysql-bin
-</span><span class='line'>log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
-</span><span class='line'>server-id=1002</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>useradd myuser
+</span><span class='line'>passwd myuser
+</span><span class='line'>
+</span><span class='line'>usermod -G wheel myuser</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>マスタで作成したスナップショットを復元</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql -u user -p  &lt; snapshot.db</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>mysqlを再起動</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>マスタ情報を登録</h3>
+<h2>ユーザーにsudo権限を付与</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>CHANGE MASTER TO
-</span><span class='line'>MASTER_HOST='sample.com',
-</span><span class='line'>MASTER_USER='rep-user',
-</span><span class='line'>MASTER_PASSWORD='passwd',
-</span><span class='line'>MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
-</span><span class='line'>MASTER_LOG_POS=98; #マスターのPosition</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sudoers /etc/sudoers.org
+</span><span class='line'>
+</span><span class='line'>visudo</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>スレーブをスタート</h3>
+<h5>visudo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>START SLAVE;
-</span><span class='line'># STOP SLAVE;RESTART SLAVE;RESET SLAVE;</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># %wheel ~~
+</span><span class='line'># ↓
+</span><span class='line'>%wheel ~~</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>起動確認</h3>
+<p>※一番最初のもの</p>
+
+<h2>sshの設定を変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SHOW SLAVE STATUS\G</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
+</span><span class='line'>
+</span><span class='line'>vim /etc/ssh/sshd_config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/ssh/sshd_config</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Port YOUR_PORT_NUMBER
+</span><span class='line'>PasswordAuthentication yes
+</span><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>sshdを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service sshd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>SSH接続してみる</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p YOUR_PORT_NUMBER myuser@192.168.10.10</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
@@ -243,7 +341,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mysql_mroonga_install/">Mysqlサーバーの設定(mroonga)</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/iptables/">Iptablesの設定</a></h1>
     
     
       <p class="meta">
@@ -259,124 +357,20 @@ $(document).ready( function () {
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h3>参考URL:</h3>
-
-<ul>
-<li><a href="http://linuxserver.jp/%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E7%AF%89/db/mysql/%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2-groonga.php">MySQLでgroongaを利用して高速に日本語の全文検索を行う</a></li>
-<li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
-</ul>
-
+  <div class="entry-content"><h2>設定ファイルを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm
-</span><span class='line'># --sorceで強制的に上書き
-</span><span class='line'>yum makecache
-</span><span class='line'>yum -y update
-</span><span class='line'>
-</span><span class='line'>yum -y install mysql-server
-</span><span class='line'># version5.1.67を指定しないとだめかも
-</span><span class='line'>
-</span><span class='line'>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/iptables</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>MySQLの設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
-</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>MySQLの初期設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>MySQLを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
-</span><span class='line'>yum -y install mysql-groonga
-</span><span class='line'>service mysqld restart
-</span><span class='line'>chkconfig mysqld on
-</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>利用可能なストレージエンジンを確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql&gt; SHOW ENGINES \G</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mysql_backup/">MySQLのバックアップを自動化</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd 
-</span><span class='line'>
-</span><span class='line'>mkdir backup
-</span><span class='line'>mkdir backup/mysql
-</span><span class='line'>
-</span><span class='line'>vim mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>mysql_backup.sh</h5>
+<h5>/etc/sysconfig/iptables</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -398,35 +392,38 @@ $(document).ready( function () {
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
+</span><span class='line'>:INPUT    DROP    [0:0]
+</span><span class='line'>:FORWARD  DROP    [0:0]
+</span><span class='line'>:OUTPUT   ACCEPT  [0:0]
+</span><span class='line'>:SERVICES -       [0:0]
+</span><span class='line'>-A INPUT -i lo -j ACCEPT
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 4  -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m state --state NEW -j SERVICES
+</span><span class='line'>-A INPUT -p udp --sport 53 -j ACCEPT
+</span><span class='line'>-A INPUT -p udp --sport 123 --dport 123 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># バックアップファイルを何日分残しておくか
-</span><span class='line'>period='+7'
-</span><span class='line'># バックアップファイルを保存するディレクトリ
-</span><span class='line'>dirpath='/path/to/backup/mysql'
-</span><span class='line'>#mysql password
-</span><span class='line'>mysqlpassword="passwd"
+</span><span class='line'>-A SERVICES -p tcp --dport 25 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 110 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 587 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 80 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 443 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
-</span><span class='line'>mydate=`date +%y%m%d%H%M%S`
-</span><span class='line'>filename="mysql_$mydate.sql"
-</span><span class='line'># mysqldump実行
-</span><span class='line'>mysqldump -uroot -p$mysqlpassword -A -E &gt; $dirpath/$filename
+</span><span class='line'>-A INPUT -p udp -m udp --dport 137:138 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># パーミッション変更
-</span><span class='line'>chmod 700 $dirpath/$filename
 </span><span class='line'>
-</span><span class='line'># 古いバックアップファイルを削除
-</span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>COMMIT
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>実行権限を付与</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>cronをインストール</h2>
+<h2>設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -435,28 +432,16 @@ $(document).ready( function () {
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install cronie-anacron
-</span><span class='line'># cron.dailyをランダム実行したくない場合は yum -y install cronie-noanacron
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>service iptables restart
 </span><span class='line'>
-</span><span class='line'>chkconfig --level 2345 crond on
-</span><span class='line'>chkconfig --list crond  
+</span><span class='line'>iptables -L
 </span><span class='line'>
-</span><span class='line'>crontab -e
+</span><span class='line'>chkconfig iptables on
+</span><span class='line'>
+</span><span class='line'>chkconfig --list iptables
 </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>0 3 * * * bash /path/to/mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>設定済みのクーロンを確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>crontab -l</span></code></pre></td></tr></table></div></figure>
-
-
 
 </div>
   
@@ -470,7 +455,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mongodb_install/">Mongodbの設定手順</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/install_from_nodebrew/">Node.jsをnodebrewでインストール</a></h1>
     
     
       <p class="meta">
@@ -486,170 +471,289 @@ $(document).ready( function () {
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h3>参考URL</h3>
+  <div class="entry-content"><h2>nodebrewをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl https://raw.github.com/hokaccha/nodebrew/master/nodebrew | perl - setup
+</span><span class='line'>
+</span><span class='line'># ユーザーディレクトリにインストールされるので、全ユーザーで利用する場合はノードユーザー作ってインストールして共通パス通すのがいいかも
+</span><span class='line'>
+</span><span class='line'>useradd node
+</span><span class='line'>
+</span><span class='line'>cd /home/node
+</span><span class='line'>
+</span><span class='line'>chmod -R 777 /home/node
+</span><span class='line'>
+</span><span class='line'>echo 'export PATH="/home/node/.nodebrew/current/bin:$PATH"'     &gt;&gt; /etc/profile.d/nodebrew.sh
+</span><span class='line'># echo 'export PATH="/home/node/.nodebrew/current/bin:$PATH"'     &gt;&gt; /etc/profile.d/nodebrew.sh
+</span><span class='line'>
+</span><span class='line'>source /etc/profile.d/nodebrew.sh
+</span><span class='line'>
+</span><span class='line'>echo $PATH
+</span><span class='line'>
+</span><span class='line'># ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>nodeグループを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groupadd node
+</span><span class='line'>usermod -G wheel,node myuser
+</span><span class='line'># usermod -G wheel,node,ruby myuser
+</span><span class='line'>groups myuser</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>.nodebrewの所有グループを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /home/node
+</span><span class='line'>chgrp -R node .nodebrew
+</span><span class='line'>chmod -R g+rwxX .nodebrew</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo chgrp wheel /root</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール可能なバージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew ls-all
+</span><span class='line'># 奇数バージョンは開発版、偶数バージョンが安定版らしい</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール(バイナリからインストールしたほうが速い)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew install-binary v0.10.20
+</span><span class='line'># インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>利用するバージョンを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew use v0.10.20</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>現在のバージョンを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>node -v</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>サーバーサンプル</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var http = require('http');
+</span><span class='line'>
+</span><span class='line'>http.createServer(function (request, response) {
+</span><span class='line'>  response.writeHead(200, {'Content-Type': 'text/plain'});
+</span><span class='line'>  response.end('Hello Node.js');
+</span><span class='line'>}).listen(8124);
+</span><span class='line'>
+</span><span class='line'>console.log('Server running at http://localhost:8124');</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/grape_on_rails/">Grape を Rails4で利用する場合の注意点</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><p><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/">公式サイト</a></p></li>
-<li><p><a href="http://dotinstall.com/lessons/basic_sakura_vps/8021">ドットインストール</a></p></li>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
+なんかいろいろとはまってしまったので備忘録
+file pathを追加する
+
+<h5>config/application.rb</h5></li>
 </ul>
 
 
-<h4>※2ヶ月ほど前と内容が少し変わっていたので、毎回確認したほうがいいかもしれないです。</h4>
-
-<h2>yumでインストールできるようにリポジトリを追加</h2>
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/yum.repos.d/mongodb.repo</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module TestApp
+</span><span class='line'>  class Application &lt; Rails::Application
+</span><span class='line'>    ...
+</span><span class='line'>    config.paths.add "app/api", glob: "**/*.rb"
+</span><span class='line'>    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+</span><span class='line'>    ...
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>routes.rbにmountするコードを一行追加
+</span><span class='line'>
+</span><span class='line'>TestApp::Application.routes.draw do
+</span><span class='line'>  mount TestAPI =&gt; 'api'
+</span><span class='line'>  ...
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>/etc/yum.repos.d/mongodb.repo</h5>
+<h3>流れ</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mongodb]
-</span><span class='line'>name=MongoDB Repository
-</span><span class='line'>baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
-</span><span class='line'>gpgcheck=0
-</span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rails new test-app
+</span><span class='line'>$ cd test-app
+</span><span class='line'>$ vi Gemfile
+</span><span class='line'># + gem 'grape', :git =&gt; "https://github.com/intridea/grape.git"
+</span><span class='line'>$ bundle install
+</span><span class='line'>$ mkdir app/api
+</span><span class='line'>$ vi app/api/test_api.rb
+</span><span class='line'>$ vi app/api/api_v1.rb
+</span><span class='line'>$ mkdir app/api/v1
+</span><span class='line'>$ vi app/api/ping.rb
+</span><span class='line'>$ vi config/application.rb
+</span><span class='line'>$ vi config/routes.rb
+</span><span class='line'>$ bundle exec rails s
+</span><span class='line'>$ open http://localhost:3000/api/v1/hello
+</span><span class='line'>files</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>yumでmongodbをインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y
-</span><span class='line'>sudo yum install mongo-10gen mongo-10gen-server -y</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>mongodbを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mongod start</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>起動時に自動起動設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig mongod on</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>バージョンを確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mongo --version</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>シェルを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mongo</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>シェルを終了</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>exit</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザー認証をONにする</h2>
-
-<p>※mongod起動時にオプション指定でも可能ですが、毎回指定するの面倒なので設定ファイルを変更しています。</p>
-
-<h2>設定ファイルをバックアップ</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/mongod.conf /etc/mongod.conf.org</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>設定ファイルを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/mongod.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/mongod.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>auth = ture</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>mongodbを再起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mongod restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>管理者ユーザーの作成</h2>
+<h5>app/api/test_api.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>use admin
-</span><span class='line'>db.addUser("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class TestAPI &lt; Grape::API
+</span><span class='line'>  mount API_V1
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>ユーザー認証</h2>
+<h5>app/api/api_v1.rb</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>管理者ユーザーの確認</h2>
+<p>v1/以下のclassをmountする</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class API_V1 &lt; Grape::API
+</span><span class='line'>  prefix 'v1' # とりあえずprefixだけつけている
+</span><span class='line'>  mount V1::Ping
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>DBの切り替え</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>use test</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザーの作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.addUser("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザーの確認</h2>
+<h5>app/api/v1/ping.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module V1
+</span><span class='line'>  class Ping &lt; Grape::API
+</span><span class='line'>    format :json
+</span><span class='line'>
+</span><span class='line'>    get :hello do
+</span><span class='line'>      {hello: "world"}
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>ユーザーの削除</h2>
+<p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.remove({user:"test"})</span></code></pre></td></tr></table></div></figure>
+<p>不思議だ。</p>
 
-
-<h2>ユーザー認証</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>テストデータの登録</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.test.save( { a: 1 } )</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>テストデータの閲覧</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.test.find()</span></code></pre></td></tr></table></div></figure>
-
+<p>要調査</p>
 </div>
   
   
@@ -662,7 +766,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mongodb_for_php/">PHPでmongodbを使えるようにする</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/forever_install/">Node.jsのデーモン化ツールforeverをインストール</a></h1>
     
     
       <p class="meta">
@@ -678,53 +782,427 @@ $(document).ready( function () {
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>依存パッケージをインストール</h2>
+  <div class="entry-content"><h2>npmでグローバルにインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g forever</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを登録</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>forever start sample001.js</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>forever list</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを止める</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、[0]で登録されたスクリプトを止めたい場合
+</span><span class='line'>forever stop 0</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/folder_backup/">フォルダを圧縮して自動バックアップするスクリプト</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>シェルスクリプトを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim images_backup.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>images_backup.sh</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install php-pear
-</span><span class='line'>sudo yum -y install php-devel
-</span><span class='line'>sudo yum -y install httpd-devel
-</span><span class='line'>sudo yum -y install gcc
-</span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>
+</span><span class='line'># バックアップファイルを何日分残しておくか
+</span><span class='line'>period='+7'
+</span><span class='line'># バックアップファイルを保存するディレクトリ
+</span><span class='line'>dirpath='/path/to/backup/images'
+</span><span class='line'>
+</span><span class='line'>#バックアップ元フォルダ
+</span><span class='line'>backupfolder="/path/to/from"
+</span><span class='line'>
+</span><span class='line'># ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
+</span><span class='line'>mydate=`date +%y%m%d%H%M%S`
+</span><span class='line'>filename="images_$mydate.tar.gz"
+</span><span class='line'>#backup実行
+</span><span class='line'>tar -zcvf $dirpath/$filename $backupfolder
+</span><span class='line'>
+</span><span class='line'># パーミッション変更
+</span><span class='line'>chmod 700 $dirpath/$filename
+</span><span class='line'>
+</span><span class='line'># 古いバックアップファイルを削除
+</span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>pcelでインストール</h2>
+<h2>権限設定の変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 images_backup.sh</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
 
 
-<h2>mongodb用の設定ファイルを追加</h2>
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/epel_remi_install/">Epel、remiのリポジトリを導入</a></h1>
+    
+    
+      <p class="meta">
+        
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>/etc/php.d/mongo.ini</h5>
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>epel</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
+</ul>
+
+
+<p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mongo]
-</span><span class='line'>extension=mongo.so
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定ファイルを変更</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
+</span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/yum.repos.d/epel.repo</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
+</span><span class='line'>
+</span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>remi</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
+</ul>
+
+
+<p>※centosで検索</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh remi-release-6.rpm
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>apacheを再起動して設定を反映</h2>
+<p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/apache_php_mysql_install/">Apache Php Mysqlをインストール(yum)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>apache</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd
+</span><span class='line'>sudo chkconfig httpd on
+</span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+</span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ServerTokens Prod
+</span><span class='line'>ServerSignature Off
+</span><span class='line'>Options Indexes → Options -Indexes FollowSymLinks
+</span><span class='line'>※var/www/html内のもの
+</span><span class='line'>ServerName www.example.com:80
+</span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service httpd configtest
+</span><span class='line'>sudo service httpd start
+</span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
+</span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>バーチャルホスト用にフォルダを作成</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>php</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
+</span><span class='line'>php -v
+</span><span class='line'>cp /etc/php.ini /etc/php.ini.org
+</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/php.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
+</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
+</span><span class='line'>display_errors = On
+</span><span class='line'>mbstring.language = Japanese
+</span><span class='line'>expose_php = Off
+</span><span class='line'>date.timezone = Asia/Tokyo
+</span><span class='line'>max_execution_time = 300
+</span><span class='line'>magic_quotes_gpc = Off
+</span><span class='line'>upload_max_filesize = 200M
+</span><span class='line'>mbstring.internal_encoding = UTF-8
+</span><span class='line'>mbstring.http_input = auto
+</span><span class='line'>mbstring.http_output = pass
+</span><span class='line'>mbstring.detect_order = auto
+</span><span class='line'>;mbstring.substitute_character = none;
+</span><span class='line'>
+</span><span class='line'>max_file_uploads = 100
+</span><span class='line'>post_max_size = 100M
+</span><span class='line'>upload_max_filesize 100M
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
 
+
+<h2>mysql</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
+</span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
+</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/my.cnf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
+</span><span class='line'>character_set_server=utf8
+</span><span class='line'>default-storage-engine=InnoDB
+</span><span class='line'>innodb_file_per_table
+</span><span class='line'>group_concat_max_len=10000000
+</span><span class='line'>
+</span><span class='line'>[mysql]
+</span><span class='line'>default-character-set=utf8
+</span><span class='line'>
+</span><span class='line'>[mysqldump]
+</span><span class='line'>default-character-set=utf8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
+</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>mysqlの初期設定</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
+</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+
 </div>
   
   
@@ -737,7 +1215,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/git_push_refresh/">GitのプッシュでHPの更新(反映)</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/SELinux/">SElinuxの設定</a></h1>
     
     
       <p class="meta">
@@ -753,63 +1231,71 @@ $(document).ready( function () {
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>gitのグローバル設定</h2>
+  <div class="entry-content"><h2>動作状態の確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name "abgata20000"
-</span><span class='line'>git config --global user.email "abgata@abgata.jp"
-</span><span class='line'>git config --global color.ui true</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
+</span><span class='line'># &gt; Enforcing
+</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
+</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
+</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>gitの設定確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config -l</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>現在のディレクトリを共有リポジトリにする</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git init --bare --share</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>レポジトリをクローンする</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone /git/smaple.git</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>pushされた際のhooks(post-receive)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd hooks
-</span><span class='line'>vim post-receive</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>post-receive</h5>
+<h2>SELinuxを一時的に無効化</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
-</span><span class='line'>cd /var/www/vhosts/
-</span><span class='line'>git --git-dir=.git pull origin master</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
+</span><span class='line'># SELinuxを復活
+</span><span class='line'>setenforce 1
+</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
 
 
-<p>実行権限を付与</p>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x post-receive</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定ファイルを変更したら、あとはrebootすればOK</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
+</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
@@ -819,6 +1305,8 @@ $(document).ready( function () {
     </article>
   
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/3/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -841,15 +1329,15 @@ $(document).ready( function () {
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/03/angularjs_+careful/">AngularJSの注意点</a>
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a>
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a>
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

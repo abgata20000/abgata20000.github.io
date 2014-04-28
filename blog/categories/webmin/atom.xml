@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Webmin | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/webmin/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Webminをインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/webmin_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/webmin_install</id>
+    <content type="html"><![CDATA[<h3>参考：</h3>
+
+<ul>
+<li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
+</ul>
+
+
+<h2>インストールに必要なパールモジュールをインストールする</h2>
+
+<p><code>
+ yum -y install perl-Net-SSLeay
+</code></p>
+
+<h3>最新版を入手</h3>
+
+<p><a href="http://download.webmin.com/download/yum/">公式サイト</a></p>
+
+<p>```
+mkdir /downloads
+cd /downloads</p>
+
+<p>wget <a href="http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm">http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm</a></p>
+
+<p>rpm -Uvh webmin-1.630-1.noarch.rpm</p>
+
+<h1>アクセス制限を掛ける場合</h1>
+
+<p>cp /etc/webmin/miniserv.conf /etc/webmin/miniserv.conf.org
+vim /etc/webmin/miniserv.conf</p>
+
+<p> # 最終行：アクセス許可するIP追記
+allow=127.0.0.1 10.0.0.0/24
+```</p>
+
+<h3>再起動</h3>
+
+<p><code>
+service webmin restart
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

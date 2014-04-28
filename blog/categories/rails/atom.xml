@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[wheneverでRailsのタスクをcronで実行する]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/whenever/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/whenever</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
+
+<h2>登録内容の確認</h2></li>
+</ul>
+
+
+<p><code>
+bundle exec whenever
+</code></p>
+
+<p>を実行するとcrontabの内容をコンソール出力。
+この時点ではまだcrontabに登録されてはいない。</p>
+
+<h2>Crontabへ登録</h2>
+
+<p><code>
+bundle exec whenever --update-crontab
+</code></p>
+
+<p>–update-crontabオプションをつけるとcrontabに登録する。
+Whenever以外で登録されていたジョブが上書きされることはない。</p>
+
+<h2>Crontabから削除</h2>
+
+<p><code>
+bundle exec whenever --clear-crontab
+</code></p>
+
+<p>Cronを止めたい場合は–clear-crontabですべて削除。
+登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Railsをrunicornで起動]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/rails_unicorn/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/rails_unicorn</id>
+    <content type="html"><![CDATA[<h2>起動</h2>
+
+<p><code>
+unicorn -c config/unicorn.rb -D
+</code></p>
+
+<h2>現在実行中のプロセスを探す</h2>
+
+<p><code>
+ps ax | grep unicorn
+</code></p>
+
+<h2>停止</h2>
+
+<p><code>
+kill process_id
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Railsでtaskを作成]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/rails_task/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/rails_task</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a>
+
+<h2>タスクファイルの作成</h2>
+
+<code>rails g task  task_name</code>
+lib/task/task_name.rake が作成される
+
+<h5>lib/task/task_name.rake</h5>
+
+<p><code>
+desc "Sample です" #=&gt; 説明
+task :sample =&gt; :environment do
+  print 'hello sample.'
+end
+</code></p></li>
+</ul>
+
+
+<h2>実行</h2>
+
+<p><code>
+rake task_name:sample
+</code></p>
+
+<h2>確認</h2>
+
+<p><code>
+rake -vT
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Node.jsのデーモン化ツールpm2をインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/pm2_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/pm2_install</id>
+    <content type="html"><![CDATA[<h2>npmでグローバルにインストール</h2>
+
+<p><code>
+npm install -g pm2
+</code></p>
+
+<h2>スクリプトを登録</h2>
+
+<p><code>
+pm2 start sample001.js
+</code></p>
+
+<h2>スクリプトを確認</h2>
+
+<p><code>
+pm2 list
+</code></p>
+
+<h2>スクリプトを止める</h2>
+
+<p>```</p>
+
+<h1>listで確認して、appで登録されたスクリプトを止めたい場合</h1>
+
+<p>pm2 stop app
+```</p>
+
+<h2>ログを参照</h2>
+
+<p><code>
+pm2 logs
+</code></p>
+
+<h2>モニタリング</h2>
+
+<p><code>
+pm2 monit
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grape を Rails4で利用する場合の注意点]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/grape_on_rails/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/grape_on_rails</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
+なんかいろいろとはまってしまったので備忘録
+file pathを追加する
+
+<h5>config/application.rb</h5>
+
+<p>```
+module TestApp
+class Application &lt; Rails::Application
+  &hellip;
+  config.paths.add &ldquo;app/api&rdquo;, glob: &ldquo;<em><em>/</em>.rb&rdquo;
+  config.autoload_paths += Dir[&ldquo;#{Rails.root}/app/api/</em>&rdquo;]
+  &hellip;
+end
+end
+routes.rbにmountするコードを一行追加</p></li>
+</ul>
+
+
+<p>TestApp::Application.routes.draw do
+  mount TestAPI => &lsquo;api&rsquo;
+  &hellip;
+end
+```</p>
+
+<h3>流れ</h3>
+
+<p>```
+$ rails new test-app
+$ cd test-app
+$ vi Gemfile</p>
+
+<h1>+ gem &lsquo;grape&rsquo;, :git => &ldquo;<a href="https://github.com/intridea/grape.git">https://github.com/intridea/grape.git</a>&rdquo;</h1>
+
+<p>$ bundle install
+$ mkdir app/api
+$ vi app/api/test_api.rb
+$ vi app/api/api_v1.rb
+$ mkdir app/api/v1
+$ vi app/api/ping.rb
+$ vi config/application.rb
+$ vi config/routes.rb
+$ bundle exec rails s
+$ open <a href="http://localhost:3000/api/v1/hello">http://localhost:3000/api/v1/hello</a>
+files
+```</p>
+
+<h5>app/api/test_api.rb</h5>
+
+<p><code>
+class TestAPI &lt; Grape::API
+  mount API_V1
+end
+</code></p>
+
+<h5>app/api/api_v1.rb</h5>
+
+<p>v1/以下のclassをmountする</p>
+
+<p><code>
+class API_V1 &lt; Grape::API
+  prefix 'v1' # とりあえずprefixだけつけている
+  mount V1::Ping
+end
+</code></p>
+
+<h5>app/api/v1/ping.rb</h5>
+
+<p>```
+module V1
+  class Ping &lt; Grape::API</p>
+
+<pre><code>format :json
+
+get :hello do
+  {hello: "world"}
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
+
+<p>不思議だ。</p>
+
+<p>要調査</p>
+]]></content>
+  </entry>
+  
+</feed>

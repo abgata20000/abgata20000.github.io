@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-04-28T23:16:38+09:00</updated>
+  <updated>2014-04-29T00:43:34+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -112,37 +112,67 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[AngularJSの注意点]]></title>
-    <link href="http://blog.abgata.org/blog/2014/02/03/angularjs_+careful/"/>
-    <updated>2014-02-03T04:48:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/02/03/angularjs_ careful</id>
+    <title type="html"><![CDATA[wheneverでRailsのタスクをcronで実行する]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/whenever/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/whenever</id>
     <content type="html"><![CDATA[<h3>参考サイト</h3>
 
-<p>&ndash;</p>
+<ul>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
 
-<h2>POSTでパラメータを送信する際は、設定が必要</h2>
+<h2>登録内容の確認</h2></li>
+</ul>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@testApp.config ($httpProvider) -&gt;
-</span><span class='line'>          $httpProvider.defaults.transformRequest = (data = {}) -&gt;
-</span><span class='line'>      $.param(data);
-</span><span class='line'>          $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-</span><span class='line'>
-</span><span class='line'>   @</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever</span></code></pre></td></tr></table></div></figure>
 
 
-<p> そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
+<p>を実行するとcrontabの内容をコンソール出力。
+この時点ではまだcrontabに登録されてはいない。</p>
 
-<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
+<h2>Crontabへ登録</h2>
 
-<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --update-crontab</span></code></pre></td></tr></table></div></figure>
 
-<h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
+
+<p>–update-crontabオプションをつけるとcrontabに登録する。
+Whenever以外で登録されていたジョブが上書きされることはない。</p>
+
+<h2>Crontabから削除</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --clear-crontab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cronを止めたい場合は–clear-crontabですべて削除。
+登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Webminをインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/webmin_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/webmin_install</id>
+    <content type="html"><![CDATA[<h3>参考：</h3>
+
+<ul>
+<li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
+</ul>
+
+
+<h2>インストールに必要なパールモジュールをインストールする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> yum -y install perl-Net-SSLeay</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>最新版を入手</h3>
+
+<p><a href="http://download.webmin.com/download/yum/">公式サイト</a></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -158,376 +188,56 @@
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>url = '/api/action/:id'
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir /downloads
+</span><span class='line'>cd /downloads
 </span><span class='line'>
-</span><span class='line'>model = $resource url, null ,
-</span><span class='line'>  get: {method: 'GET', isArray: false}
-</span><span class='line'>  post: {method: 'POST', isArray: false, params: {id: "@id"}
-</span><span class='line'>  put: {method: 'PUT', isArray: false, params: {id: "@id"}}
-</span><span class='line'>  delete: {method: 'DELETE', isArray: false}
+</span><span class='line'>wget http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm
 </span><span class='line'>
-</span><span class='line'>param =
-</span><span class='line'>  id: 1
-</span><span class='line'>  name: 'myName'
+</span><span class='line'>rpm -Uvh webmin-1.630-1.noarch.rpm
 </span><span class='line'>
-</span><span class='line'>model.put param, (res, e) -&gt;
-</span><span class='line'>      console.log res
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'># アクセス制限を掛ける場合
+</span><span class='line'>cp /etc/webmin/miniserv.conf /etc/webmin/miniserv.conf.org
+</span><span class='line'>vim /etc/webmin/miniserv.conf
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> # 最終行：アクセス許可するIP追記
+</span><span class='line'>allow=127.0.0.1 10.0.0.0/24</span></code></pre></td></tr></table></div></figure>
 
 
-<p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
-に反映されるが、
-PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
+<h3>再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>model = $resource url, {id: "@id"} ,
-</span><span class='line'>  get: {method: 'GET', isArray: false}
-</span><span class='line'>  post: {method: 'POST', isArray: false}
-</span><span class='line'>  put: {method: 'PUT', isArray: false}
-</span><span class='line'>  delete: {method: 'DELETE', isArray: false}</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service webmin restart</span></code></pre></td></tr></table></div></figure>
 
-
-<p>これでも大丈夫そう。</p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Sublime Text 3 で設定を共有]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting_share/"/>
-    <updated>2013-12-26T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting_share</id>
-    <content type="html"><![CDATA[<h2>参考サイト</h2>
-
-<ul>
-<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
-<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-</ul>
-
-
-<h2>設定ファイルをDropBoxに移す</h2>
-
-<h3>本来の設定ファイルがある場所</h3>
-
-<ul>
-<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
-<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
-</ul>
-
-
-<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
-
-<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
-
-<h3>mac</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>win</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+    <title type="html"><![CDATA[SSLの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/ssl_settiong/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/ssl_settiong</id>
+    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
+</pre></td><td class='code'><pre><code class=''><span class='line'># sslモジュールをインストール
+</span><span class='line'>sudo yum -y install mod_ssl
 </span><span class='line'>
-</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
+</span><span class='line'>cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org
+</span><span class='line'>vim /etc/httpd/conf.d/ssl.conf
 </span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Sublime Text 3 の設定]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting/"/>
-    <updated>2013-12-26T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting</id>
-    <content type="html"><![CDATA[<h2>参考サイト</h2>
-
-<ul>
-<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
-</ul>
-
-
-<h2>パッケージインストールできるようにする</h2>
-
-<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>cmd + shift + p でパッケージインストールを実行可能に</p>
-
-<h2>インストールするもの</h2>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Sublime Text 2 で設定を共有]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_2_setting_share/"/>
-    <updated>2013-12-26T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_2_setting_share</id>
-    <content type="html"><![CDATA[<h2>参考サイト</h2>
-
-<ul>
-<li><a href="http://webdrawer.net/tools/sublimedropbox.html">Sublime Text 2の設定をDropboxで共有して便利にする</a></li>
-<li><a href="http://qiita.com/Drunkar/items/6de34913afc554e3824b">Sublime Text 2の設定をDropboxで共有する</a></li>
-<li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
-</ul>
-
-
-<h2>設定ファイルをDropBoxに移す</h2>
-
-<h3>本来の設定ファイルがある場所</h3>
-
-<ul>
-<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</li>
-<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 2/</li>
-<li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
-</ul>
-
-
-<p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
-
-<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
-
-<h3>mac</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>win</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 2\
-</span><span class='line'>
-</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Pristine Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages"
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Zshのインストール]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/23/zsh_install/"/>
-    <updated>2013-12-23T00:32:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/23/zsh_install</id>
-    <content type="html"><![CDATA[<h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://linuxserver.jp/linux/zsh%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.php">Linuxで自宅サーバ構築 » Linux » ZSHのインストール</a></li>
-</ul>
-
-
-<h3>zshがインストールされているかを確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>zsh --version
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>yumでzshをインストール</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install zsh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>zshの起動とログイン・シェルの設定</h2>
-
-<h3>現在使用しているshellの確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo $SHELL
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>使用可能なshellの確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat /etc/shells
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ログイン・シェルに設定</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chsh -s /bin/zsh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>zshの設定をgithubから取得して反映する</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/abgata20000/zsh.d.git ~/.zsh.d
-</span><span class='line'>echo "source ~/.zsh.d/zshrc" &gt; ~/.zshrc
-</span><span class='line'>echo "source ~/.zsh.d/zshenv" &gt; ~/.zshenv
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ログインし直すと反映される
-※ユーザー毎に設定</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Select_for_updateについて(並列処理の運用)]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/select_for_update/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/select_for_update</id>
-    <content type="html"><![CDATA[<h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
-<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
-<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
-</ul>
-
-
-<h2>サンプル</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>begin;
-</span><span class='line'>
-</span><span class='line'>select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
-</span><span class='line'>
-</span><span class='line'>commit;
-</span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>注意点</h3>
-
-<ul>
-<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
-<li>for update をつけていないクエリはロックされない</li>
-<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>であればロックされない</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>であればロックされる</p>
-
-<h2>ActiveRecordでの利用方法</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Sample.transaction do
-</span><span class='line'>  # select * from table where flg = 0 limit 1 for update
-</span><span class='line'>  @target = Sample.where("flg = 0 ").lock(true).first
-</span><span class='line'>
-</span><span class='line'>  @target['flg'] = 1
-</span><span class='line'>  @target.save
-</span><span class='line'>
-</span><span class='line'>end
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nginxとapacheの共存]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/nginx_with_apache/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/nginx_with_apache</id>
-    <content type="html"><![CDATA[<h3>参考URL:</h3>
-
-<ul>
-<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
-</ul>
-
-
-<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd-devel
-</span><span class='line'>
-</span><span class='line'>cd /root/tmp
-</span><span class='line'>wget http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>tar zxf extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>cd extract_forwarded
-</span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>apacheの実行ユーザーとポートを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/httpd/conf/httpd.conf</h5>
+    <title type="html"><![CDATA[SSL証明書の発行方法]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/ssl_keyfile/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/ssl_keyfile</id>
+    <content type="html"><![CDATA[<h2>SSL証明書の発行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -545,22 +255,47 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Listen 8080
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/pki/tls/certs
+</span><span class='line'># 鍵ファイル作成用の乱数を発行
+</span><span class='line'>openssl md5 * &gt; my_rand.dat
 </span><span class='line'>
-</span><span class='line'>#####
-</span><span class='line'>User nginx
-</span><span class='line'>Group nginx
-</span><span class='line'>#####
-</span><span class='line'>ServerName sample.jp:8080
+</span><span class='line'># 鍵ファイルを作成
+</span><span class='line'>openssl genrsa -rand my_rand.dat -des3 2048 &gt; my_key.pem
 </span><span class='line'>
-</span><span class='line'># 最終行に追加
-</span><span class='line'>MEForder refuse,accept
-</span><span class='line'>MEFrefuse all
-</span><span class='line'># Nginx（リバースプロキシ）のIPアドレス
-</span><span class='line'>MEFaccept 127.0.0.1
+</span><span class='line'># 鍵ファイル内にパスプレーズを埋め込む
+</span><span class='line'>openssl rsa -in my_key.pem -out my_key.pem
+</span><span class='line'>
+</span><span class='line'># ssl認証局提出用のcsrファイルを作成※このままでは使えません
+</span><span class='line'>openssl req -new -key my_key.pem -out my_csr.pem
+</span><span class='line'>
+</span><span class='line'># オレオレ証明書を作成
+</span><span class='line'>openssl req -new -x509 -days 3650 -key my_key.pem -out my_crt.pem
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>アクセス権変更
+</span><span class='line'>chmod 400 my_key.pem
+</span><span class='line'>chmod 400 my_crt.pem
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>vim /etc/httpd/conf.d/ssl.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf.d/ssl.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLCertificateFile /etc/pki/tls/certs/my_crt.pem
+</span><span class='line'>
+</span><span class='line'>SSLCertificateKeyFile /etc/pki/tls/certs/my_key.pem
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>apacheを再起動して設定を反映</p>
@@ -568,16 +303,29 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sambaでネットワークフォルダを作成]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/samba_setting/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/samba_setting</id>
+    <content type="html"><![CDATA[<h2>sambaをインストール</h2>
 
-<h2>nginxでの転送設定</h2>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum -y install samba system-config-samba samba-common samba-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
-</span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/samba/smb.conf /etc/samba/smb.conf.org
+</span><span class='line'>vim /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>default.conf</h5>
+<h5>/etc/samba/smb.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -605,370 +353,405 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
 <span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#デフォルトサーバー
-</span><span class='line'>server {
-</span><span class='line'>    listen       80;
-</span><span class='line'>    server_name  backend;
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>;ワークグループ編集(windowsのものと同じにする。macは関係なし？)
+</span><span class='line'>workgroup = workgroup
 </span><span class='line'>
-</span><span class='line'>    # このサーバへの全てのアクセスを転送
-</span><span class='line'>    location / {
-</span><span class='line'>            proxy_pass http://127.0.0.1:8080;
-</span><span class='line'>            proxy_redirect                         off;
+</span><span class='line'>;日本語設定
+</span><span class='line'>unix charset = UTF-8
+</span><span class='line'>dos charset = CP932
+</span><span class='line'>display charset = UTF-8
 </span><span class='line'>
-</span><span class='line'>            # この設定がなくても.htaccessでの制限は可能。
-</span><span class='line'>            # ただし、cgi等から参照した際にNginxのIPアドレスになる。
-</span><span class='line'>            proxy_set_header Host                   $host;
+</span><span class='line'>;受け付けるipを設定
+</span><span class='line'>;127.で、127.xx.xx.xxを許可
+</span><span class='line'>;hosts allow = 127.192.168.1など
 </span><span class='line'>
-</span><span class='line'>            proxy_set_header X-Real-IP              $remote_addr;
+</span><span class='line'>;パスワードをunixパスワードと同じに。
+</span><span class='line'>unix password sync = yes
+</span><span class='line'>load printers = no
 </span><span class='line'>
-</span><span class='line'>            # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
-</span><span class='line'>            proxy_set_header X-Forwarded-Host      $host;
-</span><span class='line'>            proxy_set_header X-Forwarded-Server    $host;
+</span><span class='line'>;ホームディレクトリの設定
+</span><span class='line'>[homes]
+</span><span class='line'>        comment = Home Directories
+</span><span class='line'>        browseable = no
+</span><span class='line'>        writable = yes
+</span><span class='line'>        create mask = 0664
+</span><span class='line'>        directory mask = 0755
+</span><span class='line'>        create mode = 0775
+</span><span class='line'>        directory mode = 0755
+</span><span class='line'>      ;valid users = user1,user2,user3,user4,user5
+</span><span class='line'>      share modes = yes
+</span><span class='line'>          dos filetimes = yes
 </span><span class='line'>
-</span><span class='line'>            # この設定がなくてもcgi等から正しいIPを確認可能。
-</span><span class='line'>            # ただし、.htaccessでの制限は不可。
-</span><span class='line'>            proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
-</span><span class='line'>    }
-</span><span class='line'>}
-</span><span class='line'>
+</span><span class='line'>;共通のpublicフォルダも設定
+</span><span class='line'>[public]
+</span><span class='line'>        comment = Public Stuff
+</span><span class='line'>        path = /home/public
+</span><span class='line'>        create mask = 0666
+</span><span class='line'>        directory mask = 0755
+</span><span class='line'>        guest only = no
+</span><span class='line'>        guest ok = no
+</span><span class='line'>        public = yes
+</span><span class='line'>        writable = yes
+</span><span class='line'>      share modes = yes
+</span><span class='line'>          dos filetimes = yes
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>最初に↓入れたほうがいいかも？？</p>
+<h2>sambaにユーザ追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># キャッシュ関連設定
-</span><span class='line'>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
-</span><span class='line'>proxy_temp_path   /var/tmp/nginx;
-</span><span class='line'>proxy_cache_key   "$scheme://$host$request_uri";
-</span><span class='line'>proxy_set_header  Host               $host;
-</span><span class='line'>proxy_set_header  X-Real-IP          $remote_addr;
-</span><span class='line'>proxy_set_header  X-Forwarded-Host   $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-Server $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser myuser
+</span><span class='line'>passwd myuser
+</span><span class='line'>pdbedit -a -u myuser
 </span><span class='line'>
-</span><span class='line'># バックエンドサーバ−（Apache）設定
-</span><span class='line'>upstream backend {
-</span><span class='line'>    # ip_hash;
-</span><span class='line'>    server 127.0.0.1:8080;
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>pdbedit -L</span></code></pre></td></tr></table></div></figure>
 
 
-<p>nginxを再起動して設定を反映</p>
+<h2>samba起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service smb start
+</span><span class='line'>service nmb start</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>問題なければ、自動起動に。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig smb on
+</span><span class='line'>chkconfig nmb on</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>samba用にiptables編集(下記を追加)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-A INPUT -p udp -m udp --dport 137:138 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>iptables再起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service iptables restart</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Nginxのインストール]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/nginx_install/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/nginx_install</id>
-    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/nginx.repo</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/yum.repos.d/nginx.repo</h5>
+    <title type="html"><![CDATA[バックグラウンドでプログラムを実行]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/run_background/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/run_background</id>
+    <content type="html"><![CDATA[<h2>バックグランドで実行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[nginx]
-</span><span class='line'>name=nginx repo
-</span><span class='line'>baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-</span><span class='line'>gpgcheck=0
-</span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
 
 
+<h2>実行中のスクリプトを確認</h2>
 
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install -y nginx
-</span><span class='line'>
-</span><span class='line'>cd /etc/nginx
-</span><span class='line'>sudo mkdir sites-avalable
-</span><span class='line'>sudo mkdir sites-enabled
-</span><span class='line'># sudo rm -f conf.d/*.conf
-</span><span class='line'>
-</span><span class='line'>cd conf.d
-</span><span class='line'>cp default.conf default.conf.org
-</span><span class='line'>cp example_ssl.conf example_ssl.conf.org
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.org
-</span><span class='line'>
-</span><span class='line'>sudo vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/nginx/nginx.conf</h5>
+<p><code>ps ax | grep ruby</code>##実行中のスクリプトを停止<code>kill processid</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Railsをrunicornで起動]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/rails_unicorn/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/rails_unicorn</id>
+    <content type="html"><![CDATA[<h2>起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># 下から二行目に追加
-</span><span class='line'>
-</span><span class='line'>include /etc/nginx/sites-enabled/*;
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>unicorn -c config/unicorn.rb -D</span></code></pre></td></tr></table></div></figure>
 
 
-<h1>自動起動をON</h1>
+<h2>現在実行中のプロセスを探す</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx start
-</span><span class='line'>
-</span><span class='line'>chkconfig nginx on
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ps ax | grep unicorn</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>停止</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kill process_id</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[MySQLのレプリケーション設定]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_replication/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/mysql_replication</id>
-    <content type="html"><![CDATA[<h2>マスター側設定</h2>
-
-<h3>レプリケーション用のユーザーを作成</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]
-</span><span class='line'>log-bin = mysql-bin
-</span><span class='line'>server-id = 1001</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>mysqlを再起動</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>mysqlのスナップショットを作成</h3>
-
-<h4>mysqlにて</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># DBロック
-</span><span class='line'>FLUSH TABLES WITH READ LOCK;
-</span><span class='line'>
-</span><span class='line'># 現在のバイナリポジションを取得
-</span><span class='line'>SHOW MASTER STATUS;
-</span><span class='line'>
-</span><span class='line'># File、Positionはスレーブ側の設定に必要なので控えておく
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>DBロックを解除</h3>
-
-<h4>mysqlにて</h4>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>UNLOCK TABLES;</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>スレーブ側設定</h2>
-
-<h3>my.cnfを修正(追加)</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]
-</span><span class='line'>log-bin=mysql-bin
-</span><span class='line'>log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
-</span><span class='line'>server-id=1002</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>マスタで作成したスナップショットを復元</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql -u user -p  &lt; snapshot.db</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>mysqlを再起動</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>マスタ情報を登録</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>CHANGE MASTER TO
-</span><span class='line'>MASTER_HOST='sample.com',
-</span><span class='line'>MASTER_USER='rep-user',
-</span><span class='line'>MASTER_PASSWORD='passwd',
-</span><span class='line'>MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
-</span><span class='line'>MASTER_LOG_POS=98; #マスターのPosition</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>スレーブをスタート</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>START SLAVE;
-</span><span class='line'># STOP SLAVE;RESTART SLAVE;RESET SLAVE;</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>起動確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>SHOW SLAVE STATUS\G</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mysqlサーバーの設定(mroonga)]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install</id>
-    <content type="html"><![CDATA[<h3>参考URL:</h3>
+    <title type="html"><![CDATA[Railsでtaskを作成]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/rails_task/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/rails_task</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://linuxserver.jp/%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E7%AF%89/db/mysql/%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2-groonga.php">MySQLでgroongaを利用して高速に日本語の全文検索を行う</a></li>
-<li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a>
+
+<h2>タスクファイルの作成</h2>
+
+<code>rails g task  task_name</code>
+lib/task/task_name.rake が作成される
+
+<h5>lib/task/task_name.rake</h5>
+
+<p>&#8220;`
+desc &ldquo;Sample です&rdquo; #=> 説明
+task :sample => :environment do
+  print &lsquo;hello sample.&rsquo;
+end</p></li>
 </ul>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm
-</span><span class='line'># --sorceで強制的に上書き
-</span><span class='line'>yum makecache
-</span><span class='line'>yum -y update
-</span><span class='line'>
-</span><span class='line'>yum -y install mysql-server
-</span><span class='line'># version5.1.67を指定しないとだめかも
-</span><span class='line'>
-</span><span class='line'>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>##実行
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>MySQLの設定</h2>
+<p>rake task_name:sample</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
-</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>##確認
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>MySQLの初期設定</h2>
+<p>rake -vT
+&#8220;`</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Node.jsのデーモン化ツールpm2をインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/pm2_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/pm2_install</id>
+    <content type="html"><![CDATA[<h2>npmでグローバルにインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>MySQLを起動</h2>
+<h2>スクリプトを登録</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを止める</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
-</span><span class='line'>yum -y install mysql-groonga
-</span><span class='line'>service mysqld restart
-</span><span class='line'>chkconfig mysqld on
-</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
+</span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>利用可能なストレージエンジンを確認</h3>
+<h2>ログを参照</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql&gt; SHOW ENGINES \G</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>モニタリング</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[MySQLのバックアップを自動化]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_backup/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/mysql_backup</id>
-    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+    <title type="html"><![CDATA[サーバーの初期設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/linux_server_setting/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/linux_server_setting</id>
+    <content type="html"><![CDATA[<h2>yumを最新状態にする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>使用言語を日本語に設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
+</span><span class='line'>sudo vim /etc/sysconfig/i18n</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/i18n</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LANG="ja_JP.utf-8"
+</span><span class='line'>
+</span><span class='line'>SYSFONT="latarcyrheb-sun16"</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>サーバーに時間変更（日本時間）</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo mv /etc/localtime /etc/localtime.org
+</span><span class='line'>sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再度ログインで日本語化(dateで確認)</p>
+
+<h2>サーバーのホスト名を変更する</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/network /etc/sysconfig/network.org
+</span><span class='line'>sudo vim /etc/sysconfig/network</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/network</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>NETWORKING=yes
+</span><span class='line'>NETWORKING_IPV6=yes
+</span><span class='line'>HOSTNAME=sample.abgata.org</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>hostsの設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/hosts /etc/hosts.org
+</span><span class='line'>sudo vim /etc/hosts</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/hosts</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1 sample.abgata.org localhost.localdomain
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定後はネットワークを再起動</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/rc.d/init.d/network restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ユーザーを追加</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd 
+</pre></td><td class='code'><pre><code class=''><span class='line'>useradd myuser
+</span><span class='line'>passwd myuser
 </span><span class='line'>
-</span><span class='line'>mkdir backup
-</span><span class='line'>mkdir backup/mysql
-</span><span class='line'>
-</span><span class='line'>vim mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>usermod -G wheel myuser</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>mysql_backup.sh</h5>
+<h2>ユーザーにsudo権限を付与</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sudoers /etc/sudoers.org
+</span><span class='line'>
+</span><span class='line'>visudo</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>visudo</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># %wheel ~~
+</span><span class='line'># ↓
+</span><span class='line'>%wheel ~~</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※一番最初のもの</p>
+
+<h2>sshの設定を変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/ssh/sshd_config /etc/ssh/sshd_config.org
+</span><span class='line'>
+</span><span class='line'>vim /etc/ssh/sshd_config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/ssh/sshd_config</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Port YOUR_PORT_NUMBER
+</span><span class='line'>PasswordAuthentication yes
+</span><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>sshdを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service sshd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>SSH接続してみる</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p YOUR_PORT_NUMBER myuser@192.168.10.10</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Iptablesの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/iptables/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/iptables</id>
+    <content type="html"><![CDATA[<h2>設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/iptables</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/iptables</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -990,35 +773,38 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>*filter
+</span><span class='line'>:INPUT    DROP    [0:0]
+</span><span class='line'>:FORWARD  DROP    [0:0]
+</span><span class='line'>:OUTPUT   ACCEPT  [0:0]
+</span><span class='line'>:SERVICES -       [0:0]
+</span><span class='line'>-A INPUT -i lo -j ACCEPT
+</span><span class='line'>-A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 4  -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m state --state NEW -j SERVICES
+</span><span class='line'>-A INPUT -p udp --sport 53 -j ACCEPT
+</span><span class='line'>-A INPUT -p udp --sport 123 --dport 123 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># バックアップファイルを何日分残しておくか
-</span><span class='line'>period='+7'
-</span><span class='line'># バックアップファイルを保存するディレクトリ
-</span><span class='line'>dirpath='/path/to/backup/mysql'
-</span><span class='line'>#mysql password
-</span><span class='line'>mysqlpassword="passwd"
+</span><span class='line'>-A SERVICES -p tcp --dport 25 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 110 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 587 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 80 -j ACCEPT
+</span><span class='line'>-A SERVICES -p tcp --dport 443 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
-</span><span class='line'>mydate=`date +%y%m%d%H%M%S`
-</span><span class='line'>filename="mysql_$mydate.sql"
-</span><span class='line'># mysqldump実行
-</span><span class='line'>mysqldump -uroot -p$mysqlpassword -A -E &gt; $dirpath/$filename
+</span><span class='line'>-A INPUT -p udp -m udp --dport 137:138 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT
 </span><span class='line'>
-</span><span class='line'># パーミッション変更
-</span><span class='line'>chmod 700 $dirpath/$filename
 </span><span class='line'>
-</span><span class='line'># 古いバックアップファイルを削除
-</span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>COMMIT
+</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>実行権限を付与</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>cronをインストール</h2>
+<h2>設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1027,300 +813,681 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install cronie-anacron
-</span><span class='line'># cron.dailyをランダム実行したくない場合は yum -y install cronie-noanacron
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>service iptables restart
 </span><span class='line'>
-</span><span class='line'>chkconfig --level 2345 crond on
-</span><span class='line'>chkconfig --list crond  
+</span><span class='line'>iptables -L
 </span><span class='line'>
-</span><span class='line'>crontab -e
+</span><span class='line'>chkconfig iptables on
+</span><span class='line'>
+</span><span class='line'>chkconfig --list iptables
 </span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>0 3 * * * bash /path/to/mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>設定済みのクーロンを確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>crontab -l</span></code></pre></td></tr></table></div></figure>
-
-
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Mongodbの設定手順]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/mongodb_install/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/mongodb_install</id>
-    <content type="html"><![CDATA[<h3>参考URL</h3>
+    <title type="html"><![CDATA[Node.jsをnodebrewでインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew</id>
+    <content type="html"><![CDATA[<h2>nodebrewをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl https://raw.github.com/hokaccha/nodebrew/master/nodebrew | perl - setup
+</span><span class='line'>
+</span><span class='line'># ユーザーディレクトリにインストールされるので、全ユーザーで利用する場合はノードユーザー作ってインストールして共通パス通すのがいいかも
+</span><span class='line'>
+</span><span class='line'>useradd node
+</span><span class='line'>
+</span><span class='line'>cd /home/node
+</span><span class='line'>
+</span><span class='line'>chmod -R 777 /home/node
+</span><span class='line'>
+</span><span class='line'>echo 'export PATH="/home/node/.nodebrew/current/bin:$PATH"'     &gt;&gt; /etc/profile.d/nodebrew.sh
+</span><span class='line'># echo 'export PATH="/home/node/.nodebrew/current/bin:$PATH"'     &gt;&gt; /etc/profile.d/nodebrew.sh
+</span><span class='line'>
+</span><span class='line'>source /etc/profile.d/nodebrew.sh
+</span><span class='line'>
+</span><span class='line'>echo $PATH
+</span><span class='line'>
+</span><span class='line'># ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>nodeグループを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>groupadd node
+</span><span class='line'>usermod -G wheel,node myuser
+</span><span class='line'># usermod -G wheel,node,ruby myuser
+</span><span class='line'>groups myuser</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>.nodebrewの所有グループを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /home/node
+</span><span class='line'>chgrp -R node .nodebrew
+</span><span class='line'>chmod -R g+rwxX .nodebrew</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo chgrp wheel /root</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール可能なバージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew ls-all
+</span><span class='line'># 奇数バージョンは開発版、偶数バージョンが安定版らしい</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>インストール(バイナリからインストールしたほうが速い)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew install-binary v0.10.20
+</span><span class='line'># インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>利用するバージョンを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew use v0.10.20</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>現在のバージョンを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>node -v</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>サーバーサンプル</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>var http = require('http');
+</span><span class='line'>
+</span><span class='line'>http.createServer(function (request, response) {
+</span><span class='line'>  response.writeHead(200, {'Content-Type': 'text/plain'});
+</span><span class='line'>  response.end('Hello Node.js');
+</span><span class='line'>}).listen(8124);
+</span><span class='line'>
+</span><span class='line'>console.log('Server running at http://localhost:8124');</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Grape を Rails4で利用する場合の注意点]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/grape_on_rails/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/grape_on_rails</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
 
 <ul>
-<li><p><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/">公式サイト</a></p></li>
-<li><p><a href="http://dotinstall.com/lessons/basic_sakura_vps/8021">ドットインストール</a></p></li>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
+なんかいろいろとはまってしまったので備忘録
+file pathを追加する
+
+<h5>config/application.rb</h5></li>
 </ul>
 
 
-<h4>※2ヶ月ほど前と内容が少し変わっていたので、毎回確認したほうがいいかもしれないです。</h4>
-
-<h2>yumでインストールできるようにリポジトリを追加</h2>
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/yum.repos.d/mongodb.repo</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module TestApp
+</span><span class='line'>  class Application &lt; Rails::Application
+</span><span class='line'>    ...
+</span><span class='line'>    config.paths.add "app/api", glob: "**/*.rb"
+</span><span class='line'>    config.autoload_paths += Dir["#{Rails.root}/app/api/*"]
+</span><span class='line'>    ...
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>routes.rbにmountするコードを一行追加
+</span><span class='line'>
+</span><span class='line'>TestApp::Application.routes.draw do
+</span><span class='line'>  mount TestAPI =&gt; 'api'
+</span><span class='line'>  ...
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>/etc/yum.repos.d/mongodb.repo</h5>
+<h3>流れ</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mongodb]
-</span><span class='line'>name=MongoDB Repository
-</span><span class='line'>baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
-</span><span class='line'>gpgcheck=0
-</span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rails new test-app
+</span><span class='line'>$ cd test-app
+</span><span class='line'>$ vi Gemfile
+</span><span class='line'># + gem 'grape', :git =&gt; "https://github.com/intridea/grape.git"
+</span><span class='line'>$ bundle install
+</span><span class='line'>$ mkdir app/api
+</span><span class='line'>$ vi app/api/test_api.rb
+</span><span class='line'>$ vi app/api/api_v1.rb
+</span><span class='line'>$ mkdir app/api/v1
+</span><span class='line'>$ vi app/api/ping.rb
+</span><span class='line'>$ vi config/application.rb
+</span><span class='line'>$ vi config/routes.rb
+</span><span class='line'>$ bundle exec rails s
+</span><span class='line'>$ open http://localhost:3000/api/v1/hello
+</span><span class='line'>files</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>yumでmongodbをインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y
-</span><span class='line'>sudo yum install mongo-10gen mongo-10gen-server -y</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>mongodbを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mongod start</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>起動時に自動起動設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig mongod on</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>バージョンを確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mongo --version</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>シェルを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mongo</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>シェルを終了</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>exit</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザー認証をONにする</h2>
-
-<p>※mongod起動時にオプション指定でも可能ですが、毎回指定するの面倒なので設定ファイルを変更しています。</p>
-
-<h2>設定ファイルをバックアップ</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/mongod.conf /etc/mongod.conf.org</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>設定ファイルを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/mongod.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/mongod.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>auth = ture</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>mongodbを再起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mongod restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>管理者ユーザーの作成</h2>
+<h5>app/api/test_api.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>use admin
-</span><span class='line'>db.addUser("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class TestAPI &lt; Grape::API
+</span><span class='line'>  mount API_V1
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>ユーザー認証</h2>
+<h5>app/api/api_v1.rb</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>管理者ユーザーの確認</h2>
+<p>v1/以下のclassをmountする</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>class API_V1 &lt; Grape::API
+</span><span class='line'>  prefix 'v1' # とりあえずprefixだけつけている
+</span><span class='line'>  mount V1::Ping
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>DBの切り替え</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>use test</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザーの作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.addUser("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>ユーザーの確認</h2>
+<h5>app/api/v1/ping.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>module V1
+</span><span class='line'>  class Ping &lt; Grape::API
+</span><span class='line'>    format :json
+</span><span class='line'>
+</span><span class='line'>    get :hello do
+</span><span class='line'>      {hello: "world"}
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>ユーザーの削除</h2>
+<p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
+
+<p>不思議だ。</p>
+
+<p>要調査</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Node.jsのデーモン化ツールforeverをインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/forever_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/forever_install</id>
+    <content type="html"><![CDATA[<h2>npmでグローバルにインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.remove({user:"test"})</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g forever</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>ユーザー認証</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>テストデータの登録</h2>
+<h2>スクリプトを登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.test.save( { a: 1 } )</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>forever start sample001.js</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>テストデータの閲覧</h2>
+<h2>スクリプトを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>db.test.find()</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>forever list</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>スクリプトを止める</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、[0]で登録されたスクリプトを止めたい場合
+</span><span class='line'>forever stop 0</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[PHPでmongodbを使えるようにする]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/mongodb_for_php/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/mongodb_for_php</id>
-    <content type="html"><![CDATA[<h2>依存パッケージをインストール</h2>
+    <title type="html"><![CDATA[フォルダを圧縮して自動バックアップするスクリプト]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/folder_backup/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/folder_backup</id>
+    <content type="html"><![CDATA[<h2>シェルスクリプトを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim images_backup.sh</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>images_backup.sh</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install php-pear
-</span><span class='line'>sudo yum -y install php-devel
-</span><span class='line'>sudo yum -y install httpd-devel
-</span><span class='line'>sudo yum -y install gcc
-</span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>
+</span><span class='line'># バックアップファイルを何日分残しておくか
+</span><span class='line'>period='+7'
+</span><span class='line'># バックアップファイルを保存するディレクトリ
+</span><span class='line'>dirpath='/path/to/backup/images'
+</span><span class='line'>
+</span><span class='line'>#バックアップ元フォルダ
+</span><span class='line'>backupfolder="/path/to/from"
+</span><span class='line'>
+</span><span class='line'># ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
+</span><span class='line'>mydate=`date +%y%m%d%H%M%S`
+</span><span class='line'>filename="images_$mydate.tar.gz"
+</span><span class='line'>#backup実行
+</span><span class='line'>tar -zcvf $dirpath/$filename $backupfolder
+</span><span class='line'>
+</span><span class='line'># パーミッション変更
+</span><span class='line'>chmod 700 $dirpath/$filename
+</span><span class='line'>
+</span><span class='line'># 古いバックアップファイルを削除
+</span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>pcelでインストール</h2>
+<h2>権限設定の変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 images_backup.sh</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Epel、remiのリポジトリを導入]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/epel_remi_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/epel_remi_install</id>
+    <content type="html"><![CDATA[<h2>epel</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
+</ul>
 
 
-<h2>mongodb用の設定ファイルを追加</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/php.d/mongo.ini</h5>
+<p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mongo]
-</span><span class='line'>extension=mongo.so
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定ファイルを変更</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
+</span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/yum.repos.d/epel.repo</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
+</span><span class='line'>
+</span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>remi</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
+</ul>
+
+
+<p>※centosで検索</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh remi-release-6.rpm
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h2>apacheを再起動して設定を反映</h2>
+<p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apache Php Mysqlをインストール(yum)]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install</id>
+    <content type="html"><![CDATA[<h2>apache</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd
+</span><span class='line'>sudo chkconfig httpd on
+</span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+</span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ServerTokens Prod
+</span><span class='line'>ServerSignature Off
+</span><span class='line'>Options Indexes → Options -Indexes FollowSymLinks
+</span><span class='line'>※var/www/html内のもの
+</span><span class='line'>ServerName www.example.com:80
+</span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service httpd configtest
+</span><span class='line'>sudo service httpd start
+</span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
+</span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>バーチャルホスト用にフォルダを作成</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>php</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
+</span><span class='line'>php -v
+</span><span class='line'>cp /etc/php.ini /etc/php.ini.org
+</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/php.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
+</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
+</span><span class='line'>display_errors = On
+</span><span class='line'>mbstring.language = Japanese
+</span><span class='line'>expose_php = Off
+</span><span class='line'>date.timezone = Asia/Tokyo
+</span><span class='line'>max_execution_time = 300
+</span><span class='line'>magic_quotes_gpc = Off
+</span><span class='line'>upload_max_filesize = 200M
+</span><span class='line'>mbstring.internal_encoding = UTF-8
+</span><span class='line'>mbstring.http_input = auto
+</span><span class='line'>mbstring.http_output = pass
+</span><span class='line'>mbstring.detect_order = auto
+</span><span class='line'>;mbstring.substitute_character = none;
+</span><span class='line'>
+</span><span class='line'>max_file_uploads = 100
+</span><span class='line'>post_max_size = 100M
+</span><span class='line'>upload_max_filesize 100M
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
 
+
+<h2>mysql</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
+</span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
+</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/my.cnf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
+</span><span class='line'>character_set_server=utf8
+</span><span class='line'>default-storage-engine=InnoDB
+</span><span class='line'>innodb_file_per_table
+</span><span class='line'>group_concat_max_len=10000000
+</span><span class='line'>
+</span><span class='line'>[mysql]
+</span><span class='line'>default-character-set=utf8
+</span><span class='line'>
+</span><span class='line'>[mysqldump]
+</span><span class='line'>default-character-set=utf8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
+</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>mysqlの初期設定</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
+</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[GitのプッシュでHPの更新(反映)]]></title>
-    <link href="http://blog.abgata.org/blog/2013/12/22/git_push_refresh/"/>
-    <updated>2013-12-22T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2013/12/22/git_push_refresh</id>
-    <content type="html"><![CDATA[<h2>gitのグローバル設定</h2>
+    <title type="html"><![CDATA[SElinuxの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/SELinux/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/SELinux</id>
+    <content type="html"><![CDATA[<h2>動作状態の確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name "abgata20000"
-</span><span class='line'>git config --global user.email "abgata@abgata.jp"
-</span><span class='line'>git config --global color.ui true</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
+</span><span class='line'># &gt; Enforcing
+</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
+</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
+</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
 
 
-<h2>gitの設定確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git config -l</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>現在のディレクトリを共有リポジトリにする</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git init --bare --share</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>レポジトリをクローンする</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone /git/smaple.git</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>pushされた際のhooks(post-receive)</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd hooks
-</span><span class='line'>vim post-receive</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>post-receive</h5>
+<h2>SELinuxを一時的に無効化</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
-</span><span class='line'>cd /var/www/vhosts/
-</span><span class='line'>git --git-dir=.git pull origin master</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
+</span><span class='line'># SELinuxを復活
+</span><span class='line'>setenforce 1
+</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
 
 
-<p>実行権限を付与</p>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x post-receive</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
+
+
+<p>設定ファイルを変更したら、あとはrebootすればOK</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
+</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

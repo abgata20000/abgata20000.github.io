@@ -1,0 +1,1470 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AB Lab</title>
+  <meta name="author" content="abgata20000">
+
+  
+  <meta name="description" content="参考サイト Installation &ndash; Package Control
+SublimeText3のセットアップ
+SublimeText2/3 環境設定とか（基本3） パッケージインストールできるようにする View > Show Console &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.abgata.org/blog/page/4">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50444253-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">AB Lab</a></h1>
+  
+    <h2>abgata20000 blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.abgata.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>参考サイト</h2>
+
+<ul>
+<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
+</ul>
+
+
+<h2>パッケージインストールできるようにする</h2>
+
+<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>cmd + shift + p でパッケージインストールを実行可能に</p>
+
+<h2>インストールするもの</h2>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_2_setting_share/">Sublime Text 2 で設定を共有</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>参考サイト</h2>
+
+<ul>
+<li><a href="http://webdrawer.net/tools/sublimedropbox.html">Sublime Text 2の設定をDropboxで共有して便利にする</a></li>
+<li><a href="http://qiita.com/Drunkar/items/6de34913afc554e3824b">Sublime Text 2の設定をDropboxで共有する</a></li>
+<li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
+</ul>
+
+
+<h2>設定ファイルをDropBoxに移す</h2>
+
+<h3>本来の設定ファイルがある場所</h3>
+
+<ul>
+<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</li>
+<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 2/</li>
+<li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
+</ul>
+
+
+<p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
+
+<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
+
+<h3>mac</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>win</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 2\
+</span><span class='line'>
+</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages"
+</span><span class='line'>
+</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages"
+</span><span class='line'>
+</span><span class='line'>mklink /D "Pristine Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages"
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/23/zsh_install/">Zshのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://linuxserver.jp/linux/zsh%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.php">Linuxで自宅サーバ構築 » Linux » ZSHのインストール</a></li>
+</ul>
+
+
+<h3>zshがインストールされているかを確認</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>zsh --version
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>yumでzshをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install zsh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>zshの起動とログイン・シェルの設定</h2>
+
+<h3>現在使用しているshellの確認</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>echo $SHELL
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>使用可能なshellの確認</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat /etc/shells
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>ログイン・シェルに設定</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chsh -s /bin/zsh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>zshの設定をgithubから取得して反映する</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/abgata20000/zsh.d.git ~/.zsh.d
+</span><span class='line'>echo "source ~/.zsh.d/zshrc" &gt; ~/.zshrc
+</span><span class='line'>echo "source ~/.zsh.d/zshenv" &gt; ~/.zshenv
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ログインし直すと反映される
+※ユーザー毎に設定</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/23/ruby_install_by_rbenv/">rbenvでRubyをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="https://github.com/sstephenson/rbenv">https://github.com/sstephenson/rbenv</a></li>
+</ul>
+
+
+<h3>依存ライブリをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install gcc
+</span><span class='line'>sudo yum -y install make
+</span><span class='line'>sudo yum -y install openssl
+</span><span class='line'>sudo yum -y install openssl-devel
+</span><span class='line'>sudo yum -y install gcc-c++
+</span><span class='line'>sudo yum install -y mysql-devel</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>全ユーザーで共通のrbenvを利用</h2>
+
+<h3>rubyグループを作成</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo groupadd ruby
+</span><span class='line'>sudo usermod -G wheel,ruby myuser
+</span><span class='line'>sudo groups myuser</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>rbenvをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /usr/local
+</span><span class='line'>git clone git://github.com/sstephenson/rbenv.git rbenv
+</span><span class='line'>mkdir rbenv/shims rbenv/versions rbenv/plugins
+</span><span class='line'>
+</span><span class='line'>cd rbenv/plugins
+</span><span class='line'>git clone git://github.com/sstephenson/ruby-build.git ruby-build
+</span><span class='line'>cd ruby-build
+</span><span class='line'>./install.sh
+</span><span class='line'>
+</span><span class='line'>cd /usr/local
+</span><span class='line'>
+</span><span class='line'>chgrp -R ruby rbenv
+</span><span class='line'>chmod -R g+rwxX rbenv
+</span><span class='line'>
+</span><span class='line'>echo 'export RBENV_ROOT="/usr/local/rbenv"'     &gt;&gt; /etc/profile.d/rbenv.sh
+</span><span class='line'>echo 'export PATH="/usr/local/rbenv/bin:$PATH"' &gt;&gt; /etc/profile.d/rbenv.sh
+</span><span class='line'>echo 'eval "$(rbenv init -)"'                   &gt;&gt; /etc/profile.d/rbenv.sh
+</span><span class='line'>
+</span><span class='line'>source /etc/profile.d/rbenv.sh
+</span><span class='line'>
+</span><span class='line'>echo $PATH</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>rubyをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rbenv install --list
+</span><span class='line'>
+</span><span class='line'>rbenv install -v 2.0.0-p353
+</span><span class='line'>
+</span><span class='line'>rbenv versions
+</span><span class='line'>
+</span><span class='line'>rbenv global 2.0.0-p353
+</span><span class='line'>
+</span><span class='line'>rbenv rehash
+</span><span class='line'>
+</span><span class='line'>rbenv versions
+</span><span class='line'>
+</span><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>折角なのでgemをアップデート</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem update</span></code></pre></td></tr></table></div></figure>
+
+
+<hr />
+
+<h2>ユーザー別のインストールする場合</h2>
+
+<h3>rbenvをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+</span><span class='line'>
+</span><span class='line'>echo 'export PATH="$HOME/.rbenv/bin:$PATH"' &gt;&gt; ~/.bash_profile
+</span><span class='line'>
+</span><span class='line'>echo 'eval "$(rbenv init -)"' &gt;&gt; ~/.bash_profile
+</span><span class='line'>
+</span><span class='line'>exec $SHELL -l</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>確認</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rbenv -v</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/23/Selenium/">Seleniumのインストールと簡単な使い方</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://daipresents.com/2012/webdriver%E3%81%A7chrome%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%A8unable-to-find-the-chromedriver-executable%E3%81%A8%E6%80%92%E3%82%89%E3%82%8C%E3%81%9F/">WebDriverでChromeを起動するとUnable to find the chromedriver executableと怒られた</a></li>
+<li><a href="http://morizyun.github.io/blog/selenium-scraping-webdriver-ruby/">Seleniumでスクレイピング [Ruby]</a></li>
+<li><a href="http://qiita.com/tomerun/items/9cb81d7a98150ff22f53">RubyでSeleniumを使ってスクレイピング</a></li>
+</ul>
+
+
+<h2>gemをインストールする。</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install selenium-webdriver</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>起動と終了</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>driver = Selenium::WebDriver.for :firefox # ブラウザ起動
+</span><span class='line'>
+</span><span class='line'>driver.quit # ブラウザ終了</span></code></pre></td></tr></table></div></figure>
+
+
+<p>:firefox のところは :ieとか:chromeとか:operaとか好きなのを</p>
+
+<h2>ページ、フレーム移動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>driver.navigate.to 'http://example.com' # URLを開く
+</span><span class='line'>driver.switch_to.frame(1)               # 1つめの子フレームに移動
+</span><span class='line'>driver.switch_to.frame("frameid")       # フレームのnameを指定して移動</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>要素を指定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>element = driver.find_element(:name, 'calendar')        # nameで指定
+</span><span class='line'>element = driver.find_element(:id, 'calendar')          # idで指定
+</span><span class='line'>element = driver.find_element(:class, 'right_box')      # classで指定
+</span><span class='line'>element = element.find_element(:tag_name, 'table')      # 要素名で指定
+</span><span class='line'>element = element.find_element(:xpath, 'tr[2]/td[3]/a') # XPathで指定
+</span><span class='line'>element = driver.find_element(:class, 'body').find_element(:name, 'form').find_elements(:xpath, './/input')[2] # メソッドチェーン</span></code></pre></td></tr></table></div></figure>
+
+
+<p>DriverとElementがどちらもfind_element・find_elementsメソッドを持っている。</p>
+
+<h2>入力</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># テキストフィールドへ入力・削除
+</span><span class='line'>element = driver.find_element(:name, 'userId')
+</span><span class='line'>element.send_keys('username')
+</span><span class='line'>element.clear
+</span><span class='line'>
+</span><span class='line'># ドロップダウンリスト選択
+</span><span class='line'>select = Selenium::WebDriver::Support::Select.new(driver.find_element(:id, 'dropdown'))
+</span><span class='line'>select.select_by(:value, 'item1')       # valueの値で選択
+</span><span class='line'>select.select_by(:text, 'どちらでもない') # 表示テキストで選択
+</span><span class='line'>select.select_by(:index, 2)             # インデックス（0始まり）で選択
+</span><span class='line'>
+</span><span class='line'># ラジオボタン選択
+</span><span class='line'>driver.find_elements(:name, 'selectOne')[2].click
+</span><span class='line'>
+</span><span class='line'># リンクやボタンを押す
+</span><span class='line'>driver.find_element(:xpath, '//table[2]/tr[3]/td[1]/a').click</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>情報取得</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 要素の内容テキスト
+</span><span class='line'>puts element.text
+</span><span class='line'>
+</span><span class='line'># Firefoxでダウンロードのリンクを踏んだとき保存確認ダイアログを出さずに指定のフォルダに保存
+</span><span class='line'>profile = Selenium::WebDriver::Firefox::Profile.new
+</span><span class='line'>profile['browser.download.folderList'] = 2
+</span><span class='line'>profile['browser.download.useDownloadDir'] = true
+</span><span class='line'>profile['browser.download.dir'] = 'path/to/downloadFolder'
+</span><span class='line'>profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
+</span><span class='line'>driver = Selenium::WebDriver.for :firefox, :profile =&gt; profile
+</span><span class='line'>
+</span><span class='line'># スクリーンショットを撮る
+</span><span class='line'>driver.save_screenshot('path/to/filename.png')</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>chomeのプロフィール設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>prefs = {
+</span><span class='line'>  :download =&gt; {
+</span><span class='line'>    :prompt_for_download =&gt; false,
+</span><span class='line'>    :default_directory =&gt; "/path/to/dir"
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>driver = Selenium::WebDriver.for :chrome, :prefs =&gt; prefs</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>macでchromeを指定するとエラーが出たので対応</h1>
+
+<h2>ドライバーをダウンロードしてくる</h2>
+
+<p><a href="http://chromedriver.storage.googleapis.com/index.html">http://chromedriver.storage.googleapis.com/index.html</a></p>
+
+<h2>ドライバにバスを通す</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /path/to/chromedriver /usr/bin/chromedriver</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とりあえず /user/bin/にシンボリックリンクを貼った
+直接パス通す方法でもOK</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/unicorn_insatll/">Unicornのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Gedでユニコーンをインストールすろ</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install unicorn-rails
+</span><span class='line'>
+</span><span class='line'>gem install unicorn
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ユニコーンの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>RAILS_ROOT/config/unicorn.rb</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>APP_PATH = "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>worker_processes 2
+</span><span class='line'>
+</span><span class='line'>working_directory "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>listen 3000
+</span><span class='line'>
+</span><span class='line'>pid APP_PATH + "/tmp/pids/unicorn.pid"
+</span><span class='line'>stderr_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>stdout_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>preload_app true
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ユニコーンでRailsを起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nginxの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/nginx/nginx.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upstream abgata.org {
+</span><span class='line'>    #server 127.0.0.1:3000;
+</span><span class='line'>  server unix:/var/tmp/rss.sock;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>server {
+</span><span class='line'>    listen 80;
+</span><span class='line'>    server_name abgata.org;
+</span><span class='line'>
+</span><span class='line'>    root /var/www/ruby/rss/public;
+</span><span class='line'>
+</span><span class='line'>    access_log /var/log/rss_access.log;
+</span><span class='line'>    error_log  /var/log/rss_error.log;
+</span><span class='line'>
+</span><span class='line'>    location / {
+</span><span class='line'>      if (-f $request_filename) {
+</span><span class='line'>        break;
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      proxy_set_header X-Real-IP  $remote_addr;
+</span><span class='line'>      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span class='line'>      proxy_set_header Host $http_host;
+</span><span class='line'>      proxy_pass http://abgata.org;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+</span><span class='line'>      # expires 1y;
+</span><span class='line'>    }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ヴァーチャルホストの設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/nginx/sites-avalable/default</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        server_name _;
+</span><span class='line'>        deny all;
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nginxを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig nginx on
+</span><span class='line'>
+</span><span class='line'>service nginx start
+</span><span class='line'>
+</span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/select_for_update/">Select_for_updateについて(並列処理の運用)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
+<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
+<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
+</ul>
+
+
+<h2>サンプル</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>begin;
+</span><span class='line'>
+</span><span class='line'>select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
+</span><span class='line'>
+</span><span class='line'>commit;
+</span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>注意点</h3>
+
+<ul>
+<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
+<li>for update をつけていないクエリはロックされない</li>
+<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>であればロックされない</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>と</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>であればロックされる</p>
+
+<h2>ActiveRecordでの利用方法</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Sample.transaction do
+</span><span class='line'>  # select * from table where flg = 0 limit 1 for update
+</span><span class='line'>  @target = Sample.where("flg = 0 ").lock(true).first
+</span><span class='line'>
+</span><span class='line'>  @target['flg'] = 1
+</span><span class='line'>  @target.save
+</span><span class='line'>
+</span><span class='line'>end
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/ruby_mongodb/">Rubyでmongodbを使う</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>gemにてライブラリをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install mongo
+</span><span class='line'>gem install mongoid
+</span><span class='line'>gem install bson_ext</span></code></pre></td></tr></table></div></figure>
+
+
+<p>そのまま使うとactiverecordとの併用の際に衝突するので、
+activerecordのバージョンを3.2.14に落とす
+※2013/9/17時点</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem uninstall activerecord activesupport activemodel
+</span><span class='line'>
+</span><span class='line'>gem install activerecord -v 3.2.14
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/rmagick_install/">Rmagickのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考</h3>
+
+<ul>
+<li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
+</ul>
+
+
+<h2>Yumでインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install ImageMagick ImageMagick-devel -y</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>gemでライブラリをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rmagick</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※sudoじゃなきゃだめかも</p>
+
+<p>ライブラリ名が異なる？？らしくRubyやRailsから呼び出す際には、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'RMagick'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>やら</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'rmagick', :require =&gt; 'RMagick'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>のような書き方が必要</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/nginx_with_apache/">Nginxとapacheの共存</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考URL:</h3>
+
+<ul>
+<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
+</ul>
+
+
+<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd-devel
+</span><span class='line'>
+</span><span class='line'>cd /root/tmp
+</span><span class='line'>wget http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz
+</span><span class='line'>tar zxf extract_forwarded-2.0.2.tar.gz
+</span><span class='line'>cd extract_forwarded
+</span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>apacheの実行ユーザーとポートを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Listen 8080
+</span><span class='line'>
+</span><span class='line'>#####
+</span><span class='line'>User nginx
+</span><span class='line'>Group nginx
+</span><span class='line'>#####
+</span><span class='line'>ServerName sample.jp:8080
+</span><span class='line'>
+</span><span class='line'># 最終行に追加
+</span><span class='line'>MEForder refuse,accept
+</span><span class='line'>MEFrefuse all
+</span><span class='line'># Nginx（リバースプロキシ）のIPアドレス
+</span><span class='line'>MEFaccept 127.0.0.1
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
+
+
+<p>apacheを再起動して設定を反映</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>nginxでの転送設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
+</span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>default.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#デフォルトサーバー
+</span><span class='line'>server {
+</span><span class='line'>    listen       80;
+</span><span class='line'>    server_name  backend;
+</span><span class='line'>
+</span><span class='line'>    # このサーバへの全てのアクセスを転送
+</span><span class='line'>    location / {
+</span><span class='line'>            proxy_pass http://127.0.0.1:8080;
+</span><span class='line'>            proxy_redirect                         off;
+</span><span class='line'>
+</span><span class='line'>            # この設定がなくても.htaccessでの制限は可能。
+</span><span class='line'>            # ただし、cgi等から参照した際にNginxのIPアドレスになる。
+</span><span class='line'>            proxy_set_header Host                   $host;
+</span><span class='line'>
+</span><span class='line'>            proxy_set_header X-Real-IP              $remote_addr;
+</span><span class='line'>
+</span><span class='line'>            # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
+</span><span class='line'>            proxy_set_header X-Forwarded-Host      $host;
+</span><span class='line'>            proxy_set_header X-Forwarded-Server    $host;
+</span><span class='line'>
+</span><span class='line'>            # この設定がなくてもcgi等から正しいIPを確認可能。
+</span><span class='line'>            # ただし、.htaccessでの制限は不可。
+</span><span class='line'>            proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最初に↓入れたほうがいいかも？？</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># キャッシュ関連設定
+</span><span class='line'>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
+</span><span class='line'>proxy_temp_path   /var/tmp/nginx;
+</span><span class='line'>proxy_cache_key   "$scheme://$host$request_uri";
+</span><span class='line'>proxy_set_header  Host               $host;
+</span><span class='line'>proxy_set_header  X-Real-IP          $remote_addr;
+</span><span class='line'>proxy_set_header  X-Forwarded-Host   $host;
+</span><span class='line'>proxy_set_header  X-Forwarded-Server $host;
+</span><span class='line'>proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
+</span><span class='line'>
+</span><span class='line'># バックエンドサーバ−（Apache）設定
+</span><span class='line'>upstream backend {
+</span><span class='line'>    # ip_hash;
+</span><span class='line'>    server 127.0.0.1:8080;
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>nginxを再起動して設定を反映</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/5/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/3/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近の記事</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/graphicsmagick_install/">Graphicsmagicをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/ffmepg_install_from_yum/">fffmepgをYumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHubレポジトリ</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/abgata20000">@abgata20000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'abgata20000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - abgata20000 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'abgata20000';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

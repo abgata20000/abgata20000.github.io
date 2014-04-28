@@ -1,0 +1,465 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Unicornのインストール - AB Lab</title>
+  <meta name="author" content="abgata20000">
+
+  
+  <meta name="description" content="Gedでユニコーンをインストールすろ 1
+2
+3
+gem install unicorn-rails gem install unicorn ユニコーンの設定ファイルを作成 1
+vim RAILS_ROOT/config/unicorn.rb RAILS_ROOT/config/unicorn. &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.abgata.org/blog/2013/12/22/unicorn_insatll">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50444253-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">AB Lab</a></h1>
+  
+    <h2>abgata20000 blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.abgata.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Unicornのインストール</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Gedでユニコーンをインストールすろ</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install unicorn-rails
+</span><span class='line'>
+</span><span class='line'>gem install unicorn
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ユニコーンの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>RAILS_ROOT/config/unicorn.rb</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>APP_PATH = "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>worker_processes 2
+</span><span class='line'>
+</span><span class='line'>working_directory "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>listen 3000
+</span><span class='line'>
+</span><span class='line'>pid APP_PATH + "/tmp/pids/unicorn.pid"
+</span><span class='line'>stderr_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>stdout_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>preload_app true
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ユニコーンでRailsを起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nginxの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/nginx/nginx.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upstream abgata.org {
+</span><span class='line'>    #server 127.0.0.1:3000;
+</span><span class='line'>  server unix:/var/tmp/rss.sock;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>server {
+</span><span class='line'>    listen 80;
+</span><span class='line'>    server_name abgata.org;
+</span><span class='line'>
+</span><span class='line'>    root /var/www/ruby/rss/public;
+</span><span class='line'>
+</span><span class='line'>    access_log /var/log/rss_access.log;
+</span><span class='line'>    error_log  /var/log/rss_error.log;
+</span><span class='line'>
+</span><span class='line'>    location / {
+</span><span class='line'>      if (-f $request_filename) {
+</span><span class='line'>        break;
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      proxy_set_header X-Real-IP  $remote_addr;
+</span><span class='line'>      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span class='line'>      proxy_set_header Host $http_host;
+</span><span class='line'>      proxy_pass http://abgata.org;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+</span><span class='line'>      # expires 1y;
+</span><span class='line'>    }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>ヴァーチャルホストの設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/nginx/sites-avalable/default</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        server_name _;
+</span><span class='line'>        deny all;
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Nginxを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig nginx on
+</span><span class='line'>
+</span><span class='line'>service nginx start
+</span><span class='line'>
+</span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">abgata20000</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/unicorn/'>Unicorn</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="social_box">
+    <ul class="social">
+        <li class="hatena">
+          <!-- hatebu-start -->
+          
+          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+          
+          <!-- hatebu-end -->
+        </li>
+        <li class="twitter">
+            
+                
+                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/" >Tweet</a>
+                
+            
+        </li>
+        <!--
+        <li class="facebook">
+            
+            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/"></div>
+            
+        </li>
+        -->
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/22/select_for_update/" title="Previous Post: select_for_updateについて(並列処理の運用)">&laquo; select_for_updateについて(並列処理の運用)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/23/Selenium/" title="Next Post: Seleniumのインストールと簡単な使い方">Seleniumのインストールと簡単な使い方 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近の記事</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/graphicsmagick_install/">Graphicsmagicをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/ffmepg_install_from_yum/">fffmepgをYumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHubレポジトリ</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/abgata20000">@abgata20000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'abgata20000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - abgata20000 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'abgata20000';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

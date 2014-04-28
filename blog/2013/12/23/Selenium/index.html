@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Seleniumのインストールと簡単な使い方 - AB Lab</title>
+  <meta name="author" content="abgata20000">
+
+  
+  <meta name="description" content="参考サイト WebDriverでChromeを起動するとUnable to find the chromedriver executableと怒られた
+Seleniumでスクレイピング [Ruby]
+RubyでSeleniumを使ってスクレイピング gemをインストールする。 1
+gem &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.abgata.org/blog/2013/12/23/Selenium">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50444253-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">AB Lab</a></h1>
+  
+    <h2>abgata20000 blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.abgata.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Seleniumのインストールと簡単な使い方</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://daipresents.com/2012/webdriver%E3%81%A7chrome%E3%82%92%E8%B5%B7%E5%8B%95%E3%81%99%E3%82%8B%E3%81%A8unable-to-find-the-chromedriver-executable%E3%81%A8%E6%80%92%E3%82%89%E3%82%8C%E3%81%9F/">WebDriverでChromeを起動するとUnable to find the chromedriver executableと怒られた</a></li>
+<li><a href="http://morizyun.github.io/blog/selenium-scraping-webdriver-ruby/">Seleniumでスクレイピング [Ruby]</a></li>
+<li><a href="http://qiita.com/tomerun/items/9cb81d7a98150ff22f53">RubyでSeleniumを使ってスクレイピング</a></li>
+</ul>
+
+
+<h2>gemをインストールする。</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install selenium-webdriver</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>起動と終了</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>driver = Selenium::WebDriver.for :firefox # ブラウザ起動
+</span><span class='line'>
+</span><span class='line'>driver.quit # ブラウザ終了</span></code></pre></td></tr></table></div></figure>
+
+
+<p>:firefox のところは :ieとか:chromeとか:operaとか好きなのを</p>
+
+<h2>ページ、フレーム移動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>driver.navigate.to 'http://example.com' # URLを開く
+</span><span class='line'>driver.switch_to.frame(1)               # 1つめの子フレームに移動
+</span><span class='line'>driver.switch_to.frame("frameid")       # フレームのnameを指定して移動</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>要素を指定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>element = driver.find_element(:name, 'calendar')        # nameで指定
+</span><span class='line'>element = driver.find_element(:id, 'calendar')          # idで指定
+</span><span class='line'>element = driver.find_element(:class, 'right_box')      # classで指定
+</span><span class='line'>element = element.find_element(:tag_name, 'table')      # 要素名で指定
+</span><span class='line'>element = element.find_element(:xpath, 'tr[2]/td[3]/a') # XPathで指定
+</span><span class='line'>element = driver.find_element(:class, 'body').find_element(:name, 'form').find_elements(:xpath, './/input')[2] # メソッドチェーン</span></code></pre></td></tr></table></div></figure>
+
+
+<p>DriverとElementがどちらもfind_element・find_elementsメソッドを持っている。</p>
+
+<h2>入力</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># テキストフィールドへ入力・削除
+</span><span class='line'>element = driver.find_element(:name, 'userId')
+</span><span class='line'>element.send_keys('username')
+</span><span class='line'>element.clear
+</span><span class='line'>
+</span><span class='line'># ドロップダウンリスト選択
+</span><span class='line'>select = Selenium::WebDriver::Support::Select.new(driver.find_element(:id, 'dropdown'))
+</span><span class='line'>select.select_by(:value, 'item1')       # valueの値で選択
+</span><span class='line'>select.select_by(:text, 'どちらでもない') # 表示テキストで選択
+</span><span class='line'>select.select_by(:index, 2)             # インデックス（0始まり）で選択
+</span><span class='line'>
+</span><span class='line'># ラジオボタン選択
+</span><span class='line'>driver.find_elements(:name, 'selectOne')[2].click
+</span><span class='line'>
+</span><span class='line'># リンクやボタンを押す
+</span><span class='line'>driver.find_element(:xpath, '//table[2]/tr[3]/td[1]/a').click</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>情報取得</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># 要素の内容テキスト
+</span><span class='line'>puts element.text
+</span><span class='line'>
+</span><span class='line'># Firefoxでダウンロードのリンクを踏んだとき保存確認ダイアログを出さずに指定のフォルダに保存
+</span><span class='line'>profile = Selenium::WebDriver::Firefox::Profile.new
+</span><span class='line'>profile['browser.download.folderList'] = 2
+</span><span class='line'>profile['browser.download.useDownloadDir'] = true
+</span><span class='line'>profile['browser.download.dir'] = 'path/to/downloadFolder'
+</span><span class='line'>profile['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
+</span><span class='line'>driver = Selenium::WebDriver.for :firefox, :profile =&gt; profile
+</span><span class='line'>
+</span><span class='line'># スクリーンショットを撮る
+</span><span class='line'>driver.save_screenshot('path/to/filename.png')</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>chomeのプロフィール設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>prefs = {
+</span><span class='line'>  :download =&gt; {
+</span><span class='line'>    :prompt_for_download =&gt; false,
+</span><span class='line'>    :default_directory =&gt; "/path/to/dir"
+</span><span class='line'>  }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>driver = Selenium::WebDriver.for :chrome, :prefs =&gt; prefs</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>macでchromeを指定するとエラーが出たので対応</h1>
+
+<h2>ドライバーをダウンロードしてくる</h2>
+
+<p><a href="http://chromedriver.storage.googleapis.com/index.html">http://chromedriver.storage.googleapis.com/index.html</a></p>
+
+<h2>ドライバにバスを通す</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /path/to/chromedriver /usr/bin/chromedriver</span></code></pre></td></tr></table></div></figure>
+
+
+<p>とりあえず /user/bin/にシンボリックリンクを貼った
+直接パス通す方法でもOK</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">abgata20000</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ruby/'>ruby</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="social_box">
+    <ul class="social">
+        <li class="hatena">
+          <!-- hatebu-start -->
+          
+          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2013/12/23/Selenium/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+          
+          <!-- hatebu-end -->
+        </li>
+        <li class="twitter">
+            
+                
+                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2013/12/23/Selenium/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2013/12/23/Selenium/" >Tweet</a>
+                
+            
+        </li>
+        <!--
+        <li class="facebook">
+            
+            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2013/12/23/Selenium/"></div>
+            
+        </li>
+        -->
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/22/unicorn_insatll/" title="Previous Post: unicornのインストール">&laquo; unicornのインストール</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/12/23/ruby_install_by_rbenv/" title="Next Post: rbenvでRubyをインストール">rbenvでRubyをインストール &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近の記事</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/graphicsmagick_install/">Graphicsmagicをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/ffmepg_install_from_yum/">fffmepgをYumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHubレポジトリ</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/abgata20000">@abgata20000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'abgata20000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - abgata20000 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'abgata20000';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

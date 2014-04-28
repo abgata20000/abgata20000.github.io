@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gem | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/gem/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Gemでインストールするもの]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/install_for_gem/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/install_for_gem</id>
+    <content type="html"><![CDATA[<p>とりあえずインストールしておくと便利そうなものをピックアップ</p>
+
+<p>```
+gem install sinatragem install sinatra-contribgem install sqlite3gem install bundlergem install hamlgem install activerecordgem install wssegem install xml-simplegem install nokogiri
+gem install unicorn
+gem install mysql &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config</p>
+
+<p>gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しないとシンボリックが生成されない？？</code>rbenv rehash```</p>
+]]></content>
+  </entry>
+  
+</feed>

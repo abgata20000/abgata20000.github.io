@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: CentOS | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/centos/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Iptablesの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/iptables/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/iptables</id>
+    <content type="html"><![CDATA[<h2>設定ファイルを作成</h2>
+
+<p><code>
+vim /etc/sysconfig/iptables
+</code></p>
+
+<h5>/etc/sysconfig/iptables</h5>
+
+<p>```
+*filter
+:INPUT    DROP    [0:0]
+:FORWARD  DROP    [0:0]
+:OUTPUT   ACCEPT  [0:0]
+:SERVICES &ndash;       [0:0]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p icmp &mdash;icmp-type echo-request -m limit &mdash;limit 1/s &mdash;limit-burst 4  -j ACCEPT
+-A INPUT -p tcp -m state &mdash;state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p tcp -m state &mdash;state NEW -j SERVICES
+-A INPUT -p udp &mdash;sport 53 -j ACCEPT
+-A INPUT -p udp &mdash;sport 123 &mdash;dport 123 -j ACCEPT</p>
+
+<p>-A SERVICES -p tcp &mdash;dport 25 -j ACCEPT
+-A SERVICES -p tcp &mdash;dport 110 -j ACCEPT
+-A SERVICES -p tcp &mdash;dport 587 -j ACCEPT
+-A SERVICES -p tcp &mdash;dport 80 -j ACCEPT
+-A SERVICES -p tcp &mdash;dport 443 -j ACCEPT</p>
+
+<p>-A INPUT -p udp -m udp &mdash;dport 137:138 -j ACCEPT
+-A INPUT -p tcp -m tcp &mdash;dport 139 -j ACCEPT
+-A INPUT -p tcp -m tcp &mdash;dport 445 -j ACCEPT</p>
+
+<p>COMMIT</p>
+
+<p>```</p>
+
+<h2>設定を反映</h2>
+
+<p>```</p>
+
+<p>service iptables restart</p>
+
+<p>iptables -L</p>
+
+<p>chkconfig iptables on</p>
+
+<p>chkconfig &mdash;list iptables</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apache Php Mysqlをインストール(yum)]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install</id>
+    <content type="html"><![CDATA[<h2>apache</h2>
+
+<p><code>
+sudo yum install httpd
+sudo chkconfig httpd on
+cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+vim /etc/httpd/conf/httpd.conf
+</code></p>
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<p><code>
+ServerTokens Prod
+ServerSignature Off
+Options Indexes → Options -Indexes FollowSymLinks
+※var/www/html内のもの
+ServerName www.example.com:80
+NameVirtualHost *:80
+</code></p>
+
+<h3>設定を反映</h3>
+
+<p><code>
+sudo service httpd configtest
+sudo service httpd start
+chkconfig httpd on
+</code></p>
+
+<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
+
+<p><code>
+cd /etc/httpd/conf.d
+vim vhost.conf
+</code></p>
+
+<h3>バーチャルホスト用にフォルダを作成</h3>
+
+<p><code>
+mkdir -p /var/www/vhosts/default/public
+</code></p>
+
+<h2>php</h2>
+
+<p><code>
+yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
+php -v
+cp /etc/php.ini /etc/php.ini.org
+vim /etc/php.ini
+</code></p>
+
+<h5>/etc/php.ini</h5>
+
+<p>```
+error_log = /var/log/php.log
+error_reporting = E_ALL &amp; ~E_NOTICE &amp; ~E_DEPRECATED
+display_errors = On
+mbstring.language = Japanese
+expose_php = Off
+date.timezone = Asia/Tokyo
+max_execution_time = 300
+magic_quotes_gpc = Off
+upload_max_filesize = 200M
+mbstring.internal_encoding = UTF-8
+mbstring.http_input = auto
+mbstring.http_output = pass
+mbstring.detect_order = auto
+;mbstring.substitute_character = none;</p>
+
+<p>max_file_uploads = 100
+post_max_size = 100M
+upload_max_filesize 100M</p>
+
+<p>```</p>
+
+<h3>設定を反映</h3>
+
+<p><code>
+service httpd restart
+</code></p>
+
+<h2>mysql</h2>
+
+<p><code>
+yum install -y mysql-server
+cp /etc/my.cnf /etc/my.cnf.org
+vim /etc/my.cnf
+</code></p>
+
+<h5>/etc/my.cnf</h5>
+
+<p>```
+[mysqld]以下に追加
+character_set_server=utf8
+default-storage-engine=InnoDB
+innodb_file_per_table
+group_concat_max_len=10000000</p>
+
+<p>[mysql]
+default-character-set=utf8</p>
+
+<p>[mysqldump]
+default-character-set=utf8</p>
+
+<p>```</p>
+
+<h3>設定を反映</h3>
+
+<p><code>
+service mysqld start
+chkconfig mysqld on
+</code></p>
+
+<h3>mysqlの初期設定</h3>
+
+<p><code>
+mysql_secure_installation
+mysql -u root -p
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

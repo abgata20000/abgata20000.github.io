@@ -1,0 +1,1219 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AB Lab</title>
+  <meta name="author" content="abgata20000">
+
+  
+  <meta name="description" content="インストール可能なバージョンの確認 1
+sudo yum info --enablerepo=remi php ※執筆時点では5.4.19 利用しそうな依存ライブラリも一緒にインストール 1
+sudo yum --enablerepo=remi install -y php php-devel &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.abgata.org/blog/page/3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50444253-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">AB Lab</a></h1>
+  
+    <h2>abgata20000 blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.abgata.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/PHP_install_newest/">最新版PHPをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>インストール可能なバージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※執筆時点では5.4.19</p>
+
+<h2>利用しそうな依存ライブラリも一緒にインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>バージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定ファイルを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
+</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/php.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
+</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
+</span><span class='line'>display_errors = On
+</span><span class='line'>mbstring.language = Japanese
+</span><span class='line'>expose_php = Off
+</span><span class='line'>date.timezone = Asia/Tokyo
+</span><span class='line'>max_execution_time = 300
+</span><span class='line'>magic_quotes_gpc = Off
+</span><span class='line'>mbstring.internal_encoding = UTF-8
+</span><span class='line'>mbstring.http_input = auto
+</span><span class='line'>mbstring.http_output = pass
+</span><span class='line'>mbstring.detect_order = auto
+</span><span class='line'>;mbstring.substitute_character = none;
+</span><span class='line'>
+</span><span class='line'>max_file_uploads = 100
+</span><span class='line'>post_max_size = 100M
+</span><span class='line'>upload_max_filesize 100M
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>apache再起動で反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/MySQL_insatll_newest/">最新版MySQLをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>インストール可能なバージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum info --enablerepo=remi mysql mysql-server mysql-devel</span></code></pre></td></tr></table></div></figure>
+
+
+<p>※執筆時点では5.5.53</p>
+
+<h2>利用しそうな依存ライブラリも一緒にインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install -y --enablerepo=remi mysql-server mysql-devel
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定ファイルの変更</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
+</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/my.cnf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
+</span><span class='line'>character_set_server=utf8
+</span><span class='line'>default-storage-engine=InnoDB
+</span><span class='line'>innodb_file_per_table
+</span><span class='line'>group_concat_max_len=10000000
+</span><span class='line'>
+</span><span class='line'>[mysql]
+</span><span class='line'>default-character-set=utf8
+</span><span class='line'>
+</span><span class='line'>[mysqldump]
+</span><span class='line'>default-character-set=utf8
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
+</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>mysqlの初期設定</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
+</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/ruby_sinatra/">Ruby_sinatra</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T00:00:00+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: Ruby sinatraでwebサーバー構築category : Sinatratags : [Sinatra, Ruby]&mdash;&ndash;##プロジェクトの下準備<code>bundle init</code>##設定ファイルを記述<code>vim Gemfile</code>#####Gemfile<code># coding: utf-8source "http://rubygems.org"# sinatra本体と便利なプラグインgem "sinatra", require: "sinatra/base"gem "sinatra-contrib", require: "sinatra/contrib/all"# nodejsインストールしていない環境では必要gem "execjs"gem "therubyracer"# 三種の神器gem "haml"gem "sass"gem "coffee-script"</code>##依存ファイルをインストール<code>bundle install --path vendor/bundle</code>##config.ruを作成<code>vim config.ru</code>#####config.ru<code>require 'bundler'Bundler.requirerequire './app'run App</code>##実行ファイル作成<code>vim app.rb</code>#####app.rb<code>class App &lt; Sinatra::Base  register Sinatra::Reloader  get '/' do    'Hello World'  endend</code>##サーバー起動<code>bundle exec rackup -p 3000 -o sample.com</code>##シナトラをユニコーンで起動<code>unicorn -D</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/ruby_mysql/">Ruby_mysql</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T00:00:00+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: gemでmysqlライブラリをインストールするcategory : Rubytags : [Ruby, Gem, MySQL]&mdash;-mysql-develがないとダメみたいなのでyumでインストール
+<code>sudo yum install -y mysql-devel</code>##Gemでライブラリをインストール<code>gem install mysql -- --with-mysql-config=/usr/bin/mysql_configgem install mysql2 -- --with-mysql-config=/usr/bin/mysql_configgem install activerecord-mysql-adaptergem install activerecord-mysql2-adapter
+</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/26/casperjs/">Casper.jsをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-26T06:57:00+09:00" pubdate data-updated="true">Apr 26<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://siguniang.wordpress.com/2013/07/18/capturing-screenshots-with-casperjs/">CasperJSで画面キャプチャをとる</a></li>
+</ul>
+
+
+<h3>Macの場合はhomebrewで一発</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew install phantomjs casperjs</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Phantom.jsをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2
+</span><span class='line'>tar jxfv phantomjs-1.9.1-linux-x86_64.tar.bz2
+</span><span class='line'>sudo cp phantomjs-1.9.1-linux-x86_64/bin/phantomjs  /usr/local/bin/</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Casper.jsをインストール</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget https://github.com/n1k0/casperjs/archive/1.1-beta1.tar.gz
+</span><span class='line'>tar zxfv 1.1-beta1.tar.gz
+</span><span class='line'>cd casperjs-1.1-beta1/
+</span><span class='line'>sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Googleのキャプチャを撮ってみる</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>casper = require("casper").create()
+</span><span class='line'>casper.start "http://google.com/", -&gt;
+</span><span class='line'>          @capture "google.png"
+</span><span class='line'>          return
+</span><span class='line'>
+</span><span class='line'>casper.run()</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/03/angularjs_careful/">AngularJSの注意点</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-03T04:48:00+09:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<p>&ndash;</p>
+
+<h2>POSTでパラメータを送信する際は、設定が必要</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@testApp.config ($httpProvider) -&gt;
+</span><span class='line'>          $httpProvider.defaults.transformRequest = (data = {}) -&gt;
+</span><span class='line'>      $.param(data);
+</span><span class='line'>          $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+</span><span class='line'>
+</span><span class='line'>   @</span></code></pre></td></tr></table></div></figure>
+
+
+<p> そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
+
+<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
+
+<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+
+<h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>url = '/api/action/:id'
+</span><span class='line'>
+</span><span class='line'>model = $resource url, null ,
+</span><span class='line'>  get: {method: 'GET', isArray: false}
+</span><span class='line'>  post: {method: 'POST', isArray: false, params: {id: "@id"}
+</span><span class='line'>  put: {method: 'PUT', isArray: false, params: {id: "@id"}}
+</span><span class='line'>  delete: {method: 'DELETE', isArray: false}
+</span><span class='line'>
+</span><span class='line'>param =
+</span><span class='line'>  id: 1
+</span><span class='line'>  name: 'myName'
+</span><span class='line'>
+</span><span class='line'>model.put param, (res, e) -&gt;
+</span><span class='line'>      console.log res
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
+に反映されるが、
+PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>model = $resource url, {id: "@id"} ,
+</span><span class='line'>  get: {method: 'GET', isArray: false}
+</span><span class='line'>  post: {method: 'POST', isArray: false}
+</span><span class='line'>  put: {method: 'PUT', isArray: false}
+</span><span class='line'>  delete: {method: 'DELETE', isArray: false}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>これでも大丈夫そう。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/30/ftp_server/">FTPサーバーの設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-30T20:00:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://easyramble.com/install-setup-fsftpd.html">FTP サーバー（vsftpd）のインストールと設定 〜 CentOS6</a></li>
+<li><a href="http://www.geocities.co.jp/SiliconValley-PaloAlto/3626/server_setting/vsftpd/20070126_vsftpd.htm">vsftp設定 ～ SSL接続/PASV接続</a></li>
+<li><a href="http://www.aconus.com/~oyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
+</ul>
+
+
+<h2>FTPサーバー導入の経緯</h2>
+
+<p>最近は、GitもしくはSFTPでのファイルのやりとりが多く、</p>
+
+<p>普段、FTPってあんまり使わないのでFTPサーバーをインストールしていなかったのだが、</p>
+
+<p>クライアント様のサーバーでFTPを利用したいとの事だったので設定した。</p>
+
+<p>折角なので、備忘録として記載しておくことに</p>
+
+<h2>vsftpd のインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install vsftpd
+</span><span class='line'>
+</span><span class='line'>sudo service vsftpd start
+</span><span class='line'>
+</span><span class='line'>sudo chkconfig vsftpd on</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で、後はポート開放して完了。</p>
+
+<p>結構あっさりですね。</p>
+
+<p>ただ、このまま使うにはあまりにも無防備すぎるのと、</p>
+
+<p>今回のクライアント様のご要望は、SSL通信での利用を想定との事だったため、もう少し設定する。</p>
+
+<h2>一般設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/vsftpd/vsftpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>anonymous_enable=NO
+</span><span class='line'># Anonymous FTP接続の禁止。
+</span><span class='line'>
+</span><span class='line'>local_enable=YES
+</span><span class='line'># ローカルユーザのログインを許可。
+</span><span class='line'>
+</span><span class='line'>write_enable=YES
+</span><span class='line'># 書き込み(Upload)許可。公開専用の場合はNOにすると書き込み禁止にできる。
+</span><span class='line'>
+</span><span class='line'>local_umask=022
+</span><span class='line'># ローカルユーザのumask値。
+</span><span class='line'>
+</span><span class='line'>listen_port=10021
+</span><span class='line'># FTP制御チャンネルの接続待ち受けポートの指定。
+</span><span class='line'># デフォルトポートの利用には抵抗がある
+</span><span class='line'>
+</span><span class='line'>connect_from_port_20=NO
+</span><span class='line'># Activeモード時のデータコネクションポートの指定。
+</span><span class='line'># 今回はpasv接続にするのでNO。
+</span><span class='line'>
+</span><span class='line'>nopriv_user=ftp
+</span><span class='line'># vsftpが利用する非特権ユーザ名の指定を ftp に指定。
+</span><span class='line'>
+</span><span class='line'>chroot_local_user=YES
+</span><span class='line'># ローカルユーザの操作範囲を自身のホームディレクトリ内のみに行動を制限(chroot)する。
+</span><span class='line'>
+</span><span class='line'>chroot_list_enable=NO
+</span><span class='line'># 「chroot_local_user=YES」とした場合にchrootしない例外ユーザを許可しないに指定。
+</span><span class='line'># YESにした場合「chroot_list_file=/etc/vsftpd.chroot_list」を登録
+</span><span class='line'>
+</span><span class='line'>ftpd_banner=Welcome to blah FTP service.
+</span><span class='line'># クライアントソフト名が表示されるのを変更
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>SSL関係設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/vsftpd/vsftpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rsa_cert_file=/etc/ssl/certs/vsftp.pem
+</span><span class='line'># vsftpd用の証明書ファイルの指定。SSL証明書の発行方法は省略
+</span><span class='line'>
+</span><span class='line'>rsa_private_key_file=/etc/ssl/certs/vsftp.key
+</span><span class='line'># vsftpd用の秘密鍵ファイル
+</span><span class='line'>
+</span><span class='line'>rsa_cert_file=/etc/ssl/certs/ftp.pem
+</span><span class='line'># vsftpd用の証明書ファイルの指定。SSL証明書の発行方法は省略
+</span><span class='line'>
+</span><span class='line'>use_localtime=YES
+</span><span class='line'># 時刻の扱いをローカルタイムにする。
+</span><span class='line'>
+</span><span class='line'>userlist_enable=YES
+</span><span class='line'># ユーザリストによる規制をかける。
+</span><span class='line'>
+</span><span class='line'>userlist_deny=YES
+</span><span class='line'># ユーザリストをログイン不可ユーザの一覧とする。（NOだとログイン可のユーザ一覧になる）
+</span><span class='line'>
+</span><span class='line'>userlist_file=/etc/ftpusers
+</span><span class='line'># ユーザリストの指定。
+</span><span class='line'>
+</span><span class='line'>pasv_min_port=30000
+</span><span class='line'># Pasv接続で外部からのコネクション利用を許可するポート範囲の最小値。
+</span><span class='line'>
+</span><span class='line'>pasv_max_port=30100
+</span><span class='line'># Pasv接続で外部からのコネクション利用を許可するポート範囲の最大値。
+</span><span class='line'>
+</span><span class='line'>ssl_enable=YES
+</span><span class='line'># SSL接続の有効化
+</span><span class='line'>
+</span><span class='line'>ssl_tlsv1=YES
+</span><span class='line'># vsftpd はSSLのプロトコルとして、SSL v2(ssl_sslv2)、SSL v3(ssl_sslv3)、TLS v1(ssl_tlsv1)の3種類をサポートしているが、デフォルトはTLS v1であり、多くの場合、この設定で問題ないのでデフォルトのままとする。
+</span><span class='line'>
+</span><span class='line'>force_local_logins_ssl=YES
+</span><span class='line'># 制御チャンネル（ログイン等）でSSL接続しか許可しない。
+</span><span class='line'>
+</span><span class='line'>force_local_data_ssl=YES
+</span><span class='line'># データチャンネルでSSL接続しか許可しない。
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>再起動で反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service vsftpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>FTPS接続の種類</h2>
+
+<p>【FTP over SSL には Explicit、Implicitの2種類がある】</p>
+
+<p>違いはコネクションを張る際にクライアントが明示的にSSL化を要求するか、暗黙でSSL化するか。</p>
+
+<h3>Explicit</h3>
+
+<p>Conntct直後にSSLに切り替える要求をクライアントから明示的に送信する（ここは平文）。</p>
+
+<p>この際にポートは平文時と同じポート21等を使う（参考：RFC2228）。
+その後Login及びデータはSSL化される。</p>
+
+<p>従来の平文運用との併用は比較的し易そう。別途SSL用にポートも使わないので。</p>
+
+<p>ただしSSL切り替えのオーバーヘッドが少しあるが余程のトラフィックがなければ気にならない程度だとは思う。</p>
+
+<h3>Implicit</h3>
+
+<p>Conntct直後以降クライアント/サーバは自動的に暗黙でSSL化する。
+この際ポート990などのSSL用に設けたポートを使う。</p>
+
+<p>SSLでしか接続させない仕様。</p>
+
+<p>ポート990はクライアント/サーバの設定次第なので変更できるだろうが、このポートを使って従来の平文接続はできないのが大きな違いか。</p>
+
+<p>いずれの場合もデータのセキュアさには差は無いと思う。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/30/ssh_key/">SSHの公開鍵認証</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-30T10:21:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://fnya.cocolog-nifty.com/blog/2012/03/centos-ssh-8291.html">CentOS で公開鍵暗号方式を使用した SSH ログイン設定</a></li>
+</ul>
+
+
+<h2>秘密鍵と公開鍵を作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -t rsa</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>公開鍵を転送</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp -P 22 id_rsa.pub user@hostname/.ssh</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>公開鍵を設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+</span><span class='line'>chmod 600 ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>SSHで公開鍵認証を設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/ssh/sshd_config</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>sshdを再起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service sshd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>公開鍵でSSH接続する</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i ~/.ssh/id_rsa user@hostname</span></code></pre></td></tr></table></div></figure>
+
+
+<p>~/.ssh/id_rsa であれば省略可能</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/16/net_http_response_bug_patch/">net/http/response.rbのバグ修正</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-16T10:15:00+09:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></li>
+</ul>
+
+
+<h2>概要</h2>
+
+<p>Rubyでブログ投稿しようと頑張っていたら、ハマった。</p>
+
+<p>xml-rpcで投稿していた所、</p>
+
+<p>jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、</p>
+
+<p>FC2に投稿しようとするとエラーが出る。</p>
+
+<pre><code>Wrong size. Was 31564, should be 1501
+</code></pre>
+
+<p>いろいろ調べてみたらどうやらRubyの標準ライブラリの</p>
+
+<p><strong>net/http/response.rb</strong></p>
+
+<p>のバグらしい</p>
+
+<p><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></p>
+
+<p>で修正パッチが記載してあったので、こちらを利用することに</p>
+
+<h2>他の対応方法</h2>
+
+<p>response.rb を書き換える方法ではなく、</p>
+
+<p>libxml というライブラリを使う方法もあるようだが、</p>
+
+<p>今回は修正パッチの方法で対応</p>
+
+<p>※railsでxml/libxml がないとか言われたり、関数の表現変わったりで面倒だったので</p>
+
+<h2>修正方法</h2>
+
+<pre><code>rbenv version
+</code></pre>
+
+<p>で現在利用しているrubyのバージョンと場所を確認</p>
+
+<pre><code>.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
+</code></pre>
+
+<p>内の</p>
+
+<p> <strong>response.rb</strong>を書き換える</p>
+
+<p> 修正箇所は参考URLを参照</p>
+
+<p> 一応、修正したファイルをgithubにあげておいたので、</p>
+
+<p> 今後は、こちらをpullしてコピーで対応しようと思う</p>
+
+<p> シェルスクリプト書くかどうか検討中</p>
+
+<p> <a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>参考サイト</h2>
+
+<ul>
+<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
+<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+</ul>
+
+
+<h2>設定ファイルをDropBoxに移す</h2>
+
+<h3>本来の設定ファイルがある場所</h3>
+
+<ul>
+<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
+<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
+</ul>
+
+
+<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
+
+<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
+
+<h3>mac</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>win</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
+</span><span class='line'>
+</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages"
+</span><span class='line'>
+</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/4/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/2/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近の記事</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/graphicsmagick_install/">Graphicsmagicをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/ffmepg_install_from_yum/">fffmepgをYumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHubレポジトリ</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/abgata20000">@abgata20000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'abgata20000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - abgata20000 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'abgata20000';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

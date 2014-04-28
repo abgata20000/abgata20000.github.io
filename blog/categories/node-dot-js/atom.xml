@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Node.js | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/node-dot-js/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Node.jsをnodebrewでインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew</id>
+    <content type="html"><![CDATA[<h2>nodebrewをインストール</h2>
+
+<p>```
+curl <a href="https://raw.github.com/hokaccha/nodebrew/master/nodebrew">https://raw.github.com/hokaccha/nodebrew/master/nodebrew</a> | perl &ndash; setup</p>
+
+<h1>ユーザーディレクトリにインストールされるので、全ユーザーで利用する場合はノードユーザー作ってインストールして共通パス通すのがいいかも</h1>
+
+<p>useradd node</p>
+
+<p>cd /home/node</p>
+
+<p>chmod -R 777 /home/node</p>
+
+<p>echo &lsquo;export PATH=&ldquo;/home/node/.nodebrew/current/bin:$PATH&rdquo;&rsquo;     >> /etc/profile.d/nodebrew.sh</p>
+
+<h1>echo &lsquo;export PATH=&ldquo;/home/node/.nodebrew/current/bin:$PATH&rdquo;&rsquo;     >> /etc/profile.d/nodebrew.sh</h1>
+
+<p>source /etc/profile.d/nodebrew.sh</p>
+
+<p>echo $PATH</p>
+
+<h1>ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</h1>
+
+<p>```</p>
+
+<h2>nodeグループを作成</h2>
+
+<p>```
+groupadd node
+usermod -G wheel,node myuser</p>
+
+<h1>usermod -G wheel,node,ruby myuser</h1>
+
+<p>groups myuser
+```</p>
+
+<h2>.nodebrewの所有グループを変更</h2>
+
+<p><code>
+cd /home/node
+chgrp -R node .nodebrew
+chmod -R g+rwxX .nodebrew
+</code></p>
+
+<h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
+
+<p><code>
+sudo chgrp wheel /root
+</code></p>
+
+<h2>インストール可能なバージョンの確認</h2>
+
+<p>```
+nodebrew ls-all</p>
+
+<h1>奇数バージョンは開発版、偶数バージョンが安定版らしい</h1>
+
+<p>```</p>
+
+<h2>インストール(バイナリからインストールしたほうが速い)</h2>
+
+<p>```
+nodebrew install-binary v0.10.20</p>
+
+<h1>インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</h1>
+
+<p>```</p>
+
+<h2>利用するバージョンを変更</h2>
+
+<p><code>
+nodebrew use v0.10.20
+</code></p>
+
+<h2>現在のバージョンを確認</h2>
+
+<p><code>
+node -v
+</code></p>
+
+<h2>サーバーサンプル</h2>
+
+<p>```
+var http = require(&lsquo;http&rsquo;);</p>
+
+<p>http.createServer(function (request, response) {
+  response.writeHead(200, {&lsquo;Content-Type&rsquo;: &lsquo;text/plain&rsquo;});
+  response.end(&lsquo;Hello Node.js&rsquo;);
+}).listen(8124);</p>
+
+<p>console.log(&lsquo;Server running at <a href="http://localhost:8124">http://localhost:8124</a>&rsquo;);
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

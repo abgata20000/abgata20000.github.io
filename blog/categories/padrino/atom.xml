@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Padrino | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/padrino/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Padrinoの使い方]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/Padrino/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/Padrino</id>
+    <content type="html"><![CDATA[<p>```
+padrino generate project rss -t shoulda -e haml -c sass -s jquery -d mongoid</p>
+
+<p>padrino generate project rss3 -t shoulda -e haml -c sass -s jquery -d activerecord</p>
+
+<p>padrino generate project rss4 -t shoulda -e haml -c scss -s jquery -d activerecord -a mysql2 -b
+```</p>
+
+<h2>テンプレートを使ってプロジェクトを作成</h2>
+
+<p><code>
+padrino g project sample001 --template template.rb &amp;&amp; cd sample001
+</code></p>
+
+<h2>Accountモデルを作成</h2>
+
+<p>```
+padrino g model Account provider:string uid:string name:string email:string role:string token:string</p>
+
+<p>padrino rake ar:create
+padrino rake ar:migrate
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

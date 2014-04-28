@@ -1,8 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/Padrino/</loc>
+        <lastmod>2014-04-28T23:52:55+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/Ruby_Apache/</loc>
+        <lastmod>2014-04-28T23:47:46+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/git_push_refresh/</loc>
         <lastmod>2014-04-28T21:15:54+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/install_for_gem/</loc>
+        <lastmod>2014-04-28T23:42:43+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mongodb_for_php/</loc>
@@ -14,7 +26,7 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mysql_backup/</loc>
-        <lastmod>2014-04-28T21:15:54+09:00</lastmod>
+        <lastmod>2014-04-29T00:37:48+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install/</loc>
@@ -33,8 +45,28 @@
         <lastmod>2014-04-28T23:15:10+09:00</lastmod>
     </url>
     <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/rmagick_install/</loc>
+        <lastmod>2014-04-28T23:45:59+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/ruby_mongodb/</loc>
+        <lastmod>2014-04-28T23:49:13+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/select_for_update/</loc>
         <lastmod>2014-04-28T23:05:18+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/</loc>
+        <lastmod>2014-04-28T23:34:12+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/23/Selenium/</loc>
+        <lastmod>2014-04-28T23:40:10+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/23/ruby_install_by_rbenv/</loc>
+        <lastmod>2014-04-29T00:03:15+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/23/zsh_install/</loc>
@@ -53,8 +85,112 @@
         <lastmod>2014-04-28T22:27:19+09:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.abgata.org/blog/2014/02/03/angularjs_+careful/</loc>
+        <loc>http://blog.abgata.org/blog/2014/01/16/net_http_response_bug_patch/</loc>
+        <lastmod>2014-04-28T21:15:54+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/01/30/ssh_key/</loc>
+        <lastmod>2014-04-29T00:11:44+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/01/30/ftp_server/</loc>
+        <lastmod>2014-04-29T00:23:13+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/02/03/angularjs_careful/</loc>
         <lastmod>2014-04-28T22:20:41+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/26/casperjs/</loc>
+        <lastmod>2014-04-29T00:05:05+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/ruby_mysql/</loc>
+        <lastmod>2014-04-28T23:50:43+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/ruby_sinatra/</loc>
+        <lastmod>2014-04-28T23:38:30+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/MySQL_insatll_newest/</loc>
+        <lastmod>2014-04-29T00:36:43+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/PHP_install_newest/</loc>
+        <lastmod>2014-04-29T00:37:00+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/SELinux/</loc>
+        <lastmod>2014-04-29T00:42:34+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/</loc>
+        <lastmod>2014-04-29T00:20:31+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/epel_remi_install/</loc>
+        <lastmod>2014-04-29T00:32:24+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/folder_backup/</loc>
+        <lastmod>2014-04-29T00:36:11+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/forever_install/</loc>
+        <lastmod>2014-04-29T00:07:48+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/grape_on_rails/</loc>
+        <lastmod>2014-04-28T23:55:10+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew/</loc>
+        <lastmod>2014-04-29T00:04:34+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/iptables/</loc>
+        <lastmod>2014-04-29T00:22:46+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/linux_server_setting/</loc>
+        <lastmod>2014-04-29T00:30:48+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/pm2_install/</loc>
+        <lastmod>2014-04-29T00:07:07+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/rails_task/</loc>
+        <lastmod>2014-04-28T23:56:03+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/rails_unicorn/</loc>
+        <lastmod>2014-04-28T23:57:26+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/run_background/</loc>
+        <lastmod>2014-04-29T00:38:36+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/samba_setting/</loc>
+        <lastmod>2014-04-29T00:42:03+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/ssl_keyfile/</loc>
+        <lastmod>2014-04-29T00:15:04+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/ssl_settiong/</loc>
+        <lastmod>2014-04-29T00:15:36+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/webmin_install/</loc>
+        <lastmod>2014-04-29T00:18:28+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/whenever/</loc>
+        <lastmod>2014-04-28T23:58:46+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/12/26/ffmepg_install_from_yum/</loc>
@@ -66,11 +202,11 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/archives/</loc>
-        <lastmod>2014-04-28T23:15:10+09:00</lastmod>
+        <lastmod>2014-04-29T00:42:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/</loc>
-        <lastmod>2014-04-28T23:15:10+09:00</lastmod>
+        <lastmod>2014-04-29T00:42:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/links.html</loc>

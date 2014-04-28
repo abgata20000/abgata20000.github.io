@@ -248,7 +248,7 @@ $(document).ready( function () {
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2014/02/03/angularjs_+careful/">AngularJSの注意点</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a></h1>
     
     
       <p class="meta">
@@ -264,7 +264,7 @@ $(document).ready( function () {
   
 
 
-<time datetime="2014-02-03T04:48:00+09:00" pubdate data-updated="true">Feb 3<span>rd</span>, 2014</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
@@ -273,31 +273,88 @@ $(document).ready( function () {
 
   <div class="entry-content"><h3>参考サイト</h3>
 
-<p>&ndash;</p>
+<ul>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
 
-<h2>POSTでパラメータを送信する際は、設定が必要</h2>
+<h2>登録内容の確認</h2></li>
+</ul>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@testApp.config ($httpProvider) -&gt;
-</span><span class='line'>          $httpProvider.defaults.transformRequest = (data = {}) -&gt;
-</span><span class='line'>      $.param(data);
-</span><span class='line'>          $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-</span><span class='line'>
-</span><span class='line'>   @</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever</span></code></pre></td></tr></table></div></figure>
 
 
-<p> そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
+<p>を実行するとcrontabの内容をコンソール出力。
+この時点ではまだcrontabに登録されてはいない。</p>
 
-<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
+<h2>Crontabへ登録</h2>
 
-<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --update-crontab</span></code></pre></td></tr></table></div></figure>
 
-<h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
+
+<p>–update-crontabオプションをつけるとcrontabに登録する。
+Whenever以外で登録されていたジョブが上書きされることはない。</p>
+
+<h2>Crontabから削除</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --clear-crontab</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cronを止めたい場合は–clear-crontabですべて削除。
+登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考：</h3>
+
+<ul>
+<li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
+</ul>
+
+
+<h2>インストールに必要なパールモジュールをインストールする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> yum -y install perl-Net-SSLeay</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>最新版を入手</h3>
+
+<p><a href="http://download.webmin.com/download/yum/">公式サイト</a></p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -313,40 +370,27 @@ $(document).ready( function () {
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>url = '/api/action/:id'
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir /downloads
+</span><span class='line'>cd /downloads
 </span><span class='line'>
-</span><span class='line'>model = $resource url, null ,
-</span><span class='line'>  get: {method: 'GET', isArray: false}
-</span><span class='line'>  post: {method: 'POST', isArray: false, params: {id: "@id"}
-</span><span class='line'>  put: {method: 'PUT', isArray: false, params: {id: "@id"}}
-</span><span class='line'>  delete: {method: 'DELETE', isArray: false}
+</span><span class='line'>wget http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm
 </span><span class='line'>
-</span><span class='line'>param =
-</span><span class='line'>  id: 1
-</span><span class='line'>  name: 'myName'
+</span><span class='line'>rpm -Uvh webmin-1.630-1.noarch.rpm
 </span><span class='line'>
-</span><span class='line'>model.put param, (res, e) -&gt;
-</span><span class='line'>      console.log res
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'># アクセス制限を掛ける場合
+</span><span class='line'>cp /etc/webmin/miniserv.conf /etc/webmin/miniserv.conf.org
+</span><span class='line'>vim /etc/webmin/miniserv.conf
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'> # 最終行：アクセス許可するIP追記
+</span><span class='line'>allow=127.0.0.1 10.0.0.0/24</span></code></pre></td></tr></table></div></figure>
 
 
-<p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
-に反映されるが、
-PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
+<h3>再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>model = $resource url, {id: "@id"} ,
-</span><span class='line'>  get: {method: 'GET', isArray: false}
-</span><span class='line'>  post: {method: 'POST', isArray: false}
-</span><span class='line'>  put: {method: 'PUT', isArray: false}
-</span><span class='line'>  delete: {method: 'DELETE', isArray: false}</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service webmin restart</span></code></pre></td></tr></table></div></figure>
 
-
-<p>これでも大丈夫そう。</p>
 </div>
   
   
@@ -359,7 +403,7 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a></h1>
     
     
       <p class="meta">
@@ -375,54 +419,23 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   
 
 
-<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>参考サイト</h2>
-
-<ul>
-<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
-<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-</ul>
-
-
-<h2>設定ファイルをDropBoxに移す</h2>
-
-<h3>本来の設定ファイルがある場所</h3>
-
-<ul>
-<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
-<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
-</ul>
-
-
-<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
-
-<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
-
-<h3>mac</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>win</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
+</pre></td><td class='code'><pre><code class=''><span class='line'># sslモジュールをインストール
+</span><span class='line'>sudo yum -y install mod_ssl
 </span><span class='line'>
-</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
+</span><span class='line'>cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org
+</span><span class='line'>vim /etc/httpd/conf.d/ssl.conf
 </span></code></pre></td></tr></table></div></figure>
 
 </div>
@@ -437,7 +450,7 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a></h1>
     
     
       <p class="meta">
@@ -453,398 +466,14 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   
 
 
-<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><h2>参考サイト</h2>
-
-<ul>
-<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
-</ul>
-
-
-<h2>パッケージインストールできるようにする</h2>
-
-<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>cmd + shift + p でパッケージインストールを実行可能に</p>
-
-<h2>インストールするもの</h2>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_2_setting_share/">Sublime Text 2 で設定を共有</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>参考サイト</h2>
-
-<ul>
-<li><a href="http://webdrawer.net/tools/sublimedropbox.html">Sublime Text 2の設定をDropboxで共有して便利にする</a></li>
-<li><a href="http://qiita.com/Drunkar/items/6de34913afc554e3824b">Sublime Text 2の設定をDropboxで共有する</a></li>
-<li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
-</ul>
-
-
-<h2>設定ファイルをDropBoxに移す</h2>
-
-<h3>本来の設定ファイルがある場所</h3>
-
-<ul>
-<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</li>
-<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 2/</li>
-<li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
-</ul>
-
-
-<p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
-
-<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
-
-<h3>mac</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>win</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 2\
-</span><span class='line'>
-</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Pristine Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages"
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/23/zsh_install/">Zshのインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-23T00:32:00+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://linuxserver.jp/linux/zsh%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.php">Linuxで自宅サーバ構築 » Linux » ZSHのインストール</a></li>
-</ul>
-
-
-<h3>zshがインストールされているかを確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>zsh --version
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>yumでzshをインストール</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install zsh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>zshの起動とログイン・シェルの設定</h2>
-
-<h3>現在使用しているshellの確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>echo $SHELL
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>使用可能なshellの確認</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cat /etc/shells
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>ログイン・シェルに設定</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chsh -s /bin/zsh
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>zshの設定をgithubから取得して反映する</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>git clone https://github.com/abgata20000/zsh.d.git ~/.zsh.d
-</span><span class='line'>echo "source ~/.zsh.d/zshrc" &gt; ~/.zshrc
-</span><span class='line'>echo "source ~/.zsh.d/zshenv" &gt; ~/.zshenv
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>ログインし直すと反映される
-※ユーザー毎に設定</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/select_for_update/">Select_for_updateについて(並列処理の運用)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
-<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
-<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
-</ul>
-
-
-<h2>サンプル</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>begin;
-</span><span class='line'>
-</span><span class='line'>select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
-</span><span class='line'>
-</span><span class='line'>commit;
-</span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>注意点</h3>
-
-<ul>
-<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
-<li>for update をつけていないクエリはロックされない</li>
-<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
-</ul>
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>であればロックされない</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>であればロックされる</p>
-
-<h2>ActiveRecordでの利用方法</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Sample.transaction do
-</span><span class='line'>  # select * from table where flg = 0 limit 1 for update
-</span><span class='line'>  @target = Sample.where("flg = 0 ").lock(true).first
-</span><span class='line'>
-</span><span class='line'>  @target['flg'] = 1
-</span><span class='line'>  @target.save
-</span><span class='line'>
-</span><span class='line'>end
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/nginx_with_apache/">Nginxとapacheの共存</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考URL:</h3>
-
-<ul>
-<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
-</ul>
-
-
-<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd-devel
-</span><span class='line'>
-</span><span class='line'>cd /root/tmp
-</span><span class='line'>wget http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>tar zxf extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>cd extract_forwarded
-</span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>apacheの実行ユーザーとポートを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/httpd/conf/httpd.conf</h5>
+  <div class="entry-content"><h2>SSL証明書の発行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -862,22 +491,47 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Listen 8080
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/pki/tls/certs
+</span><span class='line'># 鍵ファイル作成用の乱数を発行
+</span><span class='line'>openssl md5 * &gt; my_rand.dat
 </span><span class='line'>
-</span><span class='line'>#####
-</span><span class='line'>User nginx
-</span><span class='line'>Group nginx
-</span><span class='line'>#####
-</span><span class='line'>ServerName sample.jp:8080
+</span><span class='line'># 鍵ファイルを作成
+</span><span class='line'>openssl genrsa -rand my_rand.dat -des3 2048 &gt; my_key.pem
 </span><span class='line'>
-</span><span class='line'># 最終行に追加
-</span><span class='line'>MEForder refuse,accept
-</span><span class='line'>MEFrefuse all
-</span><span class='line'># Nginx（リバースプロキシ）のIPアドレス
-</span><span class='line'>MEFaccept 127.0.0.1
+</span><span class='line'># 鍵ファイル内にパスプレーズを埋め込む
+</span><span class='line'>openssl rsa -in my_key.pem -out my_key.pem
+</span><span class='line'>
+</span><span class='line'># ssl認証局提出用のcsrファイルを作成※このままでは使えません
+</span><span class='line'>openssl req -new -key my_key.pem -out my_csr.pem
+</span><span class='line'>
+</span><span class='line'># オレオレ証明書を作成
+</span><span class='line'>openssl req -new -x509 -days 3650 -key my_key.pem -out my_crt.pem
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>アクセス権変更
+</span><span class='line'>chmod 400 my_key.pem
+</span><span class='line'>chmod 400 my_crt.pem
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>vim /etc/httpd/conf.d/ssl.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf.d/ssl.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>SSLCertificateFile /etc/pki/tls/certs/my_crt.pem
+</span><span class='line'>
+</span><span class='line'>SSLCertificateKeyFile /etc/pki/tls/certs/my_key.pem
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>apacheを再起動して設定を反映</p>
@@ -885,16 +539,56 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
 
+</div>
+  
+  
 
-<h2>nginxでの転送設定</h2>
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/samba_setting/">Sambaでネットワークフォルダを作成</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>sambaをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum -y install samba system-config-samba samba-common samba-client</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
-</span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/samba/smb.conf /etc/samba/smb.conf.org
+</span><span class='line'>vim /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>default.conf</h5>
+<h5>/etc/samba/smb.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -922,74 +616,109 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <span class='line-number'>24</span>
 <span class='line-number'>25</span>
 <span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#デフォルトサーバー
-</span><span class='line'>server {
-</span><span class='line'>    listen       80;
-</span><span class='line'>    server_name  backend;
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>;ワークグループ編集(windowsのものと同じにする。macは関係なし？)
+</span><span class='line'>workgroup = workgroup
 </span><span class='line'>
-</span><span class='line'>    # このサーバへの全てのアクセスを転送
-</span><span class='line'>    location / {
-</span><span class='line'>            proxy_pass http://127.0.0.1:8080;
-</span><span class='line'>            proxy_redirect                         off;
+</span><span class='line'>;日本語設定
+</span><span class='line'>unix charset = UTF-8
+</span><span class='line'>dos charset = CP932
+</span><span class='line'>display charset = UTF-8
 </span><span class='line'>
-</span><span class='line'>            # この設定がなくても.htaccessでの制限は可能。
-</span><span class='line'>            # ただし、cgi等から参照した際にNginxのIPアドレスになる。
-</span><span class='line'>            proxy_set_header Host                   $host;
+</span><span class='line'>;受け付けるipを設定
+</span><span class='line'>;127.で、127.xx.xx.xxを許可
+</span><span class='line'>;hosts allow = 127.192.168.1など
 </span><span class='line'>
-</span><span class='line'>            proxy_set_header X-Real-IP              $remote_addr;
+</span><span class='line'>;パスワードをunixパスワードと同じに。
+</span><span class='line'>unix password sync = yes
+</span><span class='line'>load printers = no
 </span><span class='line'>
-</span><span class='line'>            # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
-</span><span class='line'>            proxy_set_header X-Forwarded-Host      $host;
-</span><span class='line'>            proxy_set_header X-Forwarded-Server    $host;
+</span><span class='line'>;ホームディレクトリの設定
+</span><span class='line'>[homes]
+</span><span class='line'>        comment = Home Directories
+</span><span class='line'>        browseable = no
+</span><span class='line'>        writable = yes
+</span><span class='line'>        create mask = 0664
+</span><span class='line'>        directory mask = 0755
+</span><span class='line'>        create mode = 0775
+</span><span class='line'>        directory mode = 0755
+</span><span class='line'>      ;valid users = user1,user2,user3,user4,user5
+</span><span class='line'>      share modes = yes
+</span><span class='line'>          dos filetimes = yes
 </span><span class='line'>
-</span><span class='line'>            # この設定がなくてもcgi等から正しいIPを確認可能。
-</span><span class='line'>            # ただし、.htaccessでの制限は不可。
-</span><span class='line'>            proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
-</span><span class='line'>    }
-</span><span class='line'>}
-</span><span class='line'>
+</span><span class='line'>;共通のpublicフォルダも設定
+</span><span class='line'>[public]
+</span><span class='line'>        comment = Public Stuff
+</span><span class='line'>        path = /home/public
+</span><span class='line'>        create mask = 0666
+</span><span class='line'>        directory mask = 0755
+</span><span class='line'>        guest only = no
+</span><span class='line'>        guest ok = no
+</span><span class='line'>        public = yes
+</span><span class='line'>        writable = yes
+</span><span class='line'>      share modes = yes
+</span><span class='line'>          dos filetimes = yes
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>最初に↓入れたほうがいいかも？？</p>
+<h2>sambaにユーザ追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># キャッシュ関連設定
-</span><span class='line'>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
-</span><span class='line'>proxy_temp_path   /var/tmp/nginx;
-</span><span class='line'>proxy_cache_key   "$scheme://$host$request_uri";
-</span><span class='line'>proxy_set_header  Host               $host;
-</span><span class='line'>proxy_set_header  X-Real-IP          $remote_addr;
-</span><span class='line'>proxy_set_header  X-Forwarded-Host   $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-Server $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
+</pre></td><td class='code'><pre><code class=''><span class='line'>adduser myuser
+</span><span class='line'>passwd myuser
+</span><span class='line'>pdbedit -a -u myuser
 </span><span class='line'>
-</span><span class='line'># バックエンドサーバ−（Apache）設定
-</span><span class='line'>upstream backend {
-</span><span class='line'>    # ip_hash;
-</span><span class='line'>    server 127.0.0.1:8080;
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>pdbedit -L</span></code></pre></td></tr></table></div></figure>
 
 
-<p>nginxを再起動して設定を反映</p>
+<h2>samba起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service smb start
+</span><span class='line'>service nmb start</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>問題なければ、自動起動に。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig smb on
+</span><span class='line'>chkconfig nmb on</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>samba用にiptables編集(下記を追加)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-A INPUT -p udp -m udp --dport 137:138 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
+</span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>iptables再起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service iptables restart</span></code></pre></td></tr></table></div></figure>
 
 </div>
   
@@ -1003,7 +732,7 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/12/22/nginx_install/">Nginxのインストール</a></h1>
+      <h1 class="entry-title"><a href="/blog/2014/04/28/run_background/">バックグラウンドでプログラムを実行</a></h1>
     
     
       <p class="meta">
@@ -1019,86 +748,147 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   
 
 
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/nginx.repo</span></code></pre></td></tr></table></div></figure>
+  <div class="entry-content"><h2>バックグランドで実行</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>/etc/yum.repos.d/nginx.repo</h5>
+<h2>実行中のスクリプトを確認</h2>
+
+<p><code>ps ax | grep ruby</code>##実行中のスクリプトを停止<code>kill processid</code></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/rails_unicorn/">Railsをrunicornで起動</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>unicorn -c config/unicorn.rb -D</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>現在実行中のプロセスを探す</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ps ax | grep unicorn</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>停止</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>kill process_id</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/rails_task/">Railsでtaskを作成</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a>
+
+<h2>タスクファイルの作成</h2>
+
+<code>rails g task  task_name</code>
+lib/task/task_name.rake が作成される
+
+<h5>lib/task/task_name.rake</h5>
+
+<p>&#8220;`
+desc &ldquo;Sample です&rdquo; #=> 説明
+task :sample => :environment do
+  print &lsquo;hello sample.&rsquo;
+end</p></li>
+</ul>
+
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[nginx]
-</span><span class='line'>name=nginx repo
-</span><span class='line'>baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
-</span><span class='line'>gpgcheck=0
-</span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install -y nginx
-</span><span class='line'>
-</span><span class='line'>cd /etc/nginx
-</span><span class='line'>sudo mkdir sites-avalable
-</span><span class='line'>sudo mkdir sites-enabled
-</span><span class='line'># sudo rm -f conf.d/*.conf
-</span><span class='line'>
-</span><span class='line'>cd conf.d
-</span><span class='line'>cp default.conf default.conf.org
-</span><span class='line'>cp example_ssl.conf example_ssl.conf.org
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.org
-</span><span class='line'>
-</span><span class='line'>sudo vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/nginx/nginx.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># 下から二行目に追加
-</span><span class='line'>
-</span><span class='line'>include /etc/nginx/sites-enabled/*;
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>##実行
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h1>自動起動をON</h1>
+<p>rake task_name:sample</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx start
-</span><span class='line'>
-</span><span class='line'>chkconfig nginx on
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>##確認
 </span></code></pre></td></tr></table></div></figure>
 
+
+<p>rake -vT
+&#8220;`</p>
 </div>
   
   
@@ -1129,15 +919,15 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
       </li>
     
       <li class="post">
-        <a href="/blog/2014/02/03/angularjs_+careful/">AngularJSの注意点</a>
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a>
+        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a>
+        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

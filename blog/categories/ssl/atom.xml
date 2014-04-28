@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SSL | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/ssl/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SSLの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/ssl_settiong/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/ssl_settiong</id>
+    <content type="html"><![CDATA[<p>```</p>
+
+<h1>sslモジュールをインストール</h1>
+
+<p>sudo yum -y install mod_ssl</p>
+
+<p>cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org
+vim /etc/httpd/conf.d/ssl.conf</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SSL証明書の発行方法]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/ssl_keyfile/"/>
+    <updated>2014-04-28T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/ssl_keyfile</id>
+    <content type="html"><![CDATA[<h2>SSL証明書の発行</h2>
+
+<p>```
+cd /etc/pki/tls/certs</p>
+
+<h1>鍵ファイル作成用の乱数を発行</h1>
+
+<p>openssl md5 * > my_rand.dat</p>
+
+<h1>鍵ファイルを作成</h1>
+
+<p>openssl genrsa -rand my_rand.dat -des3 2048 > my_key.pem</p>
+
+<h1>鍵ファイル内にパスプレーズを埋め込む</h1>
+
+<p>openssl rsa -in my_key.pem -out my_key.pem</p>
+
+<h1>ssl認証局提出用のcsrファイルを作成※このままでは使えません</h1>
+
+<p>openssl req -new -key my_key.pem -out my_csr.pem</p>
+
+<h1>オレオレ証明書を作成</h1>
+
+<p>openssl req -new -x509 -days 3650 -key my_key.pem -out my_crt.pem</p>
+
+<p>アクセス権変更
+chmod 400 my_key.pem
+chmod 400 my_crt.pem</p>
+
+<p>vim /etc/httpd/conf.d/ssl.conf
+```</p>
+
+<h5>/etc/httpd/conf.d/ssl.conf</h5>
+
+<p>```
+SSLCertificateFile /etc/pki/tls/certs/my_crt.pem</p>
+
+<p>SSLCertificateKeyFile /etc/pki/tls/certs/my_key.pem</p>
+
+<p>```</p>
+
+<p>apacheを再起動して設定を反映</p>
+
+<p><code>
+service httpd restart
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

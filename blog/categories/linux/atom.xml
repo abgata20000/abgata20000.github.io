@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Linux | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-04-28T23:16:38+09:00</updated>
+  <updated>2014-04-29T00:43:34+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,204 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[FTPサーバーの設定]]></title>
+    <link href="http://blog.abgata.org/blog/2014/01/30/ftp_server/"/>
+    <updated>2014-01-30T20:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/01/30/ftp_server</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://easyramble.com/install-setup-fsftpd.html">FTP サーバー（vsftpd）のインストールと設定 〜 CentOS6</a></li>
+<li><a href="http://www.geocities.co.jp/SiliconValley-PaloAlto/3626/server_setting/vsftpd/20070126_vsftpd.htm">vsftp設定 ～ SSL接続/PASV接続</a></li>
+<li><a href="http://www.aconus.com/~oyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
+</ul>
+
+
+<h2>FTPサーバー導入の経緯</h2>
+
+<p>最近は、GitもしくはSFTPでのファイルのやりとりが多く、</p>
+
+<p>普段、FTPってあんまり使わないのでFTPサーバーをインストールしていなかったのだが、</p>
+
+<p>クライアント様のサーバーでFTPを利用したいとの事だったので設定した。</p>
+
+<p>折角なので、備忘録として記載しておくことに</p>
+
+<h2>vsftpd のインストール</h2>
+
+<p>```
+sudo yum -y install vsftpd</p>
+
+<p>sudo service vsftpd start</p>
+
+<p>sudo chkconfig vsftpd on
+```</p>
+
+<p>で、後はポート開放して完了。</p>
+
+<p>結構あっさりですね。</p>
+
+<p>ただ、このまま使うにはあまりにも無防備すぎるのと、</p>
+
+<p>今回のクライアント様のご要望は、SSL通信での利用を想定との事だったため、もう少し設定する。</p>
+
+<h2>一般設定</h2>
+
+<p><code>
+sudo vim /etc/vsftpd/vsftpd.conf
+</code></p>
+
+<h5>/etc/vsftpd/vsftpd.conf</h5>
+
+<p>```
+anonymous_enable=NO</p>
+
+<h1>Anonymous FTP接続の禁止。</h1>
+
+<p>local_enable=YES</p>
+
+<h1>ローカルユーザのログインを許可。</h1>
+
+<p>write_enable=YES</p>
+
+<h1>書き込み(Upload)許可。公開専用の場合はNOにすると書き込み禁止にできる。</h1>
+
+<p>local_umask=022</p>
+
+<h1>ローカルユーザのumask値。</h1>
+
+<p>listen_port=10021</p>
+
+<h1>FTP制御チャンネルの接続待ち受けポートの指定。</h1>
+
+<h1>デフォルトポートの利用には抵抗がある</h1>
+
+<p>connect_from_port_20=NO</p>
+
+<h1>Activeモード時のデータコネクションポートの指定。</h1>
+
+<h1>今回はpasv接続にするのでNO。</h1>
+
+<p>nopriv_user=ftp</p>
+
+<h1>vsftpが利用する非特権ユーザ名の指定を ftp に指定。</h1>
+
+<p>chroot_local_user=YES</p>
+
+<h1>ローカルユーザの操作範囲を自身のホームディレクトリ内のみに行動を制限(chroot)する。</h1>
+
+<p>chroot_list_enable=NO</p>
+
+<h1>「chroot_local_user=YES」とした場合にchrootしない例外ユーザを許可しないに指定。</h1>
+
+<h1>YESにした場合「chroot_list_file=/etc/vsftpd.chroot_list」を登録</h1>
+
+<p>ftpd_banner=Welcome to blah FTP service.</p>
+
+<h1>クライアントソフト名が表示されるのを変更</h1>
+
+<p>```</p>
+
+<h2>SSL関係設定</h2>
+
+<p><code>
+sudo vim /etc/vsftpd/vsftpd.conf
+</code></p>
+
+<h5>/etc/vsftpd/vsftpd.conf</h5>
+
+<p>```
+rsa_cert_file=/etc/ssl/certs/vsftp.pem</p>
+
+<h1>vsftpd用の証明書ファイルの指定。SSL証明書の発行方法は省略</h1>
+
+<p>rsa_private_key_file=/etc/ssl/certs/vsftp.key</p>
+
+<h1>vsftpd用の秘密鍵ファイル</h1>
+
+<p>rsa_cert_file=/etc/ssl/certs/ftp.pem</p>
+
+<h1>vsftpd用の証明書ファイルの指定。SSL証明書の発行方法は省略</h1>
+
+<p>use_localtime=YES</p>
+
+<h1>時刻の扱いをローカルタイムにする。</h1>
+
+<p>userlist_enable=YES</p>
+
+<h1>ユーザリストによる規制をかける。</h1>
+
+<p>userlist_deny=YES</p>
+
+<h1>ユーザリストをログイン不可ユーザの一覧とする。（NOだとログイン可のユーザ一覧になる）</h1>
+
+<p>userlist_file=/etc/ftpusers</p>
+
+<h1>ユーザリストの指定。</h1>
+
+<p>pasv_min_port=30000</p>
+
+<h1>Pasv接続で外部からのコネクション利用を許可するポート範囲の最小値。</h1>
+
+<p>pasv_max_port=30100</p>
+
+<h1>Pasv接続で外部からのコネクション利用を許可するポート範囲の最大値。</h1>
+
+<p>ssl_enable=YES</p>
+
+<h1>SSL接続の有効化</h1>
+
+<p>ssl_tlsv1=YES</p>
+
+<h1>vsftpd はSSLのプロトコルとして、SSL v2(ssl_sslv2)、SSL v3(ssl_sslv3)、TLS v1(ssl_tlsv1)の3種類をサポートしているが、デフォルトはTLS v1であり、多くの場合、この設定で問題ないのでデフォルトのままとする。</h1>
+
+<p>force_local_logins_ssl=YES</p>
+
+<h1>制御チャンネル（ログイン等）でSSL接続しか許可しない。</h1>
+
+<p>force_local_data_ssl=YES</p>
+
+<h1>データチャンネルでSSL接続しか許可しない。</h1>
+
+<p>```</p>
+
+<h2>再起動で反映</h2>
+
+<p><code>
+sudo service vsftpd restart
+</code></p>
+
+<h2>FTPS接続の種類</h2>
+
+<p>【FTP over SSL には Explicit、Implicitの2種類がある】</p>
+
+<p>違いはコネクションを張る際にクライアントが明示的にSSL化を要求するか、暗黙でSSL化するか。</p>
+
+<h3>Explicit</h3>
+
+<p>Conntct直後にSSLに切り替える要求をクライアントから明示的に送信する（ここは平文）。</p>
+
+<p>この際にポートは平文時と同じポート21等を使う（参考：RFC2228）。
+その後Login及びデータはSSL化される。</p>
+
+<p>従来の平文運用との併用は比較的し易そう。別途SSL用にポートも使わないので。</p>
+
+<p>ただしSSL切り替えのオーバーヘッドが少しあるが余程のトラフィックがなければ気にならない程度だとは思う。</p>
+
+<h3>Implicit</h3>
+
+<p>Conntct直後以降クライアント/サーバは自動的に暗黙でSSL化する。
+この際ポート990などのSSL用に設けたポートを使う。</p>
+
+<p>SSLでしか接続させない仕様。</p>
+
+<p>ポート990はクライアント/サーバの設定次第なので変更できるだろうが、このポートを使って従来の平文接続はできないのが大きな違いか。</p>
+
+<p>いずれの場合もデータのセキュアさには差は無いと思う。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Zshのインストール]]></title>

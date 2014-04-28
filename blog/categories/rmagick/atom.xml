@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rmagick | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/rmagick/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rmagickのインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/rmagick_install/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/rmagick_install</id>
+    <content type="html"><![CDATA[<h3>参考</h3>
+
+<ul>
+<li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
+</ul>
+
+
+<h2>Yumでインストール</h2>
+
+<p><code>
+sudo yum install ImageMagick ImageMagick-devel -y
+</code></p>
+
+<h2>gemでライブラリをインストール</h2>
+
+<p><code>
+gem install rmagick
+</code></p>
+
+<p>※sudoじゃなきゃだめかも</p>
+
+<p>ライブラリ名が異なる？？らしくRubyやRailsから呼び出す際には、</p>
+
+<p><code>
+require 'RMagick'
+</code></p>
+
+<p>やら</p>
+
+<p><code>
+gem 'rmagick', :require =&gt; 'RMagick'
+</code></p>
+
+<p>のような書き方が必要</p>
+]]></content>
+  </entry>
+  
+</feed>

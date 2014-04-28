@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Unicorn | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/unicorn/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Unicornのインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/unicorn_insatll/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/unicorn_insatll</id>
+    <content type="html"><![CDATA[<h2>Gedでユニコーンをインストールすろ</h2>
+
+<p>```
+gem install unicorn-rails</p>
+
+<p>gem install unicorn</p>
+
+<p>```</p>
+
+<h2>ユニコーンの設定ファイルを作成</h2>
+
+<p><code>
+vim RAILS_ROOT/config/unicorn.rb
+</code></p>
+
+<h5>RAILS_ROOT/config/unicorn.rb</h5>
+
+<p>```
+APP_PATH = &ldquo;/var/www/ruby/rss&rdquo;</p>
+
+<p>worker_processes 2</p>
+
+<p>working_directory &ldquo;/var/www/ruby/rss&rdquo;</p>
+
+<p>listen 3000</p>
+
+<p>pid APP_PATH + &ldquo;/tmp/pids/unicorn.pid&rdquo;
+stderr_path APP_PATH + &ldquo;/log/unicorn.log&rdquo;
+stdout_path APP_PATH + &ldquo;/log/unicorn.log&rdquo;</p>
+
+<p>preload_app true</p>
+
+<p>```</p>
+
+<h2>ユニコーンでRailsを起動</h2>
+
+<p><code>
+bundle exec unicorn_rails -E development -c config/unicorn.rb
+</code></p>
+
+<h2>Nginxの設定ファイルを作成</h2>
+
+<p><code>
+vim /etc/nginx/nginx.conf
+</code></p>
+
+<h5>/etc/nginx/nginx.conf</h5>
+
+<p>```
+upstream abgata.org {</p>
+
+<pre><code>#server 127.0.0.1:3000;
+server unix:/var/tmp/rss.sock;
+</code></pre>
+
+<p>}</p>
+
+<p>server {</p>
+
+<pre><code>listen 80;
+server_name abgata.org;
+
+root /var/www/ruby/rss/public;
+
+access_log /var/log/rss_access.log;
+error_log  /var/log/rss_error.log;
+
+location / {
+  if (-f $request_filename) {
+    break;
+  }
+
+  proxy_set_header X-Real-IP  $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header Host $http_host;
+  proxy_pass http://abgata.org;
+}
+
+location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+  # expires 1y;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h2>ヴァーチャルホストの設定</h2>
+
+<p><code>
+sudo vim /etc/nginx/sites-avalable/default
+</code></p>
+
+<h5>/etc/nginx/sites-avalable/default</h5>
+
+<p>```
+server {</p>
+
+<pre><code>    listen 80 default_server;
+    server_name _;
+    deny all;
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
+
+<p>```
+sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/</p>
+
+<p>```</p>
+
+<h2>Nginxを再起動して設定を反映</h2>
+
+<p>```
+chkconfig nginx on</p>
+
+<p>service nginx start</p>
+
+<p>service nginx reload
+```</p>
+]]></content>
+  </entry>
+  
+</feed>

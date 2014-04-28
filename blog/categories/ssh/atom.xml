@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: SSH | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/ssh/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-29T00:43:34+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[SSHの公開鍵認証]]></title>
+    <link href="http://blog.abgata.org/blog/2014/01/30/ssh_key/"/>
+    <updated>2014-01-30T10:21:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/01/30/ssh_key</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://fnya.cocolog-nifty.com/blog/2012/03/centos-ssh-8291.html">CentOS で公開鍵暗号方式を使用した SSH ログイン設定</a></li>
+</ul>
+
+
+<h2>秘密鍵と公開鍵を作成</h2>
+
+<p>```</p>
+
+<pre><code>ssh-keygen -t rsa
+</code></pre>
+
+<p>```</p>
+
+<h2>公開鍵を転送</h2>
+
+<p>```</p>
+
+<pre><code>scp -P 22 id_rsa.pub user@hostname/.ssh
+</code></pre>
+
+<p>```</p>
+
+<h2>公開鍵を設定</h2>
+
+<p>```</p>
+
+<pre><code>mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+</code></pre>
+
+<p>```</p>
+
+<h2>SSHで公開鍵認証を設定</h2>
+
+<p>```</p>
+
+<pre><code>sudo vim /etc/ssh/sshd_config
+</code></pre>
+
+<p>```</p>
+
+<h5>/etc/ssh/sshd_config</h5>
+
+<p>```</p>
+
+<pre><code>PubkeyAuthentication yes
+</code></pre>
+
+<p>```</p>
+
+<h2>sshdを再起動</h2>
+
+<p>```</p>
+
+<pre><code>sudo service sshd restart
+</code></pre>
+
+<p>```</p>
+
+<h2>公開鍵でSSH接続する</h2>
+
+<p>```</p>
+
+<pre><code>ssh -i ~/.ssh/id_rsa user@hostname
+</code></pre>
+
+<p>```
+~/.ssh/id_rsa であれば省略可能</p>
+]]></content>
+  </entry>
+  
+</feed>
