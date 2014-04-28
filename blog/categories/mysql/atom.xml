@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MySQL | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-28T23:16:38+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Select_for_updateについて(並列処理の運用)]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/select_for_update/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/select_for_update</id>
+    <content type="html"><![CDATA[<h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
+<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
+<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
+</ul>
+
+
+<h2>サンプル</h2>
+
+<p>```
+begin;</p>
+
+<p>select * from t_sample where id > 1 AND flg = 0 order by id asc limit1 for update;</p>
+
+<p>commit;</p>
+
+<h1>コミットするまでは、同一のレコードへ処理（select文を含む)をロックする</h1>
+
+<p>```</p>
+
+<h3>注意点</h3>
+
+<ul>
+<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
+<li>for update をつけていないクエリはロックされない</li>
+<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
+</ul>
+
+
+<p>```
+where id = 1</p>
+
+<p>```
+と</p>
+
+<p>```
+where id = 2</p>
+
+<p>```</p>
+
+<p>であればロックされない</p>
+
+<p>```
+where id > 1</p>
+
+<p>```
+と</p>
+
+<p>```
+where id = 2</p>
+
+<p>```</p>
+
+<p>であればロックされる</p>
+
+<h2>ActiveRecordでの利用方法</h2>
+
+<p>```
+Sample.transaction do</p>
+
+<pre><code># select * from table where flg = 0 limit 1 for update
+@target = Sample.where("flg = 0 ").lock(true).first
+
+@target['flg'] = 1
+@target.save
+</code></pre>
+
+<p>end</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MySQLのレプリケーション設定]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_replication/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/mysql_replication</id>
+    <content type="html"><![CDATA[<h2>マスター側設定</h2>
+
+<h3>レプリケーション用のユーザーを作成</h3>
+
+<p><code>
+GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';
+</code></p>
+
+<h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
+
+<p><code>
+[mysqld]
+log-bin = mysql-bin
+server-id = 1001
+</code></p>
+
+<h3>mysqlを再起動</h3>
+
+<p><code>
+service mysqld restart
+</code></p>
+
+<h3>mysqlのスナップショットを作成</h3>
+
+<h4>mysqlにて</h4>
+
+<p>```</p>
+
+<h1>DBロック</h1>
+
+<p>FLUSH TABLES WITH READ LOCK;</p>
+
+<h1>現在のバイナリポジションを取得</h1>
+
+<p>SHOW MASTER STATUS;</p>
+
+<h1>File、Positionはスレーブ側の設定に必要なので控えておく</h1>
+
+<p>```</p>
+
+<h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
+
+<p><code>
+mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db
+</code></p>
+
+<h3>DBロックを解除</h3>
+
+<h4>mysqlにて</h4>
+
+<p><code>
+UNLOCK TABLES;
+</code></p>
+
+<h2>スレーブ側設定</h2>
+
+<h3>my.cnfを修正(追加)</h3>
+
+<p><code>
+[mysqld]
+log-bin=mysql-bin
+log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
+server-id=1002
+</code></p>
+
+<h3>マスタで作成したスナップショットを復元</h3>
+
+<p><code>
+mysql -u user -p  &lt; snapshot.db
+</code></p>
+
+<h3>mysqlを再起動</h3>
+
+<p><code>
+service mysqld restart
+</code></p>
+
+<h3>マスタ情報を登録</h3>
+
+<p><code>
+CHANGE MASTER TO
+MASTER_HOST='sample.com',
+MASTER_USER='rep-user',
+MASTER_PASSWORD='passwd',
+MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
+MASTER_LOG_POS=98; #マスターのPosition
+</code></p>
+
+<h3>スレーブをスタート</h3>
+
+<p>```
+START SLAVE;</p>
+
+<h1>STOP SLAVE;RESTART SLAVE;RESET SLAVE;</h1>
+
+<p>```</p>
+
+<h3>起動確認</h3>
+
+<p><code>
+SHOW SLAVE STATUS\G
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mysqlサーバーの設定(mroonga)]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install</id>
+    <content type="html"><![CDATA[<h3>参考URL:</h3>
+
+<ul>
+<li><a href="http://linuxserver.jp/%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E7%AF%89/db/mysql/%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2-groonga.php">MySQLでgroongaを利用して高速に日本語の全文検索を行う</a></li>
+<li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
+</ul>
+
+
+<p>```
+rpm -ivh <a href="http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm">http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm</a></p>
+
+<h1>&mdash;sorceで強制的に上書き</h1>
+
+<p>yum makecache
+yum -y update</p>
+
+<p>yum -y install mysql-server</p>
+
+<h1>version5.1.67を指定しないとだめかも</h1>
+
+<p>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic
+```</p>
+
+<h2>MySQLの設定</h2>
+
+<p><code>
+cp /etc/my.cnf /etc/my.cnf.org
+vim /etc/my.cnf
+</code></p>
+
+<h2>MySQLの初期設定</h2>
+
+<p><code>
+mysql_secure_installation
+</code></p>
+
+<h2>MySQLを起動</h2>
+
+<p><code>
+service mysqld start
+yum -y install mysql-groonga
+service mysqld restart
+chkconfig mysqld on
+mysql -u root -p
+</code></p>
+
+<h3>利用可能なストレージエンジンを確認</h3>
+
+<p><code>
+mysql&gt; SHOW ENGINES \G
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[MySQLのバックアップを自動化]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/mysql_backup/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/mysql_backup</id>
+    <content type="html"><![CDATA[<p>```
+cd</p>
+
+<p>mkdir backup
+mkdir backup/mysql</p>
+
+<p>vim mysql_backup.sh
+```</p>
+
+<h5>mysql_backup.sh</h5>
+
+<p>```</p>
+
+<h1>!/bin/sh</h1>
+
+<h1>バックアップファイルを何日分残しておくか</h1>
+
+<p>period=&lsquo;+7&rsquo;</p>
+
+<h1>バックアップファイルを保存するディレクトリ</h1>
+
+<p>dirpath=&lsquo;/path/to/backup/mysql&rsquo;</p>
+
+<h1>mysql password</h1>
+
+<p>mysqlpassword=&ldquo;passwd&rdquo;</p>
+
+<h1>ファイル名を定義(※ファイル名で日付がわかるようにしておきます)</h1>
+
+<p>mydate=<code>date +%y%m%d%H%M%S</code>
+filename=&ldquo;mysql_$mydate.sql&rdquo;</p>
+
+<h1>mysqldump実行</h1>
+
+<p>mysqldump -uroot -p$mysqlpassword -A -E > $dirpath/$filename</p>
+
+<h1>パーミッション変更</h1>
+
+<p>chmod 700 $dirpath/$filename</p>
+
+<h1>古いバックアップファイルを削除</h1>
+
+<p>find $dirpath -type f -daystart -mtime $period -exec rm {} \;
+```</p>
+
+<h3>実行権限を付与</h3>
+
+<p><code>
+chmod 700 mysql_backup.sh
+</code></p>
+
+<h2>cronをインストール</h2>
+
+<p>```
+yum install cronie-anacron</p>
+
+<h1>cron.dailyをランダム実行したくない場合は yum -y install cronie-noanacron</h1>
+
+<p>chkconfig &mdash;level 2345 crond on
+chkconfig &mdash;list crond</p>
+
+<p>crontab -e</p>
+
+<p>```</p>
+
+<p><code>
+0 3 * * * bash /path/to/mysql_backup.sh
+</code></p>
+
+<h3>設定済みのクーロンを確認</h3>
+
+<p><code>
+crontab -l
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

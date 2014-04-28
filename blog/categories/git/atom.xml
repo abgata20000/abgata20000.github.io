@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Git | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/git/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-28T23:16:38+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[GitのプッシュでHPの更新(反映)]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/git_push_refresh/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/git_push_refresh</id>
+    <content type="html"><![CDATA[<h2>gitのグローバル設定</h2>
+
+<p><code>
+git config --global user.name "abgata20000"
+git config --global user.email "abgata@abgata.jp"
+git config --global color.ui true
+</code></p>
+
+<h2>gitの設定確認</h2>
+
+<p><code>
+git config -l
+</code></p>
+
+<h2>現在のディレクトリを共有リポジトリにする</h2>
+
+<p><code>
+git init --bare --share
+</code></p>
+
+<h2>レポジトリをクローンする</h2>
+
+<p><code>
+git clone /git/smaple.git
+</code></p>
+
+<h2>pushされた際のhooks(post-receive)</h2>
+
+<p><code>
+cd hooks
+vim post-receive
+</code></p>
+
+<h5>post-receive</h5>
+
+<p>```</p>
+
+<h1>!/bin/sh</h1>
+
+<p>cd /var/www/vhosts/
+git &mdash;git-dir=.git pull origin master
+```</p>
+
+<p>実行権限を付与</p>
+
+<p><code>
+chmod +x post-receive
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

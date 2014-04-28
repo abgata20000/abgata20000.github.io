@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: MongoDB | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/mongodb/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-28T23:16:38+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Mongodbの設定手順]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/mongodb_install/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/mongodb_install</id>
+    <content type="html"><![CDATA[<h3>参考URL</h3>
+
+<ul>
+<li><p><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-red-hat-centos-or-fedora-linux/">公式サイト</a></p></li>
+<li><p><a href="http://dotinstall.com/lessons/basic_sakura_vps/8021">ドットインストール</a></p></li>
+</ul>
+
+
+<h4>※2ヶ月ほど前と内容が少し変わっていたので、毎回確認したほうがいいかもしれないです。</h4>
+
+<h2>yumでインストールできるようにリポジトリを追加</h2>
+
+<p><code>
+sudo vim /etc/yum.repos.d/mongodb.repo
+</code></p>
+
+<h5>/etc/yum.repos.d/mongodb.repo</h5>
+
+<p><code>
+[mongodb]
+name=MongoDB Repository
+baseurl=http://downloads-distro.mongodb.org/repo/redhat/os/x86_64/
+gpgcheck=0
+enabled=1
+</code></p>
+
+<h2>yumでmongodbをインストール</h2>
+
+<p><code>
+sudo yum update -y
+sudo yum install mongo-10gen mongo-10gen-server -y
+</code></p>
+
+<h2>mongodbを起動</h2>
+
+<p><code>
+service mongod start
+</code></p>
+
+<h2>起動時に自動起動設定</h2>
+
+<p><code>
+chkconfig mongod on
+</code></p>
+
+<h2>バージョンを確認</h2>
+
+<p><code>
+mongo --version
+</code></p>
+
+<h2>シェルを起動</h2>
+
+<p><code>
+mongo
+</code></p>
+
+<h2>シェルを終了</h2>
+
+<p><code>
+exit
+</code></p>
+
+<h2>ユーザー認証をONにする</h2>
+
+<p>※mongod起動時にオプション指定でも可能ですが、毎回指定するの面倒なので設定ファイルを変更しています。</p>
+
+<h2>設定ファイルをバックアップ</h2>
+
+<p><code>
+cp /etc/mongod.conf /etc/mongod.conf.org
+</code></p>
+
+<h2>設定ファイルを変更</h2>
+
+<p><code>
+sudo vim /etc/mongod.conf
+</code></p>
+
+<h5>/etc/mongod.conf</h5>
+
+<p><code>
+auth = ture
+</code></p>
+
+<h2>mongodbを再起動</h2>
+
+<p><code>
+service mongod restart
+</code></p>
+
+<h2>管理者ユーザーの作成</h2>
+
+<p><code>
+use admin
+db.addUser("admin","master_passpass")
+</code></p>
+
+<h2>ユーザー認証</h2>
+
+<p><code>
+db.auth("admin","master_passpass")
+</code></p>
+
+<h2>管理者ユーザーの確認</h2>
+
+<p><code>
+db.system.users.find()
+</code></p>
+
+<h2>DBの切り替え</h2>
+
+<p><code>
+use test
+</code></p>
+
+<h2>ユーザーの作成</h2>
+
+<p><code>
+db.addUser("test_user","test_passpass")
+</code></p>
+
+<h2>ユーザーの確認</h2>
+
+<p><code>
+db.system.users.find()
+</code></p>
+
+<h2>ユーザーの削除</h2>
+
+<p><code>
+db.system.users.remove({user:"test"})
+</code></p>
+
+<h2>ユーザー認証</h2>
+
+<p><code>
+db.auth("test_user","test_passpass")
+</code></p>
+
+<h2>テストデータの登録</h2>
+
+<p><code>
+db.test.save( { a: 1 } )
+</code></p>
+
+<h2>テストデータの閲覧</h2>
+
+<p><code>
+db.test.find()
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPでmongodbを使えるようにする]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/mongodb_for_php/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/mongodb_for_php</id>
+    <content type="html"><![CDATA[<h2>依存パッケージをインストール</h2>
+
+<p><code>
+sudo yum -y install php-pear
+sudo yum -y install php-devel
+sudo yum -y install httpd-devel
+sudo yum -y install gcc
+sudo yum -y install make
+</code></p>
+
+<h2>pcelでインストール</h2>
+
+<p><code>
+pecl install mongo
+</code></p>
+
+<h2>mongodb用の設定ファイルを追加</h2>
+
+<p><code>
+vim /etc/php.d/mongo.ini
+</code></p>
+
+<h5>/etc/php.d/mongo.ini</h5>
+
+<p>```
+[mongo]
+extension=mongo.so</p>
+
+<p>```</p>
+
+<h2>apacheを再起動して設定を反映</h2>
+
+<p><code>
+service httpd restart
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

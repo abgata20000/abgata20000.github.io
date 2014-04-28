@@ -5,15 +5,18 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Hello AB Lab - AB Lab</title>
+  <title>Graphicsmagicをインストール - AB Lab</title>
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="AB Labです。 ここまで持ってくるの大変でした。 それも踏まえて色々書いていこうと思います。 1
+  <meta name="description" content="参考URL： GraphicsMagick-1.3.12-1.el6.x86_64.rpm 1
+vim /etc/yum.repos.d/naulinux-school.repo /etc/yum.repos.d/naulinux-school.repo 1
 2
-msg = 'hello ab lab.'
-puts msg 続きだよ by abgata20000
-">
+3
+4
+5
+6
+[naulinux &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +25,7 @@ puts msg 続きだよ by abgata20000
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.abgata.org/blog/2014/04/28/hello-ab-lab">
+  <link rel="canonical" href="http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
@@ -33,6 +36,12 @@ puts msg 続きだよ by abgata20000
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
 
   
   <script type="text/javascript">
@@ -84,7 +93,7 @@ puts msg 続きだよ by abgata20000
   
   <header>
     
-      <h1 class="entry-title">Hello AB Lab</h1>
+      <h1 class="entry-title">Graphicsmagicをインストール</h1>
     
     
       <p class="meta">
@@ -100,33 +109,46 @@ puts msg 続きだよ by abgata20000
   
 
 
-<time datetime="2014-04-28T18:17:41+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+<time datetime="2014-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h1>AB Labです。</h1>
+<div class="entry-content"><h3>参考URL：</h3>
 
-<h2>ここまで持ってくるの大変でした。</h2>
+<ul>
+<li><a href="http://pkgs.org/centos-6-rhel-6/naulinux-school-x86_64/GraphicsMagick-1.3.12-1.el6.x86_64.rpm.html">GraphicsMagick-1.3.12-1.el6.x86_64.rpm</a></li>
+</ul>
 
-<h3>それも踏まえて色々書いていこうと思います。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/naulinux-school.repo</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/yum.repos.d/naulinux-school.repo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>msg = 'hello ab lab.'
-</span><span class='line'>puts msg</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[naulinux-school]
+</span><span class='line'>name=NauLinux School
+</span><span class='line'>baseurl=http://downloads.naulinux.ru/pub/NauLinux/6.2/$basearch/sites/School/RPMS/
+</span><span class='line'>enabled=0
+</span><span class='line'>gpgcheck=1
+</span><span class='line'>gpgkey=http://downloads.naulinux.ru/pub/NauLinux/RPM-GPG-KEY-linux-ink
+</span></code></pre></td></tr></table></div></figure>
 
 
+<h2>インストール</h2>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=naulinux-school install GraphicsMagick -y</span></code></pre></td></tr></table></div></figure>
 
-<!-- more -->
-
-
-<h2>続きだよ</h2>
-
-<h5>by abgata20000</h5>
 </div>
 
 
@@ -149,8 +171,14 @@ puts msg 続きだよ by abgata20000
   
 
 
-<time datetime="2014-04-28T18:17:41+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+<time datetime="2014-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2014</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>Linux</a>
+  
+</span>
 
 
     </p>
@@ -160,21 +188,21 @@ puts msg 続きだよ by abgata20000
         <li class="hatena">
           <!-- hatebu-start -->
           
-          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
           
           <!-- hatebu-end -->
         </li>
         <li class="twitter">
             
                 
-                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/" >Tweet</a>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install/" >Tweet</a>
                 
             
         </li>
         <!--
         <li class="facebook">
             
-            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/"></div>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install/"></div>
             
         </li>
         -->
@@ -183,34 +211,46 @@ puts msg 続きだよ by abgata20000
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2014/12/26/ffmepg_install_from_yum/" title="Previous Post: fffmepgをYumでインストールする">&laquo; fffmepgをYumでインストールする</a>
+      
       
     </p>
   </footer>
 </article>
-
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
-  </section>
 
 </div>
 
 <aside class="sidebar">
   
     <section>
-  <h1>Recent Posts</h1>
+  <h1>最近の記事</h1>
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2014/04/28/hello-ab-lab/">Hello AB Lab</a>
+        <a href="/blog/2014/12/26/graphicsmagick_install/">Graphicsmagicをインストール</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/12/26/ffmepg_install_from_yum/">fffmepgをYumでインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/03/angularjs_+careful/">AngularJSの注意点</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a>
       </li>
     
   </ul>
 </section>
 
 <section>
-  <h1>GitHub Repos</h1>
+  <h1>GitHubレポジトリ</h1>
   <ul id="gh_repos">
     <li class="loading">Status updating...</li>
   </ul>
@@ -253,11 +293,6 @@ puts msg 続きだよ by abgata20000
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-<script>
-$(document).ready( function () {
-   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
-})
-</script>
 </footer>
   
 
@@ -265,10 +300,7 @@ $(document).ready( function () {
       var disqus_shortname = 'abgata20000';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/';
-        var disqus_url = 'http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

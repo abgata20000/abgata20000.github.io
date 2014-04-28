@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: App | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/app/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-28T23:16:38+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 3 で設定を共有]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting_share/"/>
+    <updated>2013-12-26T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting_share</id>
+    <content type="html"><![CDATA[<h2>参考サイト</h2>
+
+<ul>
+<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
+<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+</ul>
+
+
+<h2>設定ファイルをDropBoxに移す</h2>
+
+<h3>本来の設定ファイルがある場所</h3>
+
+<ul>
+<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
+<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
+</ul>
+
+
+<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
+
+<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
+
+<h3>mac</h3>
+
+<p><code>
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages
+</code></p>
+
+<h3>win</h3>
+
+<p>```
+cd C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</p>
+
+<p>mklink /D &ldquo;Installed Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages&rdquo;</p>
+
+<p>mklink /D &ldquo;Packages&rdquo; &ldquo;C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages&rdquo;</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 3 の設定]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting/"/>
+    <updated>2013-12-26T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_3_setting</id>
+    <content type="html"><![CDATA[<h2>参考サイト</h2>
+
+<ul>
+<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
+</ul>
+
+
+<h2>パッケージインストールできるようにする</h2>
+
+<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
+
+<p>```
+import urllib.request,os; pf = &lsquo;Package Control.sublime-package&rsquo;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &lsquo;wb&rsquo;).write(urllib.request.urlopen( &lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo; + pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read())</p>
+
+<p>```</p>
+
+<p>cmd + shift + p でパッケージインストールを実行可能に</p>
+
+<h2>インストールするもの</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Sublime Text 2 で設定を共有]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/26/sublime_text_2_setting_share/"/>
+    <updated>2013-12-26T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/26/sublime_text_2_setting_share</id>
+    <content type="html"><![CDATA[<h2>参考サイト</h2>
+
+<ul>
+<li><a href="http://webdrawer.net/tools/sublimedropbox.html">Sublime Text 2の設定をDropboxで共有して便利にする</a></li>
+<li><a href="http://qiita.com/Drunkar/items/6de34913afc554e3824b">Sublime Text 2の設定をDropboxで共有する</a></li>
+<li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
+</ul>
+
+
+<h2>設定ファイルをDropBoxに移す</h2>
+
+<h3>本来の設定ファイルがある場所</h3>
+
+<ul>
+<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</li>
+<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 2/</li>
+<li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
+</ul>
+
+
+<p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
+
+<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
+
+<h3>mac</h3>
+
+<p><code>
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
+</code></p>
+
+<h3>win</h3>
+
+<p>```
+cd C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</p>
+
+<p>mklink /D &ldquo;Installed Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages&rdquo;</p>
+
+<p>mklink /D &ldquo;Packages&rdquo; &ldquo;C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages&rdquo;</p>
+
+<p>mklink /D &ldquo;Pristine Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages&rdquo;</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>

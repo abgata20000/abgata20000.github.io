@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Nginx | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-04-28T23:16:38+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Nginxとapacheの共存]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/nginx_with_apache/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/nginx_with_apache</id>
+    <content type="html"><![CDATA[<h3>参考URL:</h3>
+
+<ul>
+<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
+</ul>
+
+
+<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
+
+<p>```
+sudo yum install httpd-devel</p>
+
+<p>cd /root/tmp
+wget <a href="http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz">http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz</a>
+tar zxf extract_forwarded-2.0.2.tar.gz
+cd extract_forwarded
+apxs -i -c -a mod_extract_forwarded.c
+```</p>
+
+<h2>apacheの実行ユーザーとポートを変更</h2>
+
+<p><code>
+vim /etc/httpd/conf/httpd.conf
+</code></p>
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<p>```
+Listen 8080</p>
+
+<h4>#</h4>
+
+<p>User nginx
+Group nginx</p>
+
+<h4>#</h4>
+
+<p>ServerName sample.jp:8080</p>
+
+<h1>最終行に追加</h1>
+
+<p>MEForder refuse,accept
+MEFrefuse all</p>
+
+<h1>Nginx（リバースプロキシ）のIPアドレス</h1>
+
+<p>MEFaccept 127.0.0.1</p>
+
+<h1>ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</h1>
+
+<p>```</p>
+
+<p>apacheを再起動して設定を反映</p>
+
+<p><code>
+service httpd restart
+</code></p>
+
+<h2>nginxでの転送設定</h2>
+
+<p><code>
+cd /etc/nginx/conf.d
+vim default.conf
+</code></p>
+
+<h5>default.conf</h5>
+
+<p>```</p>
+
+<h1>デフォルトサーバー</h1>
+
+<p>server {</p>
+
+<pre><code>listen       80;
+server_name  backend;
+
+# このサーバへの全てのアクセスを転送
+location / {
+        proxy_pass http://127.0.0.1:8080;
+        proxy_redirect                         off;
+
+        # この設定がなくても.htaccessでの制限は可能。
+        # ただし、cgi等から参照した際にNginxのIPアドレスになる。
+        proxy_set_header Host                   $host;
+
+        proxy_set_header X-Real-IP              $remote_addr;
+
+        # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
+        proxy_set_header X-Forwarded-Host      $host;
+        proxy_set_header X-Forwarded-Server    $host;
+
+        # この設定がなくてもcgi等から正しいIPを確認可能。
+        # ただし、.htaccessでの制限は不可。
+        proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
+}
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>最初に↓入れたほうがいいかも？？</p>
+
+<p>```</p>
+
+<h1>キャッシュ関連設定</h1>
+
+<p>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
+proxy_temp_path   /var/tmp/nginx;
+proxy_cache_key   &ldquo;$scheme://$host$request_uri&rdquo;;
+proxy_set_header  Host               $host;
+proxy_set_header  X-Real-IP          $remote_addr;
+proxy_set_header  X-Forwarded-Host   $host;
+proxy_set_header  X-Forwarded-Server $host;
+proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;</p>
+
+<h1>バックエンドサーバ−（Apache）設定</h1>
+
+<p>upstream backend {</p>
+
+<pre><code># ip_hash;
+server 127.0.0.1:8080;
+</code></pre>
+
+<p>}</p>
+
+<p>```</p>
+
+<p>nginxを再起動して設定を反映</p>
+
+<p><code>
+service nginx restart
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Nginxのインストール]]></title>
+    <link href="http://blog.abgata.org/blog/2013/12/22/nginx_install/"/>
+    <updated>2013-12-22T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2013/12/22/nginx_install</id>
+    <content type="html"><![CDATA[<p><code>
+vim /etc/yum.repos.d/nginx.repo
+</code></p>
+
+<h5>/etc/yum.repos.d/nginx.repo</h5>
+
+<p><code>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
+gpgcheck=0
+enabled=1
+</code></p>
+
+<p>```
+sudo yum install -y nginx</p>
+
+<p>cd /etc/nginx
+sudo mkdir sites-avalable
+sudo mkdir sites-enabled</p>
+
+<h1>sudo rm -f conf.d/*.conf</h1>
+
+<p>cd conf.d
+cp default.conf default.conf.org
+cp example_ssl.conf example_ssl.conf.org</p>
+
+<p>cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.org</p>
+
+<p>sudo vim /etc/nginx/nginx.conf
+```</p>
+
+<h5>/etc/nginx/nginx.conf</h5>
+
+<p>```</p>
+
+<h1>下から二行目に追加</h1>
+
+<p>include /etc/nginx/sites-enabled/*;</p>
+
+<p>```</p>
+
+<h1>自動起動をON</h1>
+
+<p>```
+service nginx start</p>
+
+<p>chkconfig nginx on</p>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>
