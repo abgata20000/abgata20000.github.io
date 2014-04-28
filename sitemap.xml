@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/04/28/test-page/</loc>
+        <lastmod>2014-04-28T16:35:58+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/archives/</loc>
+        <lastmod>2014-04-28T16:35:58+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/</loc>
+        <lastmod>2014-04-28T16:35:58+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/robots.txt</loc>
+        <lastmod>2014-04-28T16:34:00+09:00</lastmod>
+    </url>
+</urlset>
