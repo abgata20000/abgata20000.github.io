@@ -4,7 +4,11 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
+<<<<<<< HEAD
   <updated>2014-04-28T16:47:37+09:00</updated>
+=======
+  <updated>2014-04-28T16:36:45+09:00</updated>
+>>>>>>> 68e004da261b13354fe7ea07e5f1b523210f902c
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
