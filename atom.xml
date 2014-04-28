@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-04-28T21:26:52+09:00</updated>
+  <updated>2014-04-28T21:35:06+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -29,6 +29,13 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>msg = 'hello ab lab.'
 </span><span class='line'>puts msg</span></code></pre></td></tr></table></div></figure>
 
+
+
+
+<!-- more -->
+
+
+<h2>続きだよ</h2>
 
 <h5>by abgata20000</h5>
 ]]></content>
