@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-04-28T18:16:11+09:00</updated>
+  <updated>2014-04-28T18:19:44+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,5 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Hello AB Lab]]></title>
+    <link href="http://blog.abgata.org/blog/2014/04/28/hello-ab-lab/"/>
+    <updated>2014-04-28T18:17:41+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/04/28/hello-ab-lab</id>
+    <content type="html"><![CDATA[<h1>AB Labです。</h1>
+
+<h2>ここまで持ってくるの大変でした。</h2>
+
+<h3>それも踏まえて色々書いていこうと思います。</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>msg = 'hello ab lab.'
+</span><span class='line'>puts msg</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>by abgata20000</h5>
+]]></content>
+  </entry>
   
 </feed>
