@@ -5,18 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Apache Php Mysqlをインストール(yum) - AB Lab</title>
+  <title>Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法 - AB Lab</title>
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="apache 1
-2
-3
-4
-sudo yum install httpd
-sudo chkconfig httpd on
-cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
-vim /etc/httpd/conf/httpd. &hellip;">
+  <meta name="description" content="そもそも Vagrant 使おうと思いたった経緯 以前 ドットインストール さんにレッスンがあったので 試してみたことはあったのですが、 自分の環境で利用している「pallarels desctop」と相性が悪いのか、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +18,7 @@ vim /etc/httpd/conf/httpd. &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install">
+  <link rel="canonical" href="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
@@ -93,7 +86,7 @@ $(document).ready( function () {
   
   <header>
     
-      <h1 class="entry-title">Apache Php Mysqlをインストール(yum)</h1>
+      <h1 class="entry-title">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</h1>
     
     
       <p class="meta">
@@ -109,78 +102,125 @@ $(document).ready( function () {
   
 
 
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+<time datetime="2014-05-02T01:58:00+09:00" pubdate data-updated="true">May 2<span>nd</span>, 2014</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>apache</h2>
+<div class="entry-content"><h3>そもそも Vagrant 使おうと思いたった経緯</h3>
+
+<p>以前 <a href="http://dotinstall.com">ドットインストール</a> さんにレッスンがあったので</p>
+
+<p>試してみたことはあったのですが、</p>
+
+<p>自分の環境で利用している「pallarels desctop」と相性が悪いのか、</p>
+
+<p>同時に立ち上げるとMacが落ちるという現象があったため利用はしていなかったのです。</p>
+
+<p>がしかし</p>
+
+<p>先日アホなミスをしてしまい、Macを初期化するハメになってしまい、</p>
+
+<p>データや環境の復旧はだいたいできたのですが、</p>
+
+<p>Rubyの環境がどうしてもうまく構築できなくなってしまったため、</p>
+
+<p>これまで、スクリプトの実行をMacで行っていたのを</p>
+
+<p>「Vagrat」を使って仮想環境を構築してそこで実行するようにしようと思いったたのがことのはじめです。</p>
+
+<h3>vagrant の box を作成してみる</h3>
+
+<p>折角環境を作ったのでboxを作ってみました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant package</span></code></pre></td></tr></table></div></figure>
+
+
+<p>少し時間はかかりましたが問題なく packege.box が生成されました。</p>
+
+<p>生成された package.box を vagrant に登録して</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add myImage package.box
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>Vagrantfile</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.box = "myImage"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+
+<p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
+
+<h3>共有フォルダを利用できるようにする</h3>
+
+<p>少し調べていた結果、
+VirtualBox のバージョンがbox作成時と現在とで異なっているのが原因らしいです。</p>
+
+<p><a href="http://qiita.com/harapeko_wktk/items/72985bfccaae60c69384">Vagrantの共有ディレクトリ設定でものすっごい躓いた！</a>
+を参考に問題を解決してみることに</p>
+
+<h4>VirtualBoxのバージョン違いを解決するプラグインをインストールする</h4>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant plugin install vagrant-vbguest
+</span><span class='line'>vi ~/.vagrant.d/Vagrantfile</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>~/.vagrant.d/Vagrantfile</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd
-</span><span class='line'>sudo chkconfig httpd on
-</span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
-</span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Vagrant.configure("2") do |config|
+</span><span class='line'>  config.vbguest.auto_update = false
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<h5>/etc/httpd/conf/httpd.conf</h5>
+<p>バージョンが異なっているかどうかを確認</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ServerTokens Prod
-</span><span class='line'>ServerSignature Off
-</span><span class='line'>Options Indexes → Options -Indexes FollowSymLinks
-</span><span class='line'>※var/www/html内のもの
-</span><span class='line'>ServerName www.example.com:80
-</span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</span><span class='line'>
+</span><span class='line'> GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>設定を反映</h3>
+<p>やはりバージョンが違うらしい</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --auto-reboot</span></code></pre></td></tr></table></div></figure>
+
+
+<p>で修正してくれるらしいので実行してみた。</p>
+
+<p>無事終了したっぽいので確認</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service httpd configtest
-</span><span class='line'>sudo service httpd start
-</span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</span><span class='line'>
+</span><span class='line'>GuestAdditions 4.3.10 running --- OK.</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
+<p>解決したらしい。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
-</span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>バーチャルホスト用にフォルダを作成</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>php</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
-</span><span class='line'>php -v
-</span><span class='line'>cp /etc/php.ini /etc/php.ini.org
-</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/php.ini</h5>
+<p>Vagrant をリブートしてみる</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -196,89 +236,48 @@ $(document).ready( function () {
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
-</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
-</span><span class='line'>display_errors = On
-</span><span class='line'>mbstring.language = Japanese
-</span><span class='line'>expose_php = Off
-</span><span class='line'>date.timezone = Asia/Tokyo
-</span><span class='line'>max_execution_time = 300
-</span><span class='line'>magic_quotes_gpc = Off
-</span><span class='line'>upload_max_filesize = 200M
-</span><span class='line'>mbstring.internal_encoding = UTF-8
-</span><span class='line'>mbstring.http_input = auto
-</span><span class='line'>mbstring.http_output = pass
-</span><span class='line'>mbstring.detect_order = auto
-</span><span class='line'>;mbstring.substitute_character = none;
+</pre></td><td class='code'><pre><code class=''><span class='line'>v reload
+</span><span class='line'>~~~
+</span><span class='line'>==&gt; default: Configuring and enabling network interfaces...
+</span><span class='line'>The following SSH command responded with a non-zero exit status.
+</span><span class='line'>Vagrant assumes that this means the command failed!
 </span><span class='line'>
-</span><span class='line'>max_file_uploads = 100
-</span><span class='line'>post_max_size = 100M
-</span><span class='line'>upload_max_filesize 100M
+</span><span class='line'>ARPCHECK=no /sbin/ifup eth1 2&gt; /dev/null
+</span><span class='line'>
+</span><span class='line'>Stdout from the command:
+</span><span class='line'>
+</span><span class='line'>Device eth1 does not seem to be present, delaying initialization.
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>Stderr from the command:
 </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>設定を反映</h3>
+<p>ダメみたい。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+<p>IPアドレスがうまく振り当てられていないみたいなので、</p>
 
+<p><a href="https://github.com/mitchellh/vagrant/issues/3341">ここ</a>を参考に少し修正してみる</p>
 
-<h2>mysql</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
-</span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
-</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/my.cnf</h5>
+<p>Vagrant にSSH接続して後に</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
-</span><span class='line'>character_set_server=utf8
-</span><span class='line'>default-storage-engine=InnoDB
-</span><span class='line'>innodb_file_per_table
-</span><span class='line'>group_concat_max_len=10000000
-</span><span class='line'>
-</span><span class='line'>[mysql]
-</span><span class='line'>default-character-set=utf8
-</span><span class='line'>
-</span><span class='line'>[mysqldump]
-</span><span class='line'>default-character-set=utf8
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+</span><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>設定を反映</h3>
+<p>を実行</p>
+
+<p>リブートしてみる</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
-</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant reload</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>mysqlの初期設定</h3>
+<p>解決した。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
-</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
+<p>なかなか大変でした。</p>
 </div>
 
 
@@ -301,12 +300,12 @@ $(document).ready( function () {
   
 
 
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+<time datetime="2014-05-02T01:58:00+09:00" pubdate data-updated="true">May 2<span>nd</span>, 2014</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/centos/'>CentOS</a>
+    <a class='category' href='/blog/categories/vagrant/'>Vagrant</a>
   
 </span>
 
@@ -318,21 +317,21 @@ $(document).ready( function () {
         <li class="hatena">
           <!-- hatebu-start -->
           
-          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
           
           <!-- hatebu-end -->
         </li>
         <li class="twitter">
             
                 
-                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/" >Tweet</a>
+                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/" >Tweet</a>
                 
             
         </li>
         <!--
         <li class="facebook">
             
-            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/"></div>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/"></div>
             
         </li>
         -->
@@ -341,14 +340,18 @@ $(document).ready( function () {
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/04/28/SELinux/" title="Previous Post: SElinuxの設定">&laquo; SElinuxの設定</a>
+        <a class="basic-alignment left" href="/blog/2014/04/28/whenever/" title="Previous Post: wheneverでRailsのタスクをcronで実行する">&laquo; wheneverでRailsのタスクをcronで実行する</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/04/28/epel_remi_install/" title="Next Post: epel、remiのリポジトリを導入">epel、remiのリポジトリを導入 &raquo;</a>
       
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -432,7 +435,10 @@ $(document).ready( function () {
       var disqus_shortname = 'abgata20000';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/';
+        var disqus_url = 'http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
