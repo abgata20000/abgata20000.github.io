@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vagrant | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T16:53:53+09:00</updated>
+  <updated>2014-05-01T16:57:49+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法]]></title>
     <link href="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/"/>
-    <updated>2014-05-02T01:08:00+09:00</updated>
+    <updated>2014-05-02T01:58:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff</id>
     <content type="html"><![CDATA[<h3>そもそも Vagrant 使おうと思いたった経緯</h3>
 
