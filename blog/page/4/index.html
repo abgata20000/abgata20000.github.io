@@ -9,9 +9,9 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト Installation &ndash; Package Control
-SublimeText3のセットアップ
-SublimeText2/3 環境設定とか（基本3） パッケージインストールできるようにする View > Show Console &hellip;">
+  <meta name="description" content="参考サイト WindowsのSublimeText3の設定ファイルをDropboxで共有する
+Windowsでsublime text 3の設定をDropBoxで共有うんたら。
+SublimeText3のセットアップ 設定ファイルをDropBoxに移す 本来の設定ファイルがある場所 Windows &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,84 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>参考サイト</h2>
+
+<ul>
+<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
+<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+</ul>
+
+
+<h2>設定ファイルをDropBoxに移す</h2>
+
+<h3>本来の設定ファイルがある場所</h3>
+
+<ul>
+<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
+<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
+</ul>
+
+
+<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
+
+<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
+
+<h3>mac</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>win</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
+</span><span class='line'>
+</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages"
+</span><span class='line'>
+</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1135,219 +1213,6 @@ activerecordのバージョンを3.2.14に落とす
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/nginx_with_apache/">Nginxとapacheの共存</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考URL:</h3>
-
-<ul>
-<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
-</ul>
-
-
-<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd-devel
-</span><span class='line'>
-</span><span class='line'>cd /root/tmp
-</span><span class='line'>wget http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>tar zxf extract_forwarded-2.0.2.tar.gz
-</span><span class='line'>cd extract_forwarded
-</span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>apacheの実行ユーザーとポートを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/httpd/conf/httpd.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Listen 8080
-</span><span class='line'>
-</span><span class='line'>#####
-</span><span class='line'>User nginx
-</span><span class='line'>Group nginx
-</span><span class='line'>#####
-</span><span class='line'>ServerName sample.jp:8080
-</span><span class='line'>
-</span><span class='line'># 最終行に追加
-</span><span class='line'>MEForder refuse,accept
-</span><span class='line'>MEFrefuse all
-</span><span class='line'># Nginx（リバースプロキシ）のIPアドレス
-</span><span class='line'>MEFaccept 127.0.0.1
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
-
-
-<p>apacheを再起動して設定を反映</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>nginxでの転送設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
-</span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>default.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#デフォルトサーバー
-</span><span class='line'>server {
-</span><span class='line'>    listen       80;
-</span><span class='line'>    server_name  backend;
-</span><span class='line'>
-</span><span class='line'>    # このサーバへの全てのアクセスを転送
-</span><span class='line'>    location / {
-</span><span class='line'>            proxy_pass http://127.0.0.1:8080;
-</span><span class='line'>            proxy_redirect                         off;
-</span><span class='line'>
-</span><span class='line'>            # この設定がなくても.htaccessでの制限は可能。
-</span><span class='line'>            # ただし、cgi等から参照した際にNginxのIPアドレスになる。
-</span><span class='line'>            proxy_set_header Host                   $host;
-</span><span class='line'>
-</span><span class='line'>            proxy_set_header X-Real-IP              $remote_addr;
-</span><span class='line'>
-</span><span class='line'>            # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
-</span><span class='line'>            proxy_set_header X-Forwarded-Host      $host;
-</span><span class='line'>            proxy_set_header X-Forwarded-Server    $host;
-</span><span class='line'>
-</span><span class='line'>            # この設定がなくてもcgi等から正しいIPを確認可能。
-</span><span class='line'>            # ただし、.htaccessでの制限は不可。
-</span><span class='line'>            proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
-</span><span class='line'>    }
-</span><span class='line'>}
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>最初に↓入れたほうがいいかも？？</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># キャッシュ関連設定
-</span><span class='line'>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
-</span><span class='line'>proxy_temp_path   /var/tmp/nginx;
-</span><span class='line'>proxy_cache_key   "$scheme://$host$request_uri";
-</span><span class='line'>proxy_set_header  Host               $host;
-</span><span class='line'>proxy_set_header  X-Real-IP          $remote_addr;
-</span><span class='line'>proxy_set_header  X-Forwarded-Host   $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-Server $host;
-</span><span class='line'>proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
-</span><span class='line'>
-</span><span class='line'># バックエンドサーバ−（Apache）設定
-</span><span class='line'>upstream backend {
-</span><span class='line'>    # ip_hash;
-</span><span class='line'>    server 127.0.0.1:8080;
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>nginxを再起動して設定を反映</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1373,15 +1238,15 @@ activerecordのバージョンを3.2.14に落とす
       </li>
     
       <li class="post">
+        <a href="/blog/2014/05/01/vagrant-packege-vb_version_diff/">Vagrant Packege Vb_version_diff</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

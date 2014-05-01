@@ -9,15 +9,15 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="1
-vim /etc/yum.repos.d/nginx.repo /etc/yum.repos.d/nginx.repo 1
+  <meta name="description" content="参考URL: Nginxでリバースプロキシを設定し、Apacheと共存させる nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加 1
 2
 3
 4
 5
-[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/centos/$releasever &hellip;">
+6
+7
+sudo yum install httpd-devel cd /root/tmp
+wget http:// &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,6 +91,219 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/nginx_with_apache/">Nginxとapacheの共存</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考URL:</h3>
+
+<ul>
+<li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
+</ul>
+
+
+<h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd-devel
+</span><span class='line'>
+</span><span class='line'>cd /root/tmp
+</span><span class='line'>wget http://www.openinfo.co.uk/apache/extract_forwarded-2.0.2.tar.gz
+</span><span class='line'>tar zxf extract_forwarded-2.0.2.tar.gz
+</span><span class='line'>cd extract_forwarded
+</span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>apacheの実行ユーザーとポートを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Listen 8080
+</span><span class='line'>
+</span><span class='line'>#####
+</span><span class='line'>User nginx
+</span><span class='line'>Group nginx
+</span><span class='line'>#####
+</span><span class='line'>ServerName sample.jp:8080
+</span><span class='line'>
+</span><span class='line'># 最終行に追加
+</span><span class='line'>MEForder refuse,accept
+</span><span class='line'>MEFrefuse all
+</span><span class='line'># Nginx（リバースプロキシ）のIPアドレス
+</span><span class='line'>MEFaccept 127.0.0.1
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
+
+
+<p>apacheを再起動して設定を反映</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>nginxでの転送設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
+</span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
+
+
+<h5>default.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#デフォルトサーバー
+</span><span class='line'>server {
+</span><span class='line'>    listen       80;
+</span><span class='line'>    server_name  backend;
+</span><span class='line'>
+</span><span class='line'>    # このサーバへの全てのアクセスを転送
+</span><span class='line'>    location / {
+</span><span class='line'>            proxy_pass http://127.0.0.1:8080;
+</span><span class='line'>            proxy_redirect                         off;
+</span><span class='line'>
+</span><span class='line'>            # この設定がなくても.htaccessでの制限は可能。
+</span><span class='line'>            # ただし、cgi等から参照した際にNginxのIPアドレスになる。
+</span><span class='line'>            proxy_set_header Host                   $host;
+</span><span class='line'>
+</span><span class='line'>            proxy_set_header X-Real-IP              $remote_addr;
+</span><span class='line'>
+</span><span class='line'>            # 以下は、cgi等で明示的に利用していなければ、有効にする必要なし。
+</span><span class='line'>            proxy_set_header X-Forwarded-Host      $host;
+</span><span class='line'>            proxy_set_header X-Forwarded-Server    $host;
+</span><span class='line'>
+</span><span class='line'>            # この設定がなくてもcgi等から正しいIPを確認可能。
+</span><span class='line'>            # ただし、.htaccessでの制限は不可。
+</span><span class='line'>            proxy_set_header X-Forwarded-For        $proxy_add_x_forwarded_for;
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最初に↓入れたほうがいいかも？？</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># キャッシュ関連設定
+</span><span class='line'>proxy_cache_path  /var/cache/nginx levels=1:2 keys_zone=czone:4m max_size=50m inactive=120m;
+</span><span class='line'>proxy_temp_path   /var/tmp/nginx;
+</span><span class='line'>proxy_cache_key   "$scheme://$host$request_uri";
+</span><span class='line'>proxy_set_header  Host               $host;
+</span><span class='line'>proxy_set_header  X-Real-IP          $remote_addr;
+</span><span class='line'>proxy_set_header  X-Forwarded-Host   $host;
+</span><span class='line'>proxy_set_header  X-Forwarded-Server $host;
+</span><span class='line'>proxy_set_header  X-Forwarded-For    $proxy_add_x_forwarded_for;
+</span><span class='line'>
+</span><span class='line'># バックエンドサーバ−（Apache）設定
+</span><span class='line'>upstream backend {
+</span><span class='line'>    # ip_hash;
+</span><span class='line'>    server 127.0.0.1:8080;
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>nginxを再起動して設定を反映</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1213,73 +1426,9 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/Padrino/">Padrinoの使い方</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>padrino generate project rss -t shoulda -e haml -c sass -s jquery -d mongoid
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>padrino generate project rss3 -t shoulda -e haml -c sass -s jquery -d activerecord
-</span><span class='line'>
-</span><span class='line'>padrino generate project rss4 -t shoulda -e haml -c scss -s jquery -d activerecord -a mysql2 -b</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>テンプレートを使ってプロジェクトを作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>padrino g project sample001 --template template.rb && cd sample001</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Accountモデルを作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>padrino g model Account provider:string uid:string name:string email:string role:string token:string
-</span><span class='line'>
-</span><span class='line'>padrino rake ar:create
-</span><span class='line'>padrino rake ar:migrate</span></code></pre></td></tr></table></div></figure>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/6/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -1302,15 +1451,15 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
       </li>
     
       <li class="post">
+        <a href="/blog/2014/05/01/vagrant-packege-vb_version_diff/">Vagrant Packege Vb_version_diff</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

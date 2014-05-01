@@ -10,8 +10,12 @@
 
   
   <meta name="description" content="参考サイト Rakeタスクをつくる タスクファイルの作成 rails g task task_name
-lib/task/task_name.rake が作成される lib/task/task_name.rake &#8220;`
-desc &ldquo;Sample です&rdquo; #=> &hellip;">
+lib/task/task_name.rake が作成される lib/task/task_name.rake 1
+2
+3
+4
+desc "Sample です" #=&gt; 説明
+task : &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -121,34 +125,31 @@ $(document).ready( function () {
 <code>rails g task  task_name</code>
 lib/task/task_name.rake が作成される
 
-<h5>lib/task/task_name.rake</h5>
-
-<p>&#8220;`
-desc &ldquo;Sample です&rdquo; #=> 説明
-task :sample => :environment do
-  print &lsquo;hello sample.&rsquo;
-end</p></li>
+<h5>lib/task/task_name.rake</h5></li>
 </ul>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>##実行
-</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>desc "Sample です" #=&gt; 説明
+</span><span class='line'>task :sample =&gt; :environment do
+</span><span class='line'>  print 'hello sample.'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>rake task_name:sample</p>
+<h2>実行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>##確認
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
 
 
-<p>rake -vT
-&#8220;`</p>
+<h2>確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
+
 </div>
 
 
@@ -237,15 +238,15 @@ end</p></li>
       </li>
     
       <li class="post">
+        <a href="/blog/2014/05/01/vagrant-packege-vb_version_diff/">Vagrant Packege Vb_version_diff</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

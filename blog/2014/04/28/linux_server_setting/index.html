@@ -236,9 +236,11 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
+<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Port YOUR_PORT_NUMBER
 </span><span class='line'>PasswordAuthentication yes
-</span><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>PermitRootLogin no
+</span><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>sshdを再起動して設定を反映</h2>
@@ -340,15 +342,15 @@ $(document).ready( function () {
       </li>
     
       <li class="post">
+        <a href="/blog/2014/05/01/vagrant-packege-vb_version_diff/">Vagrant Packege Vb_version_diff</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

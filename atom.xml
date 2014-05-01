@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-04-29T00:43:34+09:00</updated>
+  <updated>2014-05-01T16:28:12+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -108,6 +108,29 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=rpmforge install ffmpeg</span></code></pre></td></tr></table></div></figure>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant Packege Vb_version_diff]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/01/vagrant-packege-vb_version_diff/"/>
+    <updated>2014-05-01T00:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/01/vagrant-packege-vb_version_diff</id>
+    <content type="html"><![CDATA[<hr />
+
+<p>layout: post
+date: 2014-05-01 16:08:00
+title: Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法
+category : Vagrant
+tags : [Vagrant]
+\&mdash;&ndash;
+先日Macを初期化してしまい、</p>
+
+<p>データや環境の復旧はだいたいできたのですが、</p>
+
+<p>Rubyの環境がどうしてもうまく構築できなくなってしまったため、</p>
+
+<p>これまで、スクリプトの実行をMacで行っていたのを「Vagrat」を使って仮想環境を構築してそこで実行するようにしようと思いったたのがことのはじめです。</p>
 ]]></content>
   </entry>
   
@@ -517,34 +540,31 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <code>rails g task  task_name</code>
 lib/task/task_name.rake が作成される
 
-<h5>lib/task/task_name.rake</h5>
-
-<p>&#8220;`
-desc &ldquo;Sample です&rdquo; #=> 説明
-task :sample => :environment do
-  print &lsquo;hello sample.&rsquo;
-end</p></li>
+<h5>lib/task/task_name.rake</h5></li>
 </ul>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>##実行
-</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>desc "Sample です" #=&gt; 説明
+</span><span class='line'>task :sample =&gt; :environment do
+</span><span class='line'>  print 'hello sample.'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>rake task_name:sample</p>
+<h2>実行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>##確認
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
 
 
-<p>rake -vT
-&#8220;`</p>
+<h2>確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
@@ -721,9 +741,11 @@ end</p></li>
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
+<span class='line-number'>4</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>Port YOUR_PORT_NUMBER
 </span><span class='line'>PasswordAuthentication yes
-</span><span class='line'>PermitRootLogin no</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>PermitRootLogin no
+</span><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>sshdを再起動して設定を反映</h2>
@@ -1421,73 +1443,6 @@ file pathを追加する
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SElinuxの設定]]></title>
-    <link href="http://blog.abgata.org/blog/2014/04/28/SELinux/"/>
-    <updated>2014-04-28T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/04/28/SELinux</id>
-    <content type="html"><![CDATA[<h2>動作状態の確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
-</span><span class='line'># &gt; Enforcing
-</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
-</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
-</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>SELinuxを一時的に無効化</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
-</span><span class='line'># SELinuxを復活
-</span><span class='line'>setenforce 1
-</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
-
-<p>設定ファイルを変更したら、あとはrebootすればOK</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
-</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
   </entry>

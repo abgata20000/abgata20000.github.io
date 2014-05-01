@@ -154,7 +154,7 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/04/28/linux_server_setting/</loc>
-        <lastmod>2014-04-29T00:30:48+09:00</lastmod>
+        <lastmod>2014-05-01T14:33:59+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/04/28/pm2_install/</loc>
@@ -162,7 +162,7 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/04/28/rails_task/</loc>
-        <lastmod>2014-04-28T23:56:03+09:00</lastmod>
+        <lastmod>2014-04-29T00:58:22+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/04/28/rails_unicorn/</loc>
@@ -193,6 +193,10 @@
         <lastmod>2014-04-28T23:58:46+09:00</lastmod>
     </url>
     <url>
+        <loc>http://blog.abgata.org/blog/2014/05/01/vagrant-packege-vb_version_diff/</loc>
+        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.abgata.org/blog/2014/12/26/ffmepg_install_from_yum/</loc>
         <lastmod>2014-04-28T23:00:56+09:00</lastmod>
     </url>
@@ -202,11 +206,11 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/archives/</loc>
-        <lastmod>2014-04-29T00:42:34+09:00</lastmod>
+        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/</loc>
-        <lastmod>2014-04-29T00:42:34+09:00</lastmod>
+        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/links.html</loc>
