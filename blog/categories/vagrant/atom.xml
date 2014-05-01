@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vagrant | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/vagrant/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-05-01T16:53:53+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/"/>
+    <updated>2014-05-02T01:08:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff</id>
+    <content type="html"><![CDATA[<h3>そもそも Vagrant 使おうと思いたった経緯</h3>
+
+<p>以前 <a href="http://dotinstall.com">ドットインストール</a> さんにレッスンがあったので</p>
+
+<p>試してみたことはあったのですが、</p>
+
+<p>自分の環境で利用している「pallarels desctop」と相性が悪いのか、</p>
+
+<p>同時に立ち上げるとMacが落ちるという現象があったため利用はしていなかったのです。</p>
+
+<p>がしかし</p>
+
+<p>先日アホなミスをしてしまい、Macを初期化するハメになってしまい、</p>
+
+<p>データや環境の復旧はだいたいできたのですが、</p>
+
+<p>Rubyの環境がどうしてもうまく構築できなくなってしまったため、</p>
+
+<p>これまで、スクリプトの実行をMacで行っていたのを</p>
+
+<p>「Vagrat」を使って仮想環境を構築してそこで実行するようにしようと思いったたのがことのはじめです。</p>
+
+<h3>vagrant の box を作成してみる</h3>
+
+<p>折角環境を作ったのでboxを作ってみました。</p>
+
+<p><code>
+vagrant package
+</code></p>
+
+<p>少し時間はかかりましたが問題なく packege.box が生成されました。</p>
+
+<p>生成された package.box を vagrant に登録して</p>
+
+<p>```
+vagrant box add myImage package.box</p>
+
+<p>```</p>
+
+<h5>Vagrantfile</h5>
+
+<p><code>
+config.vm.box = "myImage"
+</code></p>
+
+<p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
+
+<p><code>
+vagrant up
+</code></p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+
+<p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
+
+<h3>共有フォルダを利用できるようにする</h3>
+
+<p>少し調べていた結果、
+VirtualBox のバージョンがbox作成時と現在とで異なっているのが原因らしいです。</p>
+
+<p><a href="http://qiita.com/harapeko_wktk/items/72985bfccaae60c69384">Vagrantの共有ディレクトリ設定でものすっごい躓いた！</a>
+を参考に問題を解決してみることに</p>
+
+<h4>VirtualBoxのバージョン違いを解決するプラグインをインストールする</h4>
+
+<p><code>
+vagrant plugin install vagrant-vbguest
+vi ~/.vagrant.d/Vagrantfile
+</code></p>
+
+<p><code>`js:~/.vagrant.d/Vagrantfile
+Vagrant.configure("2") do |config|
+  config.vbguest.auto_update = false
+end
+</code></p>
+
+<p>バージョンが異なっているかどうかを確認
+```
+% vagrant vbguest &mdash;status</p>
+
+<p>GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.
+```</p>
+
+<p>やはりバージョンが違うらしい</p>
+
+<p><code>
+vagrant vbguest --auto-reboot
+</code></p>
+
+<p>で修正してくれるらしいので実行してみた。</p>
+
+<p>無事終了したっぽいので確認</p>
+
+<p><code>
+% vagrant vbguest --status
+GuestAdditions 4.3.10 running --- OK.
+</code></p>
+
+<p>解決したらしい。</p>
+
+<p>Vagrant をリブートしてみる</p>
+
+<p>```
+% v reload
+~~~
+==> default: Configuring and enabling network interfaces&hellip;
+The following SSH command responded with a non-zero exit status.
+Vagrant assumes that this means the command failed!</p>
+
+<p>ARPCHECK=no /sbin/ifup eth1 2> /dev/null</p>
+
+<p>Stdout from the command:</p>
+
+<p>Device eth1 does not seem to be present, delaying initialization.</p>
+
+<p>Stderr from the command:</p>
+
+<p>```</p>
+
+<p>ダメみたい。</p>
+
+<p>IPアドレスがうまく振り当てられていないみたいなので、</p>
+
+<p><a href="https://github.com/mitchellh/vagrant/issues/3341">ここ</a>を参考に少し修正してみる</p>
+
+<p>Vagrant にSSH接続して後に</p>
+
+<p><code>
+sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions
+</code></p>
+
+<p>を実行</p>
+
+<p>リブートしてみる</p>
+
+<p><code>
+vagrant reload
+</code></p>
+
+<p>解決した。</p>
+
+<p>なかなか大変でした。</p>
+]]></content>
+  </entry>
+  
+</feed>

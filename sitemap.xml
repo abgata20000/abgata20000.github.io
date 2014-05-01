@@ -73,6 +73,14 @@
         <lastmod>2014-04-28T21:15:54+09:00</lastmod>
     </url>
     <url>
+        <loc>http://blog.abgata.org/blog/2013/12/26/ffmepg_install_from_yum/</loc>
+        <lastmod>2014-05-01T16:32:21+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2013/12/26/graphicsmagick_install/</loc>
+        <lastmod>2014-05-01T16:32:25+09:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.abgata.org/blog/2013/12/26/sublime_text_2_setting_share/</loc>
         <lastmod>2014-04-28T22:54:41+09:00</lastmod>
     </url>
@@ -193,24 +201,16 @@
         <lastmod>2014-04-28T23:58:46+09:00</lastmod>
     </url>
     <url>
-        <loc>http://blog.abgata.org/blog/2014/05/01/vagrant-packege-vb_version_diff/</loc>
-        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://blog.abgata.org/blog/2014/12/26/ffmepg_install_from_yum/</loc>
-        <lastmod>2014-04-28T23:00:56+09:00</lastmod>
-    </url>
-    <url>
-        <loc>http://blog.abgata.org/blog/2014/12/26/graphicsmagick_install/</loc>
-        <lastmod>2014-04-28T23:00:55+09:00</lastmod>
+        <loc>http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/</loc>
+        <lastmod>2014-05-01T16:53:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/archives/</loc>
-        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
+        <lastmod>2014-05-01T16:53:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/</loc>
-        <lastmod>2014-05-01T16:17:58+09:00</lastmod>
+        <lastmod>2014-05-01T16:53:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/links.html</loc>
