@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vagrant | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:13:05+09:00</updated>
+  <updated>2014-05-01T17:20:00+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -38,7 +38,7 @@
 
 <p>これまで、スクリプトの実行をMacで行っていたのを</p>
 
-<p>「Vagrat」を使って仮想環境を構築してそこで実行するようにしようと思いったたのがことのはじめです。</p>
+<p>「Vagrant」を使って仮想環境を構築してそこで実行するようにしようと思いったたのがことのはじめです。</p>
 
 <h3>vagrant の box を作成してみる</h3>
 
@@ -48,7 +48,7 @@
 vagrant package
 </code></p>
 
-<p>少し時間はかかりましたが問題なく packege.box が生成されました。</p>
+<p>少し時間はかかりましたが問題なく package.box が生成されました。</p>
 
 <p>生成された package.box を vagrant に登録して</p>
 
@@ -88,7 +88,7 @@ vagrant plugin install vagrant-vbguest
 vi ~/.vagrant.d/Vagrantfile
 </code></p>
 
-<h5>~/.vagrant.d/Vagrantfile</h5>
+<h5>javascript:~/.vagrant.d/Vagrantfile</h5>
 
 <p><code>
 Vagrant.configure("2") do |config|
