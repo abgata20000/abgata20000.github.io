@@ -9,9 +9,9 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト Sublime Text 2の設定をDropboxで共有して便利にする
-Sublime Text 2の設定をDropboxで共有する
-Dropboxを活用して複数のmacでSublimeTextの設定を共有する 設定ファイルをDropBoxに移す 本来の設定ファイルがある場所 &hellip;">
+  <meta name="description" content="参考サイト Installation - Package Control
+SublimeText3のセットアップ
+SublimeText2/3 環境設定とか（基本3） パッケージインストールできるようにする View &gt; Show Console でコマンドライン入力欄を出して以下を実行 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,60 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>参考サイト</h2>
+
+<ul>
+<li><a href="https://sublime.wbond.net/installation">Installation - Package Control</a></li>
+<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
+<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
+</ul>
+
+<h2>パッケージインストールできるようにする</h2>
+
+<p>View &gt; Show Console でコマンドライン入力欄を出して以下を実行</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
+</span></code></pre></td></tr></table></div></figure>
+
+<p>cmd + shift + p でパッケージインストールを実行可能に</p>
+
+<h2>インストールするもの</h2>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1109,70 +1163,6 @@ activerecordのバージョンを3.2.14に落とす
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/rmagick_install/">Rmagickのインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考</h3>
-
-<ul>
-<li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
-</ul>
-
-<h2>Yumでインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install ImageMagick ImageMagick-devel -y</span></code></pre></td></tr></table></div></figure>
-
-<h2>gemでライブラリをインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rmagick</span></code></pre></td></tr></table></div></figure>
-
-<p>※sudoじゃなきゃだめかも</p>
-
-<p>ライブラリ名が異なる？？らしくRubyやRailsから呼び出す際には、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'RMagick'</span></code></pre></td></tr></table></div></figure>
-
-<p>やら</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'rmagick', :require =&gt; 'RMagick'</span></code></pre></td></tr></table></div></figure>
-
-<p>のような書き方が必要</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1190,6 +1180,10 @@ activerecordのバージョンを3.2.14に落とす
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
       </li>
     
@@ -1203,10 +1197,6 @@ activerecordのバージョンを3.2.14に落とす
     
       <li class="post">
         <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a>
       </li>
     
   </ul>

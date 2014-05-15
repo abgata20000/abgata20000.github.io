@@ -9,11 +9,13 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="yumを最新状態にする 1
-sudo yum update -y 使用言語を日本語に設定 1
+  <meta name="description" content="npmでグローバルにインストール 1
+npm install -g pm2 スクリプトを登録 1
+pm2 start sample001.js スクリプトを確認 1
+pm2 list スクリプトを止める 1
 2
-sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
-sudo vim /etc/sysconfig/i18n /etc/sysconfig/i18n &hellip;">
+# listで確認して、appで登録されたスクリプトを止めたい場合
+pm2 stop &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -87,6 +89,72 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/pm2_install/">Node.jsのデーモン化ツールpm2をインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>npmでグローバルにインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
+
+<h2>スクリプトを登録</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
+
+<h2>スクリプトを確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
+
+<h2>スクリプトを止める</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
+</span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
+
+<h2>ログを参照</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
+
+<h2>モニタリング</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1167,107 +1235,6 @@ $(document).ready( function () {
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/28/PHP_install_newest/">最新版PHPをインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>インストール可能なバージョンの確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
-
-<p>※執筆時点では5.4.19</p>
-
-<h2>利用しそうな依存ライブラリも一緒にインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
-
-<h2>バージョンの確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
-
-<h2>設定ファイルを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
-</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/php.ini</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
-</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
-</span><span class='line'>display_errors = On
-</span><span class='line'>mbstring.language = Japanese
-</span><span class='line'>expose_php = Off
-</span><span class='line'>date.timezone = Asia/Tokyo
-</span><span class='line'>max_execution_time = 300
-</span><span class='line'>magic_quotes_gpc = Off
-</span><span class='line'>mbstring.internal_encoding = UTF-8
-</span><span class='line'>mbstring.http_input = auto
-</span><span class='line'>mbstring.http_output = pass
-</span><span class='line'>mbstring.detect_order = auto
-</span><span class='line'>;mbstring.substitute_character = none;
-</span><span class='line'>
-</span><span class='line'>max_file_uploads = 100
-</span><span class='line'>post_max_size = 100M
-</span><span class='line'>upload_max_filesize 100M
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>apache再起動で反映</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1285,6 +1252,10 @@ $(document).ready( function () {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
       </li>
     
@@ -1298,10 +1269,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a>
       </li>
     
   </ul>

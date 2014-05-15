@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vagrant | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-03T10:41:07+09:00</updated>
+  <updated>2014-05-15T22:17:45+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant共有フォルダをnfsを使って高速化する]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/16/vagrant-nfs/"/>
+    <updated>2014-05-16T06:57:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/16/vagrant-nfs</id>
+    <content type="html"><![CDATA[<p>先日、Vagrantの共有フォルダがデフォルト設定だと遅くて使いものにならないという話を聞き、nfsを使って高速化してみた時の話</p>
+
+<p>nfsd が起動しているかを確認</p>
+<div class="highlight"><pre><code class="text">sudo nfsd status
+</code></pre></div>
+<p>起動していなければ起動する
+<code>
+sudo nfsd enable
+</code></p>
+
+<p>/etc/exports が必要らしいので作成</p>
+<div class="highlight"><pre><code class="text">sudo touch /etc/exports
+</code></pre></div>
+<p>あとは、設定ファイルで :type に nfs を指定するだけでよさそう</p>
+
+<h5>Vagrantfile</h5>
+<div class="highlight"><pre><code class="text">config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;nfs&quot;, :mount_options  =&gt; [&#39;nolock,vers=3,udp&#39;]
+</code></pre></div>
+<p>簡単ですね。</p>
+
+<p>と思ったのですが</p>
+
+<p>マウント時に何やらエラーが出ているみたいです。</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/d7c5eaf52263d75ba0386a4397a8a9be.png" alt="error"></p>
+
+<p>rpc.statd を起動させるか オプションで nolockを指定しろと言っているみたいなので、</p>
+
+<p>マウント時のオプションに nolock 渡すようにしたら出来ました。 </p>
+
+<h5>Vagrantfile</h5>
+<div class="highlight"><pre><code class="text">config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, type: &quot;nfs&quot;, :mount_options  =&gt; [&#39;nolock,vers=3,udp&#39;]
+</code></pre></div>
+<p>確かになん速い気がします。</p>
+
+<p>今度計測してみよう。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法]]></title>

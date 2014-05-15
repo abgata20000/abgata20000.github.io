@@ -9,7 +9,10 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="そもそも Vagrant 使おうと思いたった経緯 以前 ドットインストール さんにレッスンがあったので 試してみたことはあったのですが、 自分の環境で利用している「pallarels desctop」と相性が悪いのか、 &hellip;">
+  <meta name="description" content="先日、Vagrantの共有フォルダがデフォルト設定だと遅くて使いものにならないという話を聞き、nfsを使って高速化してみた時の話 nfsd が起動しているかを確認 1
+sudo nfsd status 起動していなければ起動する
+1
+sudo nfsd enable /etc/exports &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +86,84 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-16T06:57:00+09:00" pubdate data-updated="true">May 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>先日、Vagrantの共有フォルダがデフォルト設定だと遅くて使いものにならないという話を聞き、nfsを使って高速化してみた時の話</p>
+
+<p>nfsd が起動しているかを確認</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nfsd status</span></code></pre></td></tr></table></div></figure>
+
+<p>起動していなければ起動する
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nfsd enable</span></code></pre></td></tr></table></div></figure></p>
+
+<p>/etc/exports が必要らしいので作成</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo touch /etc/exports</span></code></pre></td></tr></table></div></figure>
+
+<p>あとは、設定ファイルで :type に nfs を指定するだけでよさそう</p>
+
+<h5>Vagrantfile</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options  =&gt; ['nolock,vers=3,udp']</span></code></pre></td></tr></table></div></figure>
+
+<p>簡単ですね。</p>
+
+<p>と思ったのですが</p>
+
+<p>マウント時に何やらエラーが出ているみたいです。</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/d7c5eaf52263d75ba0386a4397a8a9be.png" alt="error"></p>
+
+<p>rpc.statd を起動させるか オプションで nolockを指定しろと言っているみたいなので、</p>
+
+<p>マウント時のオプションに nolock 渡すようにしたら出来ました。 </p>
+
+<h5>Vagrantfile</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options  =&gt; ['nolock,vers=3,udp']</span></code></pre></td></tr></table></div></figure>
+
+<p>確かになん速い気がします。</p>
+
+<p>今度計測してみよう。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -905,72 +986,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/28/pm2_install/">Node.jsのデーモン化ツールpm2をインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>npmでグローバルにインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
-
-<h2>スクリプトを登録</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
-
-<h2>スクリプトを確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
-
-<h2>スクリプトを止める</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
-</span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
-
-<h2>ログを参照</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
-
-<h2>モニタリング</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -986,6 +1001,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
       </li>
     
@@ -999,10 +1018,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
     
       <li class="post">
         <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a>
       </li>
     
   </ul>

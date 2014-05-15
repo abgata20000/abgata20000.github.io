@@ -10,8 +10,8 @@
 
   
   <meta name="description" content="インストール可能なバージョンの確認 1
-yum info --enablerepo=remi mysql mysql-server mysql-devel ※執筆時点では5.5.53 利用しそうな依存ライブラリも一緒にインストール 1
-sudo yum install -y -- &hellip;">
+sudo yum info --enablerepo=remi php ※執筆時点では5.4.19 利用しそうな依存ライブラリも一緒にインストール 1
+sudo yum --enablerepo=remi install -y php php-devel &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +85,107 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/PHP_install_newest/">最新版PHPをインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>インストール可能なバージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
+
+<p>※執筆時点では5.4.19</p>
+
+<h2>利用しそうな依存ライブラリも一緒にインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
+
+<h2>バージョンの確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
+
+<h2>設定ファイルを変更</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
+</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/php.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
+</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
+</span><span class='line'>display_errors = On
+</span><span class='line'>mbstring.language = Japanese
+</span><span class='line'>expose_php = Off
+</span><span class='line'>date.timezone = Asia/Tokyo
+</span><span class='line'>max_execution_time = 300
+</span><span class='line'>magic_quotes_gpc = Off
+</span><span class='line'>mbstring.internal_encoding = UTF-8
+</span><span class='line'>mbstring.http_input = auto
+</span><span class='line'>mbstring.http_output = pass
+</span><span class='line'>mbstring.detect_order = auto
+</span><span class='line'>;mbstring.substitute_character = none;
+</span><span class='line'>
+</span><span class='line'>max_file_uploads = 100
+</span><span class='line'>post_max_size = 100M
+</span><span class='line'>upload_max_filesize 100M
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>apache再起動で反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1031,60 +1132,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting/">Sublime Text 3 の設定</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>参考サイト</h2>
-
-<ul>
-<li><a href="https://sublime.wbond.net/installation">Installation - Package Control</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-<li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
-</ul>
-
-<h2>パッケージインストールできるようにする</h2>
-
-<p>View &gt; Show Console でコマンドライン入力欄を出して以下を実行</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
-</span></code></pre></td></tr></table></div></figure>
-
-<p>cmd + shift + p でパッケージインストールを実行可能に</p>
-
-<h2>インストールするもの</h2>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1102,6 +1149,10 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
       </li>
     
@@ -1115,10 +1166,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(
     
       <li class="post">
         <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a>
       </li>
     
   </ul>

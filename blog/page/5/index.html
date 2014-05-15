@@ -9,15 +9,9 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考URL: Nginxでリバースプロキシを設定し、Apacheと共存させる nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加 1
-2
-3
-4
-5
-6
-7
-sudo yum install httpd-devel cd /root/tmp
-wget http:// &hellip;">
+  <meta name="description" content="参考 CentOS に ImageMagick, RMagick のインストール Yumでインストール 1
+sudo yum install ImageMagick ImageMagick-devel -y gemでライブラリをインストール 1
+gem install rmagick ※ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -91,6 +85,70 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/rmagick_install/">Rmagickのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考</h3>
+
+<ul>
+<li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
+</ul>
+
+<h2>Yumでインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install ImageMagick ImageMagick-devel -y</span></code></pre></td></tr></table></div></figure>
+
+<h2>gemでライブラリをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install rmagick</span></code></pre></td></tr></table></div></figure>
+
+<p>※sudoじゃなきゃだめかも</p>
+
+<p>ライブラリ名が異なる？？らしくRubyやRailsから呼び出す際には、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require 'RMagick'</span></code></pre></td></tr></table></div></figure>
+
+<p>やら</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem 'rmagick', :require =&gt; 'RMagick'</span></code></pre></td></tr></table></div></figure>
+
+<p>のような書き方が必要</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1153,237 +1211,6 @@ gem install activerecord-mysql2-adapter
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/Ruby_Apache/">Rubyをapacheで稼働する</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>passengerをインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install passenger
-</span><span class='line'>
-</span><span class='line'>passenger-install-apache2-module
-</span><span class='line'># パスとおっていない場合は場所を探す
-</span><span class='line'>
-</span><span class='line'>sudo find / -name passenger-install-apache2-module
-</span><span class='line'>
-</span><span class='line'>sudo yum install -y curl-devel
-</span><span class='line'>
-</span><span class='line'>/usr/local/rbenv/versions/2.0.0-p247/bin/passenger-install-apache2-module
-</span><span class='line'>
-</span><span class='line'># 3回くらい質問されるがとりあえずenter連打</span></code></pre></td></tr></table></div></figure>
-
-<h2>インストール完了後のコメント</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
-<span class='line-number'>39</span>
-<span class='line-number'>40</span>
-<span class='line-number'>41</span>
-<span class='line-number'>42</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>The Apache 2 module was successfully installed.
-</span><span class='line'>
-</span><span class='line'>Please edit your Apache configuration file, and add these lines:
-</span><span class='line'>
-</span><span class='line'>   LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
-</span><span class='line'>   PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
-</span><span class='line'>   PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby
-</span><span class='line'>
-</span><span class='line'>After you restart Apache, you are ready to deploy any number of Ruby on Rails
-</span><span class='line'>applications on Apache, without any further Ruby on Rails-specific
-</span><span class='line'>configuration!
-</span><span class='line'>
-</span><span class='line'>Press ENTER to continue.
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>--------------------------------------------
-</span><span class='line'>Deploying a Ruby on Rails application: an example
-</span><span class='line'>
-</span><span class='line'>Suppose you have a Rails application in /somewhere. Add a virtual host to your
-</span><span class='line'>Apache configuration file and set its DocumentRoot to /somewhere/public:
-</span><span class='line'>
-</span><span class='line'>   &lt;VirtualHost *:80&gt;
-</span><span class='line'>      ServerName www.yourhost.com
-</span><span class='line'>      # !!! Be sure to point DocumentRoot to 'public'!
-</span><span class='line'>      DocumentRoot /somewhere/public
-</span><span class='line'>      &lt;Directory /somewhere/public&gt;
-</span><span class='line'>         # This relaxes Apache security settings.
-</span><span class='line'>         AllowOverride all
-</span><span class='line'>         # MultiViews must be turned off.
-</span><span class='line'>         Options -MultiViews
-</span><span class='line'>      &lt;/Directory&gt;
-</span><span class='line'>   &lt;/VirtualHost&gt;
-</span><span class='line'>
-</span><span class='line'>And that's it! You may also want to check the Users Guide for security and
-</span><span class='line'>optimization tips, troubleshooting and other useful information:
-</span><span class='line'>
-</span><span class='line'>  /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/doc/Users guide Apache.html
-</span><span class='line'>
-</span><span class='line'>Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
-</span><span class='line'>https://www.phusionpassenger.com
-</span><span class='line'>
-</span><span class='line'>Phusion Passenger is a trademark of Hongli Lai & Ninh Bui.
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>apacheの設定ファイルを変更白みたいなことが書いてあるので変更する</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf.d/passenger.conf</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/httpd/conf.d/passenger.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
-</span><span class='line'>PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
-</span><span class='line'>PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby</span></code></pre></td></tr></table></div></figure>
-
-<h2>apahceの設定ファイルでドキュメントルート、バーチャルホストを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/httpd/conf/httpd.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>DocumentRoot /var/www/ruby/public</span></code></pre></td></tr></table></div></figure>
-
-<h2>ドキュメントルートのディレクトリ作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /var/www
-</span><span class='line'>mkdir ruby
-</span><span class='line'>cd ruby
-</span><span class='line'>mkdir public
-</span><span class='line'>mkdir tmp</span></code></pre></td></tr></table></div></figure>
-
-<h2>実行用の設定ファイル作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim config.ru</span></code></pre></td></tr></table></div></figure>
-
-<h5>config.ru</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>require 'bundler'
-</span><span class='line'>Bundler.require
-</span><span class='line'>
-</span><span class='line'>require './app'
-</span><span class='line'>
-</span><span class='line'>run App
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>実行用ファイルの作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>class App &lt; Sinatra::Base
-</span><span class='line'>  register Sinatra::Reloader
-</span><span class='line'>
-</span><span class='line'>  get '/' do
-</span><span class='line'>      #
-</span><span class='line'>      'hello sinatra by apache.'
-</span><span class='line'>
-</span><span class='line'>  end
-</span><span class='line'>end
-</span></code></pre></td></tr></table></div></figure>
-
-<p>webブラウザ等でアクセスしてみる</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1401,6 +1228,10 @@ gem install activerecord-mysql2-adapter
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
       </li>
     
@@ -1414,10 +1245,6 @@ gem install activerecord-mysql2-adapter
     
       <li class="post">
         <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_keyfile/">SSL証明書の発行方法</a>
       </li>
     
   </ul>

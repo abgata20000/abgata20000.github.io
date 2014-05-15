@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-03T10:41:07+09:00</updated>
+  <updated>2014-05-15T22:17:45+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Vagrant共有フォルダをnfsを使って高速化する]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/16/vagrant-nfs/"/>
+    <updated>2014-05-16T06:57:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/16/vagrant-nfs</id>
+    <content type="html"><![CDATA[<p>先日、Vagrantの共有フォルダがデフォルト設定だと遅くて使いものにならないという話を聞き、nfsを使って高速化してみた時の話</p>
+
+<p>nfsd が起動しているかを確認</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nfsd status</span></code></pre></td></tr></table></div></figure>
+
+<p>起動していなければ起動する
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo nfsd enable</span></code></pre></td></tr></table></div></figure></p>
+
+<p>/etc/exports が必要らしいので作成</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo touch /etc/exports</span></code></pre></td></tr></table></div></figure>
+
+<p>あとは、設定ファイルで :type に nfs を指定するだけでよさそう</p>
+
+<h5>Vagrantfile</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options  =&gt; ['nolock,vers=3,udp']</span></code></pre></td></tr></table></div></figure>
+
+<p>簡単ですね。</p>
+
+<p>と思ったのですが</p>
+
+<p>マウント時に何やらエラーが出ているみたいです。</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/d7c5eaf52263d75ba0386a4397a8a9be.png" alt="error"></p>
+
+<p>rpc.statd を起動させるか オプションで nolockを指定しろと言っているみたいなので、</p>
+
+<p>マウント時のオプションに nolock 渡すようにしたら出来ました。 </p>
+
+<h5>Vagrantfile</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.synced_folder ".", "/vagrant", type: "nfs", :mount_options  =&gt; ['nolock,vers=3,udp']</span></code></pre></td></tr></table></div></figure>
+
+<p>確かになん速い気がします。</p>
+
+<p>今度計測してみよう。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法]]></title>
@@ -1463,80 +1514,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[最新版PHPをインストール]]></title>
-    <link href="http://blog.abgata.org/blog/2014/04/28/PHP_install_newest/"/>
-    <updated>2014-04-28T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/04/28/PHP_install_newest</id>
-    <content type="html"><![CDATA[<h2>インストール可能なバージョンの確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
-
-<p>※執筆時点では5.4.19</p>
-
-<h2>利用しそうな依存ライブラリも一緒にインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
-
-<h2>バージョンの確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
-
-<h2>設定ファイルを変更</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
-</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/php.ini</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
-</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
-</span><span class='line'>display_errors = On
-</span><span class='line'>mbstring.language = Japanese
-</span><span class='line'>expose_php = Off
-</span><span class='line'>date.timezone = Asia/Tokyo
-</span><span class='line'>max_execution_time = 300
-</span><span class='line'>magic_quotes_gpc = Off
-</span><span class='line'>mbstring.internal_encoding = UTF-8
-</span><span class='line'>mbstring.http_input = auto
-</span><span class='line'>mbstring.http_output = pass
-</span><span class='line'>mbstring.detect_order = auto
-</span><span class='line'>;mbstring.substitute_character = none;
-</span><span class='line'>
-</span><span class='line'>max_file_uploads = 100
-</span><span class='line'>post_max_size = 100M
-</span><span class='line'>upload_max_filesize 100M
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>apache再起動で反映</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
 ]]></content>
   </entry>
   
