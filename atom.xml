@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -47,7 +47,6 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant package</span></code></pre></td></tr></table></div></figure>
 
-
 <p>少し時間はかかりましたが問題なく package.box が生成されました。</p>
 
 <p>生成された package.box を vagrant に登録して</p>
@@ -56,20 +55,17 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add myImage package.box
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>Vagrantfile</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.box = "myImage"</span></code></pre></td></tr></table></div></figure>
-
 
 <p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up</span></code></pre></td></tr></table></div></figure>
 
-
-<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー"></p>
 
 <p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
 
@@ -88,50 +84,48 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant plugin install vagrant-vbguest
 </span><span class='line'>vi ~/.vagrant.d/Vagrantfile</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>javascript:~/.vagrant.d/Vagrantfile</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Vagrant.configure("2") do |config|
-</span><span class='line'>  config.vbguest.auto_update = false
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Vagrant</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nx">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="nx">config</span><span class="p">.</span><span class="nx">vbguest</span><span class="p">.</span><span class="nx">auto_update</span> <span class="o">=</span> <span class="kc">false</span>
+</span><span class='line'><span class="nx">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>バージョンが異なっているかどうかを確認</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>バージョンが異なっているかどうかを確認
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'> GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'> <span class="nx">GuestAdditions</span> <span class="nx">versions</span> <span class="nx">on</span> <span class="nx">your</span> <span class="nx">host</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="p">)</span> <span class="nx">and</span> <span class="nx">guest</span> <span class="p">(</span><span class="mf">4.2</span><span class="p">.</span><span class="mi">16</span><span class="p">)</span> <span class="k">do</span> <span class="nx">not</span> <span class="nx">match</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>やはりバージョンが違うらしい</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --auto-reboot</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">auto</span><span class="o">-</span><span class="nx">reboot</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>で修正してくれるらしいので実行してみた。</p>
 
 <p>無事終了したっぽいので確認</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'>GuestAdditions 4.3.10 running --- OK.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'><span class="nx">GuestAdditions</span> <span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span> <span class="nx">running</span> <span class="o">---</span> <span class="nx">OK</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決したらしい。</p>
 
 <p>Vagrant をリブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -145,22 +139,21 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>v reload
-</span><span class='line'>~~~
-</span><span class='line'>==&gt; default: Configuring and enabling network interfaces...
-</span><span class='line'>The following SSH command responded with a non-zero exit status.
-</span><span class='line'>Vagrant assumes that this means the command failed!
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">v</span> <span class="nx">reload</span>
+</span><span class='line'><span class="o">~~~</span>
+</span><span class='line'><span class="o">==&gt;</span> <span class="k">default</span><span class="o">:</span> <span class="nx">Configuring</span> <span class="nx">and</span> <span class="nx">enabling</span> <span class="nx">network</span> <span class="nx">interfaces</span><span class="p">...</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">following</span> <span class="nx">SSH</span> <span class="nx">command</span> <span class="nx">responded</span> <span class="kd">with</span> <span class="nx">a</span> <span class="nx">non</span><span class="o">-</span><span class="nx">zero</span> <span class="nx">exit</span> <span class="nx">status</span><span class="p">.</span>
+</span><span class='line'><span class="nx">Vagrant</span> <span class="nx">assumes</span> <span class="nx">that</span> <span class="k">this</span> <span class="nx">means</span> <span class="nx">the</span> <span class="nx">command</span> <span class="nx">failed</span><span class="o">!</span>
 </span><span class='line'>
-</span><span class='line'>ARPCHECK=no /sbin/ifup eth1 2&gt; /dev/null
+</span><span class='line'><span class="nx">ARPCHECK</span><span class="o">=</span><span class="nx">no</span> <span class="o">/</span><span class="nx">sbin</span><span class="o">/</span><span class="nx">ifup</span> <span class="nx">eth1</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="err">/dev/null</span>
 </span><span class='line'>
-</span><span class='line'>Stdout from the command:
+</span><span class='line'><span class="nx">Stdout</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span><span class='line'>
-</span><span class='line'>Device eth1 does not seem to be present, delaying initialization.
+</span><span class='line'><span class="nx">Device</span> <span class="nx">eth1</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">seem</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">present</span><span class="p">,</span> <span class="nx">delaying</span> <span class="nx">initialization</span><span class="p">.</span>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>Stderr from the command:
+</span><span class='line'><span class="nx">Stderr</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>ダメみたい。</p>
 
@@ -170,19 +163,19 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 
 <p>Vagrant にSSH接続して後に</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-</span><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>を実行</p>
 
 <p>リブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant reload</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">reload</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決した。</p>
 
@@ -198,15 +191,13 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
     <content type="html"><![CDATA[<h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
-
-<h2>登録内容の確認</h2></li>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a></li>
 </ul>
 
+<h2>登録内容の確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever</span></code></pre></td></tr></table></div></figure>
-
 
 <p>を実行するとcrontabの内容をコンソール出力。
 この時点ではまだcrontabに登録されてはいない。</p>
@@ -216,7 +207,6 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --update-crontab</span></code></pre></td></tr></table></div></figure>
 
-
 <p>–update-crontabオプションをつけるとcrontabに登録する。
 Whenever以外で登録されていたジョブが上書きされることはない。</p>
 
@@ -224,7 +214,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --clear-crontab</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Cronを止めたい場合は–clear-crontabですべて削除。
 登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>
@@ -242,12 +231,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
 </ul>
 
-
 <h2>インストールに必要なパールモジュールをインストールする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'> yum -y install perl-Net-SSLeay</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>最新版を入手</h3>
 
@@ -282,12 +269,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'> # 最終行：アクセス許可するIP追記
 </span><span class='line'>allow=127.0.0.1 10.0.0.0/24</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service webmin restart</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -307,7 +292,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org
 </span><span class='line'>vim /etc/httpd/conf.d/ssl.conf
 </span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -365,7 +349,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>
 </span><span class='line'>vim /etc/httpd/conf.d/ssl.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf.d/ssl.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -376,12 +359,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>SSLCertificateKeyFile /etc/pki/tls/certs/my_key.pem
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>apacheを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -395,14 +376,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum -y install samba system-config-samba samba-common samba-client</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/samba/smb.conf /etc/samba/smb.conf.org
 </span><span class='line'>vim /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/samba/smb.conf</h5>
 
@@ -490,7 +469,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>          dos filetimes = yes
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sambaにユーザ追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -504,7 +482,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>
 </span><span class='line'>pdbedit -L</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>samba起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -512,14 +489,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </pre></td><td class='code'><pre><code class=''><span class='line'>service smb start
 </span><span class='line'>service nmb start</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>問題なければ、自動起動に。</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig smb on
 </span><span class='line'>chkconfig nmb on</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>samba用にiptables編集(下記を追加)</h2>
 
@@ -530,12 +505,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>iptables再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service iptables restart</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -549,11 +522,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行中のスクリプトを確認</h2>
-
-<p><code>ps ax | grep ruby</code>##実行中のスクリプトを停止<code>kill processid</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">ps ax | grep ruby
+</code></pre></div>
+<h2>実行中のスクリプトを停止</h2>
+<div class="highlight"><pre><code class="text">kill processid
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -566,18 +540,15 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>unicorn -c config/unicorn.rb -D</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>現在実行中のプロセスを探す</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ps ax | grep unicorn</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>停止</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>kill process_id</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -589,16 +560,15 @@ Whenever以外で登録されていたジョブが上書きされることはな
     <content type="html"><![CDATA[<h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a>
-
-<h2>タスクファイルの作成</h2>
-
-<code>rails g task  task_name</code>
-lib/task/task_name.rake が作成される
-
-<h5>lib/task/task_name.rake</h5></li>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a></li>
 </ul>
 
+<h2>タスクファイルの作成</h2>
+<div class="highlight"><pre><code class="text">rails g task  task_name
+</code></pre></div>
+<p>lib/task/task_name.rake が作成される</p>
+
+<h5>lib/task/task_name.rake</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -609,18 +579,15 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>  print 'hello sample.'
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -634,18 +601,15 @@ lib/task/task_name.rake が作成される
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スクリプトを止める</h2>
 
@@ -654,18 +618,15 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
 </span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ログを参照</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>モニタリング</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -679,14 +640,12 @@ lib/task/task_name.rake が作成される
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>使用言語を日本語に設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
 </span><span class='line'>sudo vim /etc/sysconfig/i18n</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/i18n</h5>
 
@@ -697,14 +656,12 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>
 </span><span class='line'>SYSFONT="latarcyrheb-sun16"</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>サーバーに時間変更（日本時間）</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo mv /etc/localtime /etc/localtime.org
 </span><span class='line'>sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</span></code></pre></td></tr></table></div></figure>
-
 
 <p>再度ログインで日本語化(dateで確認)</p>
 
@@ -715,7 +672,6 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/network /etc/sysconfig/network.org
 </span><span class='line'>sudo vim /etc/sysconfig/network</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/sysconfig/network</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -725,7 +681,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>NETWORKING_IPV6=yes
 </span><span class='line'>HOSTNAME=sample.abgata.org</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>hostsの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -733,19 +688,16 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/hosts /etc/hosts.org
 </span><span class='line'>sudo vim /etc/hosts</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/hosts</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1 sample.abgata.org localhost.localdomain
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定後はネットワークを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/rc.d/init.d/network restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーを追加</h2>
 
@@ -758,7 +710,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>
 </span><span class='line'>usermod -G wheel myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザーにsudo権限を付与</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -768,7 +719,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>
 </span><span class='line'>visudo</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>visudo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -777,7 +727,6 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'># %wheel ~~
 </span><span class='line'># ↓
 </span><span class='line'>%wheel ~~</span></code></pre></td></tr></table></div></figure>
-
 
 <p>※一番最初のもの</p>
 
@@ -791,7 +740,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>vim /etc/ssh/sshd_config
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/ssh/sshd_config</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -803,18 +751,15 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>PermitRootLogin no
 </span><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sshdを再起動して設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service sshd restart</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSH接続してみる</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p YOUR_PORT_NUMBER myuser@192.168.10.10</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -827,7 +772,6 @@ lib/task/task_name.rake が作成される
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/iptables</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/iptables</h5>
 
@@ -881,7 +825,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>COMMIT
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -901,7 +844,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>
 </span><span class='line'>chkconfig --list iptables
 </span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -949,7 +891,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>
 </span><span class='line'># ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>nodeグループを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -961,7 +902,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'># usermod -G wheel,node,ruby myuser
 </span><span class='line'>groups myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>.nodebrewの所有グループを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -971,12 +911,10 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>chgrp -R node .nodebrew
 </span><span class='line'>chmod -R g+rwxX .nodebrew</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo chgrp wheel /root</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>インストール可能なバージョンの確認</h2>
 
@@ -985,7 +923,6 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew ls-all
 </span><span class='line'># 奇数バージョンは開発版、偶数バージョンが安定版らしい</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>インストール(バイナリからインストールしたほうが速い)</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -993,18 +930,15 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew install-binary v0.10.20
 </span><span class='line'># インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>利用するバージョンを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew use v0.10.20</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>現在のバージョンを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>node -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>サーバーサンプル</h2>
 
@@ -1024,7 +958,6 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>}).listen(8124);
 </span><span class='line'>
 </span><span class='line'>console.log('Server running at http://localhost:8124');</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -1036,13 +969,14 @@ lib/task/task_name.rake が作成される
     <content type="html"><![CDATA[<h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
-なんかいろいろとはまってしまったので備忘録
-file pathを追加する
-
-<h5>config/application.rb</h5></li>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a></li>
 </ul>
 
+<p>なんかいろいろとはまってしまったので備忘録</p>
+
+<p>file pathを追加する</p>
+
+<h5>config/application.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -1072,7 +1006,6 @@ file pathを追加する
 </span><span class='line'>  mount TestAPI =&gt; 'api'
 </span><span class='line'>  ...
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>流れ</h3>
 
@@ -1107,7 +1040,6 @@ file pathを追加する
 </span><span class='line'>$ open http://localhost:3000/api/v1/hello
 </span><span class='line'>files</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>app/api/test_api.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1116,7 +1048,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>class TestAPI &lt; Grape::API
 </span><span class='line'>  mount API_V1
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/api_v1.rb</h5>
 
@@ -1130,7 +1061,6 @@ file pathを追加する
 </span><span class='line'>  prefix 'v1' # とりあえずprefixだけつけている
 </span><span class='line'>  mount V1::Ping
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/v1/ping.rb</h5>
 
@@ -1153,7 +1083,6 @@ file pathを追加する
 </span><span class='line'>  end
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
-
 <p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
 
 <p>不思議だ。</p>
@@ -1172,18 +1101,15 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g forever</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>forever start sample001.js</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>forever list</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スクリプトを止める</h2>
 
@@ -1191,7 +1117,6 @@ file pathを追加する
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、[0]で登録されたスクリプトを止めたい場合
 </span><span class='line'>forever stop 0</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -1204,7 +1129,6 @@ file pathを追加する
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim images_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>images_backup.sh</h5>
 
@@ -1251,12 +1175,10 @@ file pathを追加する
 </span><span class='line'># 古いバックアップファイルを削除
 </span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>権限設定の変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 images_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -1275,7 +1197,6 @@ file pathを追加する
 <li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
 </ul>
 
-
 <p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1287,14 +1208,12 @@ file pathを追加する
 </span><span class='line'>
 </span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
 
-
 <p>設定ファイルを変更</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
 </span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/yum.repos.d/epel.repo</h5>
 
@@ -1304,7 +1223,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
 </span><span class='line'>
 </span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>remi</h2>
 
@@ -1316,7 +1234,6 @@ file pathを追加する
 <li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
 </ul>
 
-
 <p>※centosで検索</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1326,7 +1243,6 @@ file pathを追加する
 </span><span class='line'>
 </span><span class='line'>rpm -Uvh remi-release-6.rpm
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
 ]]></content>
@@ -1348,7 +1264,6 @@ file pathを追加する
 </span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 </span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1364,7 +1279,6 @@ file pathを追加する
 </span><span class='line'>ServerName www.example.com:80
 </span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1374,7 +1288,6 @@ file pathを追加する
 </span><span class='line'>sudo service httpd start
 </span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1382,12 +1295,10 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
 </span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>バーチャルホスト用にフォルダを作成</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>php</h2>
 
@@ -1399,7 +1310,6 @@ file pathを追加する
 </span><span class='line'>php -v
 </span><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -1441,12 +1351,10 @@ file pathを追加する
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>mysql</h2>
 
@@ -1456,7 +1364,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
 </span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/my.cnf</h5>
 
@@ -1484,7 +1391,6 @@ file pathを追加する
 </span><span class='line'>default-character-set=utf8
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1492,14 +1398,12 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
 </span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlの初期設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -1521,7 +1425,6 @@ file pathを追加する
 </span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
 </span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SELinuxを一時的に無効化</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1533,12 +1436,8 @@ file pathを追加する
 </span><span class='line'>setenforce 1
 </span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -1549,14 +1448,12 @@ file pathを追加する
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
-
 <p>設定ファイルを変更したら、あとはrebootすればOK</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
 </span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -1566,7 +1463,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   
@@ -1580,7 +1476,6 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
 
-
 <p>※執筆時点では5.4.19</p>
 
 <h2>利用しそうな依存ライブラリも一緒にインストール</h2>
@@ -1588,12 +1483,10 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>バージョンの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>設定ファイルを変更</h2>
 
@@ -1601,7 +1494,6 @@ file pathを追加する
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -1641,12 +1533,10 @@ file pathを追加する
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apache再起動で反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 ]]></content>
   </entry>
   

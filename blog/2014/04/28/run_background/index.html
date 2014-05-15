@@ -10,7 +10,9 @@
 
   
   <meta name="description" content="バックグランドで実行 1
-nohup ruby sample.rb & 実行中のスクリプトを確認 ps ax | grep ruby##実行中のスクリプトを停止kill processid
+nohup ruby sample.rb & 実行中のスクリプトを確認
+ps ax | grep ruby 実行中のスクリプトを停止
+kill processid
 ">
   
 
@@ -116,11 +118,12 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行中のスクリプトを確認</h2>
-
-<p><code>ps ax | grep ruby</code>##実行中のスクリプトを停止<code>kill processid</code></p>
-</div>
+<div class="highlight"><pre><code class="text">ps ax | grep ruby
+</code></pre></div>
+<h2>実行中のスクリプトを停止</h2>
+<div class="highlight"><pre><code class="text">kill processid
+</code></pre></div></div>
 
 
   <footer>

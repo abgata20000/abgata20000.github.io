@@ -123,7 +123,6 @@ $(document).ready( function () {
 <li><a href="https://github.com/sstephenson/rbenv">https://github.com/sstephenson/rbenv</a></li>
 </ul>
 
-
 <h3>依存ライブリをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -139,7 +138,6 @@ $(document).ready( function () {
 </span><span class='line'>sudo yum -y install gcc-c++
 </span><span class='line'>sudo yum install -y mysql-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>全ユーザーで共通のrbenvを利用</h2>
 
 <h3>rubyグループを作成</h3>
@@ -150,7 +148,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo groupadd ruby
 </span><span class='line'>sudo usermod -G wheel,ruby myuser
 </span><span class='line'>sudo groups myuser</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>rbenvをインストール</h3>
 
@@ -197,7 +194,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>echo $PATH</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>rubyをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -227,14 +223,12 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>折角なのでgemをアップデート</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem update</span></code></pre></td></tr></table></div></figure>
 
-
-<hr />
+<hr>
 
 <h2>ユーザー別のインストールする場合</h2>
 
@@ -255,12 +249,10 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>exec $SHELL -l</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rbenv -v</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

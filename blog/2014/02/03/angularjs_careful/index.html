@@ -9,13 +9,13 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト &ndash; POSTでパラメータを送信する際は、設定が必要 1
+  <meta name="description" content="参考サイト POSTでパラメータを送信する際は、設定が必要 1
 2
 3
 4
 5
 6
-@testApp.config ($httpProvider) -&gt; $httpProvider.defaults.transformRequest = (data = {}) -&gt &hellip;">
+@testApp.config ($httpProvider) -&gt; $httpProvider.defaults.transformRequest = (data = {}) -&gt; $.param( &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -117,7 +117,7 @@ $(document).ready( function () {
 
 <div class="entry-content"><h3>参考サイト</h3>
 
-<p>&ndash;</p>
+<h2></h2>
 
 <h2>POSTでパラメータを送信する際は、設定が必要</h2>
 
@@ -134,12 +134,11 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>   @</span></code></pre></td></tr></table></div></figure>
 
+<p>そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
 
-<p> そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
+<p>うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
 
-<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
-
-<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+<p>ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
 
 <h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
 
@@ -173,7 +172,6 @@ $(document).ready( function () {
 </span><span class='line'>      console.log res
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
 に反映されるが、
 PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
@@ -188,7 +186,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'>  post: {method: 'POST', isArray: false}
 </span><span class='line'>  put: {method: 'PUT', isArray: false}
 </span><span class='line'>  delete: {method: 'DELETE', isArray: false}</span></code></pre></td></tr></table></div></figure>
-
 
 <p>これでも大丈夫そう。</p>
 </div>

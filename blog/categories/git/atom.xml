@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Git | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,54 +19,31 @@
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/git_push_refresh</id>
     <content type="html"><![CDATA[<h2>gitのグローバル設定</h2>
-
-<p><code>
-git config --global user.name "abgata20000"
-git config --global user.email "abgata@abgata.jp"
+<div class="highlight"><pre><code class="text">git config --global user.name &quot;abgata20000&quot;
+git config --global user.email &quot;abgata@abgata.jp&quot;
 git config --global color.ui true
-</code></p>
-
+</code></pre></div>
 <h2>gitの設定確認</h2>
-
-<p><code>
-git config -l
-</code></p>
-
+<div class="highlight"><pre><code class="text">git config -l
+</code></pre></div>
 <h2>現在のディレクトリを共有リポジトリにする</h2>
-
-<p><code>
-git init --bare --share
-</code></p>
-
+<div class="highlight"><pre><code class="text">git init --bare --share
+</code></pre></div>
 <h2>レポジトリをクローンする</h2>
-
-<p><code>
-git clone /git/smaple.git
-</code></p>
-
+<div class="highlight"><pre><code class="text">git clone /git/smaple.git
+</code></pre></div>
 <h2>pushされた際のhooks(post-receive)</h2>
-
-<p><code>
-cd hooks
+<div class="highlight"><pre><code class="text">cd hooks
 vim post-receive
-</code></p>
-
+</code></pre></div>
 <h5>post-receive</h5>
-
-<p>```</p>
-
-<h1>!/bin/sh</h1>
-
-<p>cd /var/www/vhosts/
-git &mdash;git-dir=.git pull origin master
-```</p>
-
+<div class="highlight"><pre><code class="text">#!/bin/sh
+cd /var/www/vhosts/
+git --git-dir=.git pull origin master
+</code></pre></div>
 <p>実行権限を付与</p>
-
-<p><code>
-chmod +x post-receive
-</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">chmod +x post-receive
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

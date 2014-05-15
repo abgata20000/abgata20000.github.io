@@ -116,9 +116,8 @@ $(document).ready( function () {
 <ul>
 <li><a href="http://easyramble.com/install-setup-fsftpd.html">FTP サーバー（vsftpd）のインストールと設定 〜 CentOS6</a></li>
 <li><a href="http://www.geocities.co.jp/SiliconValley-PaloAlto/3626/server_setting/vsftpd/20070126_vsftpd.htm">vsftp設定 ～ SSL接続/PASV接続</a></li>
-<li><a href="http://www.aconus.com/~oyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
+<li><a href="http://www.aconus.com/%7Eoyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
 </ul>
-
 
 <h2>FTPサーバー導入の経緯</h2>
 
@@ -143,7 +142,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>sudo chkconfig vsftpd on</span></code></pre></td></tr></table></div></figure>
 
-
 <p>で、後はポート開放して完了。</p>
 
 <p>結構あっさりですね。</p>
@@ -156,7 +154,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/vsftpd/vsftpd.conf</h5>
 
@@ -226,12 +223,10 @@ $(document).ready( function () {
 </span><span class='line'># クライアントソフト名が表示されるのを変更
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSL関係設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/vsftpd/vsftpd.conf</h5>
 
@@ -313,12 +308,10 @@ $(document).ready( function () {
 </span><span class='line'># データチャンネルでSSL接続しか許可しない。
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>再起動で反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo service vsftpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>FTPS接続の種類</h2>
 

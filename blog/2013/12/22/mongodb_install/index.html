@@ -118,14 +118,12 @@ $(document).ready( function () {
 <li><p><a href="http://dotinstall.com/lessons/basic_sakura_vps/8021">ドットインストール</a></p></li>
 </ul>
 
-
 <h4>※2ヶ月ほど前と内容が少し変わっていたので、毎回確認したほうがいいかもしれないです。</h4>
 
 <h2>yumでインストールできるようにリポジトリを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/yum.repos.d/mongodb.repo</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/yum.repos.d/mongodb.repo</h5>
 
@@ -140,44 +138,37 @@ $(document).ready( function () {
 </span><span class='line'>gpgcheck=0
 </span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>yumでmongodbをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y
-</span><span class='line'>sudo yum install mongo-10gen mongo-10gen-server -y</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'>sudo yum install mongodb-org -y</span></code></pre></td></tr></table></div></figure>
 
 <h2>mongodbを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mongod start</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>起動時に自動起動設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig mongod on</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>バージョンを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mongo --version</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>シェルを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mongo</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>シェルを終了</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>exit</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザー認証をONにする</h2>
 
@@ -188,24 +179,20 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/mongod.conf /etc/mongod.conf.org</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/mongod.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/mongod.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>auth = ture</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>mongodbを再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mongod restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>管理者ユーザーの作成</h2>
 
@@ -214,60 +201,50 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>use admin
 </span><span class='line'>db.addUser("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザー認証</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>管理者ユーザーの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>DBの切り替え</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>use test</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーの作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.addUser("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザーの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーの削除</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.remove({user:"test"})</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザー認証</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>テストデータの登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.test.save( { a: 1 } )</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>テストデータの閲覧</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.test.find()</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

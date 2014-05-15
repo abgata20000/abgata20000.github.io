@@ -126,7 +126,6 @@ $(document).ready( function () {
 <li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
 </ul>
 
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -146,7 +145,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>MySQLの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -154,12 +152,10 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>MySQLの初期設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>MySQLを起動</h2>
 
@@ -174,12 +170,10 @@ $(document).ready( function () {
 </span><span class='line'>chkconfig mysqld on
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>利用可能なストレージエンジンを確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql&gt; SHOW ENGINES \G</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

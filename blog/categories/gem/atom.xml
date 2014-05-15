@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Gem | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/gem/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,16 +19,28 @@
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/install_for_gem</id>
     <content type="html"><![CDATA[<p>とりあえずインストールしておくと便利そうなものをピックアップ</p>
+<div class="highlight"><pre><code class="text">gem install sinatra
+gem install sinatra-contrib
+gem install sqlite3
+gem install bundler
+gem install haml
+gem install activerecord
+gem install wsse
+gem install xml-simple
+gem install nokogiri
 
-<p>```
-gem install sinatragem install sinatra-contribgem install sqlite3gem install bundlergem install hamlgem install activerecordgem install wssegem install xml-simplegem install nokogiri
 gem install unicorn
-gem install mysql &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config
-gem install mysql2 &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config</p>
 
-<p>gem install activerecord-mysql-adapter
-gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しないとシンボリックが生成されない？？</code>rbenv rehash```</p>
-]]></content>
+gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+
+
+gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter
+</code></pre></div>
+<h2>↓のコマンド実行しないとシンボリックが生成されない？？</h2>
+<div class="highlight"><pre><code class="text">rbenv rehash
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

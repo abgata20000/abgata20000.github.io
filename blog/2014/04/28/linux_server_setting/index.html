@@ -118,14 +118,12 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>使用言語を日本語に設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
 </span><span class='line'>sudo vim /etc/sysconfig/i18n</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/i18n</h5>
 
@@ -136,14 +134,12 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>SYSFONT="latarcyrheb-sun16"</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>サーバーに時間変更（日本時間）</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo mv /etc/localtime /etc/localtime.org
 </span><span class='line'>sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</span></code></pre></td></tr></table></div></figure>
-
 
 <p>再度ログインで日本語化(dateで確認)</p>
 
@@ -154,7 +150,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/network /etc/sysconfig/network.org
 </span><span class='line'>sudo vim /etc/sysconfig/network</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/sysconfig/network</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -164,7 +159,6 @@ $(document).ready( function () {
 </span><span class='line'>NETWORKING_IPV6=yes
 </span><span class='line'>HOSTNAME=sample.abgata.org</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>hostsの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -172,19 +166,16 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/hosts /etc/hosts.org
 </span><span class='line'>sudo vim /etc/hosts</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/hosts</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1 sample.abgata.org localhost.localdomain
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定後はネットワークを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/rc.d/init.d/network restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーを追加</h2>
 
@@ -197,7 +188,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>usermod -G wheel myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザーにsudo権限を付与</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -207,7 +197,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>visudo</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>visudo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -216,7 +205,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'># %wheel ~~
 </span><span class='line'># ↓
 </span><span class='line'>%wheel ~~</span></code></pre></td></tr></table></div></figure>
-
 
 <p>※一番最初のもの</p>
 
@@ -230,7 +218,6 @@ $(document).ready( function () {
 </span><span class='line'>vim /etc/ssh/sshd_config
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/ssh/sshd_config</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -242,18 +229,15 @@ $(document).ready( function () {
 </span><span class='line'>PermitRootLogin no
 </span><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sshdを再起動して設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service sshd restart</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSH接続してみる</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p YOUR_PORT_NUMBER myuser@192.168.10.10</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Webmin | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/webmin/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -24,40 +24,30 @@
 <li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
 </ul>
 
-
 <h2>インストールに必要なパールモジュールをインストールする</h2>
-
-<p><code>
- yum -y install perl-Net-SSLeay
-</code></p>
-
+<div class="highlight"><pre><code class="text"> yum -y install perl-Net-SSLeay
+</code></pre></div>
 <h3>最新版を入手</h3>
 
 <p><a href="http://download.webmin.com/download/yum/">公式サイト</a></p>
+<div class="highlight"><pre><code class="text">mkdir /downloads
+cd /downloads
 
-<p>```
-mkdir /downloads
-cd /downloads</p>
+wget http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm
 
-<p>wget <a href="http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm">http://download.webmin.com/download/yum/webmin-1.630-1.noarch.rpm</a></p>
+rpm -Uvh webmin-1.630-1.noarch.rpm
 
-<p>rpm -Uvh webmin-1.630-1.noarch.rpm</p>
+# アクセス制限を掛ける場合
+cp /etc/webmin/miniserv.conf /etc/webmin/miniserv.conf.org
+vim /etc/webmin/miniserv.conf
 
-<h1>アクセス制限を掛ける場合</h1>
 
-<p>cp /etc/webmin/miniserv.conf /etc/webmin/miniserv.conf.org
-vim /etc/webmin/miniserv.conf</p>
-
-<p> # 最終行：アクセス許可するIP追記
+ # 最終行：アクセス許可するIP追記
 allow=127.0.0.1 10.0.0.0/24
-```</p>
-
+</code></pre></div>
 <h3>再起動</h3>
-
-<p><code>
-service webmin restart
-</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">service webmin restart
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

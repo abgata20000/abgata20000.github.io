@@ -141,7 +141,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant package</span></code></pre></td></tr></table></div></figure>
 
-
 <p>少し時間はかかりましたが問題なく package.box が生成されました。</p>
 
 <p>生成された package.box を vagrant に登録して</p>
@@ -150,20 +149,17 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add myImage package.box
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>Vagrantfile</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.box = "myImage"</span></code></pre></td></tr></table></div></figure>
-
 
 <p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up</span></code></pre></td></tr></table></div></figure>
 
-
-<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー"></p>
 
 <p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
 
@@ -182,50 +178,48 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant plugin install vagrant-vbguest
 </span><span class='line'>vi ~/.vagrant.d/Vagrantfile</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>javascript:~/.vagrant.d/Vagrantfile</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Vagrant.configure("2") do |config|
-</span><span class='line'>  config.vbguest.auto_update = false
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Vagrant</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nx">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="nx">config</span><span class="p">.</span><span class="nx">vbguest</span><span class="p">.</span><span class="nx">auto_update</span> <span class="o">=</span> <span class="kc">false</span>
+</span><span class='line'><span class="nx">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>バージョンが異なっているかどうかを確認</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>バージョンが異なっているかどうかを確認
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'> GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'> <span class="nx">GuestAdditions</span> <span class="nx">versions</span> <span class="nx">on</span> <span class="nx">your</span> <span class="nx">host</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="p">)</span> <span class="nx">and</span> <span class="nx">guest</span> <span class="p">(</span><span class="mf">4.2</span><span class="p">.</span><span class="mi">16</span><span class="p">)</span> <span class="k">do</span> <span class="nx">not</span> <span class="nx">match</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>やはりバージョンが違うらしい</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --auto-reboot</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">auto</span><span class="o">-</span><span class="nx">reboot</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>で修正してくれるらしいので実行してみた。</p>
 
 <p>無事終了したっぽいので確認</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'>GuestAdditions 4.3.10 running --- OK.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'><span class="nx">GuestAdditions</span> <span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span> <span class="nx">running</span> <span class="o">---</span> <span class="nx">OK</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決したらしい。</p>
 
 <p>Vagrant をリブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -239,22 +233,21 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>v reload
-</span><span class='line'>~~~
-</span><span class='line'>==&gt; default: Configuring and enabling network interfaces...
-</span><span class='line'>The following SSH command responded with a non-zero exit status.
-</span><span class='line'>Vagrant assumes that this means the command failed!
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">v</span> <span class="nx">reload</span>
+</span><span class='line'><span class="o">~~~</span>
+</span><span class='line'><span class="o">==&gt;</span> <span class="k">default</span><span class="o">:</span> <span class="nx">Configuring</span> <span class="nx">and</span> <span class="nx">enabling</span> <span class="nx">network</span> <span class="nx">interfaces</span><span class="p">...</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">following</span> <span class="nx">SSH</span> <span class="nx">command</span> <span class="nx">responded</span> <span class="kd">with</span> <span class="nx">a</span> <span class="nx">non</span><span class="o">-</span><span class="nx">zero</span> <span class="nx">exit</span> <span class="nx">status</span><span class="p">.</span>
+</span><span class='line'><span class="nx">Vagrant</span> <span class="nx">assumes</span> <span class="nx">that</span> <span class="k">this</span> <span class="nx">means</span> <span class="nx">the</span> <span class="nx">command</span> <span class="nx">failed</span><span class="o">!</span>
 </span><span class='line'>
-</span><span class='line'>ARPCHECK=no /sbin/ifup eth1 2&gt; /dev/null
+</span><span class='line'><span class="nx">ARPCHECK</span><span class="o">=</span><span class="nx">no</span> <span class="o">/</span><span class="nx">sbin</span><span class="o">/</span><span class="nx">ifup</span> <span class="nx">eth1</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="err">/dev/null</span>
 </span><span class='line'>
-</span><span class='line'>Stdout from the command:
+</span><span class='line'><span class="nx">Stdout</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span><span class='line'>
-</span><span class='line'>Device eth1 does not seem to be present, delaying initialization.
+</span><span class='line'><span class="nx">Device</span> <span class="nx">eth1</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">seem</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">present</span><span class="p">,</span> <span class="nx">delaying</span> <span class="nx">initialization</span><span class="p">.</span>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>Stderr from the command:
+</span><span class='line'><span class="nx">Stderr</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>ダメみたい。</p>
 
@@ -264,19 +257,19 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 
 <p>Vagrant にSSH接続して後に</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-</span><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>を実行</p>
 
 <p>リブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant reload</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">reload</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決した。</p>
 
@@ -319,15 +312,13 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
   <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
-
-<h2>登録内容の確認</h2></li>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a></li>
 </ul>
 
+<h2>登録内容の確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever</span></code></pre></td></tr></table></div></figure>
-
 
 <p>を実行するとcrontabの内容をコンソール出力。
 この時点ではまだcrontabに登録されてはいない。</p>
@@ -337,7 +328,6 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --update-crontab</span></code></pre></td></tr></table></div></figure>
 
-
 <p>–update-crontabオプションをつけるとcrontabに登録する。
 Whenever以外で登録されていたジョブが上書きされることはない。</p>
 
@@ -345,7 +335,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --clear-crontab</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Cronを止めたい場合は–clear-crontabですべて削除。
 登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>
@@ -390,12 +379,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <li><a href="http://www.server-world.info/query?os=CentOS_6&amp;p=webmin">Webminインストール</a></li>
 </ul>
 
-
 <h2>インストールに必要なパールモジュールをインストールする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'> yum -y install perl-Net-SSLeay</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>最新版を入手</h3>
 
@@ -430,12 +417,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'> # 最終行：アクセス許可するIP追記
 </span><span class='line'>allow=127.0.0.1 10.0.0.0/24</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service webmin restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -482,7 +467,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>cp /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.conf.org
 </span><span class='line'>vim /etc/httpd/conf.d/ssl.conf
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -567,7 +551,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>
 </span><span class='line'>vim /etc/httpd/conf.d/ssl.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf.d/ssl.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -578,12 +561,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>SSLCertificateKeyFile /etc/pki/tls/certs/my_key.pem
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>apacheを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -624,14 +605,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum -y install samba system-config-samba samba-common samba-client</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/samba/smb.conf /etc/samba/smb.conf.org
 </span><span class='line'>vim /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/samba/smb.conf</h5>
 
@@ -719,7 +698,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>          dos filetimes = yes
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sambaにユーザ追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -733,7 +711,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>
 </span><span class='line'>pdbedit -L</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>samba起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -741,14 +718,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </pre></td><td class='code'><pre><code class=''><span class='line'>service smb start
 </span><span class='line'>service nmb start</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>問題なければ、自動起動に。</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig smb on
 </span><span class='line'>chkconfig nmb on</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>samba用にiptables編集(下記を追加)</h2>
 
@@ -759,12 +734,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>iptables再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service iptables restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -805,11 +778,12 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行中のスクリプトを確認</h2>
-
-<p><code>ps ax | grep ruby</code>##実行中のスクリプトを停止<code>kill processid</code></p>
-</div>
+<div class="highlight"><pre><code class="text">ps ax | grep ruby
+</code></pre></div>
+<h2>実行中のスクリプトを停止</h2>
+<div class="highlight"><pre><code class="text">kill processid
+</code></pre></div></div>
   
   
 
@@ -849,18 +823,15 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>unicorn -c config/unicorn.rb -D</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>現在実行中のプロセスを探す</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ps ax | grep unicorn</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>停止</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>kill process_id</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -899,16 +870,15 @@ Whenever以外で登録されていたジョブが上書きされることはな
   <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a>
-
-<h2>タスクファイルの作成</h2>
-
-<code>rails g task  task_name</code>
-lib/task/task_name.rake が作成される
-
-<h5>lib/task/task_name.rake</h5></li>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a></li>
 </ul>
 
+<h2>タスクファイルの作成</h2>
+<div class="highlight"><pre><code class="text">rails g task  task_name
+</code></pre></div>
+<p>lib/task/task_name.rake が作成される</p>
+
+<h5>lib/task/task_name.rake</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -919,18 +889,15 @@ lib/task/task_name.rake が作成される
 </span><span class='line'>  print 'hello sample.'
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -971,18 +938,15 @@ lib/task/task_name.rake が作成される
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g pm2</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 start sample001.js</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 list</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スクリプトを止める</h2>
 
@@ -991,18 +955,15 @@ lib/task/task_name.rake が作成される
 </pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、appで登録されたスクリプトを止めたい場合
 </span><span class='line'>pm2 stop app</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ログを参照</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 logs</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>モニタリング</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pm2 monit</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   

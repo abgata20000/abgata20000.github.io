@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,24 +19,17 @@
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/ruby_mongodb</id>
     <content type="html"><![CDATA[<h2>gemにてライブラリをインストール</h2>
-
-<p><code>
-gem install mongo
+<div class="highlight"><pre><code class="text">gem install mongo
 gem install mongoid
 gem install bson_ext
-</code></p>
-
+</code></pre></div>
 <p>そのまま使うとactiverecordとの併用の際に衝突するので、
 activerecordのバージョンを3.2.14に落とす
 ※2013/9/17時点</p>
+<div class="highlight"><pre><code class="text">gem uninstall activerecord activesupport activemodel
 
-<p>```
-gem uninstall activerecord activesupport activemodel</p>
-
-<p>gem install activerecord -v 3.2.14</p>
-
-<p>```</p>
-]]></content>
+gem install activerecord -v 3.2.14
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -45,147 +38,106 @@ gem uninstall activerecord activesupport activemodel</p>
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/Ruby_Apache</id>
     <content type="html"><![CDATA[<h2>passengerをインストール</h2>
+<div class="highlight"><pre><code class="text">gem install passenger
 
-<p>```
-gem install passenger</p>
+passenger-install-apache2-module
+# パスとおっていない場合は場所を探す
 
-<p>passenger-install-apache2-module</p>
+sudo find / -name passenger-install-apache2-module
 
-<h1>パスとおっていない場合は場所を探す</h1>
+sudo yum install -y curl-devel
 
-<p>sudo find / -name passenger-install-apache2-module</p>
+/usr/local/rbenv/versions/2.0.0-p247/bin/passenger-install-apache2-module
 
-<p>sudo yum install -y curl-devel</p>
-
-<p>/usr/local/rbenv/versions/2.0.0-p247/bin/passenger-install-apache2-module</p>
-
-<h1>3回くらい質問されるがとりあえずenter連打</h1>
-
-<p>```</p>
-
+# 3回くらい質問されるがとりあえずenter連打
+</code></pre></div>
 <h2>インストール完了後のコメント</h2>
+<div class="highlight"><pre><code class="text">The Apache 2 module was successfully installed.
 
-<p>```
-The Apache 2 module was successfully installed.</p>
+Please edit your Apache configuration file, and add these lines:
 
-<p>Please edit your Apache configuration file, and add these lines:</p>
-
-<p>   LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
+   LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
    PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
-   PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby</p>
+   PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby
 
-<p>After you restart Apache, you are ready to deploy any number of Ruby on Rails
+After you restart Apache, you are ready to deploy any number of Ruby on Rails
 applications on Apache, without any further Ruby on Rails-specific
-configuration!</p>
+configuration!
 
-<p>Press ENTER to continue.</p>
+Press ENTER to continue.
 
-<hr />
 
-<p>Deploying a Ruby on Rails application: an example</p>
+--------------------------------------------
+Deploying a Ruby on Rails application: an example
 
-<p>Suppose you have a Rails application in /somewhere. Add a virtual host to your
-Apache configuration file and set its DocumentRoot to /somewhere/public:</p>
+Suppose you have a Rails application in /somewhere. Add a virtual host to your
+Apache configuration file and set its DocumentRoot to /somewhere/public:
 
-<p>   <VirtualHost *:80></p>
+   &lt;VirtualHost *:80&gt;
+      ServerName www.yourhost.com
+      # !!! Be sure to point DocumentRoot to &#39;public&#39;!
+      DocumentRoot /somewhere/public
+      &lt;Directory /somewhere/public&gt;
+         # This relaxes Apache security settings.
+         AllowOverride all
+         # MultiViews must be turned off.
+         Options -MultiViews
+      &lt;/Directory&gt;
+   &lt;/VirtualHost&gt;
 
-<pre><code>  ServerName www.yourhost.com
-  # !!! Be sure to point DocumentRoot to 'public'!
-  DocumentRoot /somewhere/public
-  &lt;Directory /somewhere/public&gt;
-     # This relaxes Apache security settings.
-     AllowOverride all
-     # MultiViews must be turned off.
-     Options -MultiViews
-  &lt;/Directory&gt;
-</code></pre>
+And that&#39;s it! You may also want to check the Users Guide for security and
+optimization tips, troubleshooting and other useful information:
 
-<p>   </VirtualHost></p>
+  /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/doc/Users guide Apache.html
 
-<p>And that&rsquo;s it! You may also want to check the Users Guide for security and
-optimization tips, troubleshooting and other useful information:</p>
+Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :-)
+https://www.phusionpassenger.com
 
-<p>  /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/doc/Users guide Apache.html</p>
-
-<p>Enjoy Phusion Passenger, a product of Phusion (www.phusion.nl) :&ndash;)
-<a href="https://www.phusionpassenger.com">https://www.phusionpassenger.com</a></p>
-
-<p>Phusion Passenger is a trademark of Hongli Lai &amp; Ninh Bui.</p>
-
-<p>```</p>
-
+Phusion Passenger is a trademark of Hongli Lai &amp; Ninh Bui.
+</code></pre></div>
 <h2>apacheの設定ファイルを変更白みたいなことが書いてあるので変更する</h2>
-
-<p><code>
-vim /etc/httpd/conf.d/passenger.conf
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim /etc/httpd/conf.d/passenger.conf
+</code></pre></div>
 <h5>/etc/httpd/conf.d/passenger.conf</h5>
-
-<p><code>
-LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
+<div class="highlight"><pre><code class="text">LoadModule passenger_module /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17/buildout/apache2/mod_passenger.so
 PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
 PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby
-</code></p>
-
+</code></pre></div>
 <h2>apahceの設定ファイルでドキュメントルート、バーチャルホストを変更</h2>
-
-<p><code>
-vim /etc/httpd/conf/httpd.conf
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim /etc/httpd/conf/httpd.conf
+</code></pre></div>
 <h5>/etc/httpd/conf/httpd.conf</h5>
-
-<p><code>
-DocumentRoot /var/www/ruby/public
-</code></p>
-
+<div class="highlight"><pre><code class="text">DocumentRoot /var/www/ruby/public
+</code></pre></div>
 <h2>ドキュメントルートのディレクトリ作成</h2>
-
-<p><code>
-cd /var/www
+<div class="highlight"><pre><code class="text">cd /var/www
 mkdir ruby
 cd ruby
 mkdir public
 mkdir tmp
-</code></p>
-
+</code></pre></div>
 <h2>実行用の設定ファイル作成</h2>
-
-<p><code>
-vim config.ru
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim config.ru
+</code></pre></div>
 <h5>config.ru</h5>
+<div class="highlight"><pre><code class="text">require &#39;bundler&#39;
+Bundler.require
 
-<p>```
-require &lsquo;bundler&rsquo;
-Bundler.require</p>
+require &#39;./app&#39;
 
-<p>require &lsquo;./app&rsquo;</p>
-
-<p>run App</p>
-
-<p>```</p>
-
+run App
+</code></pre></div>
 <h2>実行用ファイルの作成</h2>
+<div class="highlight"><pre><code class="text">class App &lt; Sinatra::Base
+    register Sinatra::Reloader
 
-<p>```
-class App &lt; Sinatra::Base</p>
+    get &#39;/&#39; do
+        #
+        &#39;hello sinatra by apache.&#39;
 
-<pre><code>register Sinatra::Reloader
-
-get '/' do
-    #
-    'hello sinatra by apache.'
-
+    end
 end
-</code></pre>
-
-<p>end</p>
-
-<p>```</p>
-
+</code></pre></div>
 <p>webブラウザ等でアクセスしてみる</p>
 ]]></content>
   </entry>

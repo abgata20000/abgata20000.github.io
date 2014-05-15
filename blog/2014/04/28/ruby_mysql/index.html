@@ -1,3 +1,19 @@
-<p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: gemでmysqlライブラリをインストールするcategory : Rubytags : [Ruby, Gem, MySQL]&mdash;-mysql-develがないとダメみたいなのでyumでインストール
-<code>sudo yum install -y mysql-devel</code>##Gemでライブラリをインストール<code>gem install mysql -- --with-mysql-config=/usr/bin/mysql_configgem install mysql2 -- --with-mysql-config=/usr/bin/mysql_configgem install activerecord-mysql-adaptergem install activerecord-mysql2-adapter
-</code></p>
+<hr>
+
+<p>layout: post
+date: 2013-12-22 00:00:00
+title: gemでmysqlライブラリをインストールする
+category : Ruby</p>
+
+<h2>tags : [Ruby, Gem, MySQL]</h2>
+
+<p>mysql-develがないとダメみたいなのでyumでインストール</p>
+<div class="highlight"><pre><code class="text">sudo yum install -y mysql-devel
+</code></pre></div>
+<h2>Gemでライブラリをインストール</h2>
+<div class="highlight"><pre><code class="text">gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+
+gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter
+</code></pre></div>

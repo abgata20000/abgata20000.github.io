@@ -131,7 +131,6 @@ $(document).ready( function () {
 </span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
 </span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SELinuxを一時的に無効化</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -143,12 +142,8 @@ $(document).ready( function () {
 </span><span class='line'>setenforce 1
 </span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -159,14 +154,12 @@ $(document).ready( function () {
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
-
 <p>設定ファイルを変更したら、あとはrebootすればOK</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
 </span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -176,7 +169,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

@@ -1,1 +1,65 @@
-<p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: Ruby sinatraでwebサーバー構築category : Sinatratags : [Sinatra, Ruby]&mdash;&ndash;##プロジェクトの下準備<code>bundle init</code>##設定ファイルを記述<code>vim Gemfile</code>#####Gemfile<code># coding: utf-8source "http://rubygems.org"# sinatra本体と便利なプラグインgem "sinatra", require: "sinatra/base"gem "sinatra-contrib", require: "sinatra/contrib/all"# nodejsインストールしていない環境では必要gem "execjs"gem "therubyracer"# 三種の神器gem "haml"gem "sass"gem "coffee-script"</code>##依存ファイルをインストール<code>bundle install --path vendor/bundle</code>##config.ruを作成<code>vim config.ru</code>#####config.ru<code>require 'bundler'Bundler.requirerequire './app'run App</code>##実行ファイル作成<code>vim app.rb</code>#####app.rb<code>class App &lt; Sinatra::Base  register Sinatra::Reloader  get '/' do    'Hello World'  endend</code>##サーバー起動<code>bundle exec rackup -p 3000 -o sample.com</code>##シナトラをユニコーンで起動<code>unicorn -D</code></p>
+<hr>
+
+<p>layout: post
+date: 2013-12-22 00:00:00
+title: Ruby sinatraでwebサーバー構築
+category : Sinatra</p>
+
+<h2>tags : [Sinatra, Ruby]</h2>
+
+<h2>プロジェクトの下準備</h2>
+<div class="highlight"><pre><code class="text">bundle init
+</code></pre></div>
+<h2>設定ファイルを記述</h2>
+<div class="highlight"><pre><code class="text">vim Gemfile
+</code></pre></div>
+<h5>Gemfile</h5>
+<div class="highlight"><pre><code class="text"># coding: utf-8
+source &quot;http://rubygems.org&quot;
+
+# sinatra本体と便利なプラグイン
+gem &quot;sinatra&quot;, require: &quot;sinatra/base&quot;
+gem &quot;sinatra-contrib&quot;, require: &quot;sinatra/contrib/all&quot;
+
+
+# nodejsインストールしていない環境では必要
+gem &quot;execjs&quot;
+gem &quot;therubyracer&quot;
+
+# 三種の神器
+gem &quot;haml&quot;
+gem &quot;sass&quot;
+gem &quot;coffee-script&quot;
+</code></pre></div>
+<h2>依存ファイルをインストール</h2>
+<div class="highlight"><pre><code class="text">bundle install --path vendor/bundle
+</code></pre></div>
+<h2>config.ruを作成</h2>
+<div class="highlight"><pre><code class="text">vim config.ru
+</code></pre></div>
+<h5>config.ru</h5>
+<div class="highlight"><pre><code class="text">require &#39;bundler&#39;
+Bundler.require
+
+require &#39;./app&#39;
+
+run App
+</code></pre></div>
+<h2>実行ファイル作成</h2>
+<div class="highlight"><pre><code class="text">vim app.rb
+</code></pre></div>
+<h5>app.rb</h5>
+<div class="highlight"><pre><code class="text">class App &lt; Sinatra::Base
+  register Sinatra::Reloader
+
+  get &#39;/&#39; do
+    &#39;Hello World&#39;
+  end
+end
+</code></pre></div>
+<h2>サーバー起動</h2>
+<div class="highlight"><pre><code class="text">bundle exec rackup -p 3000 -o sample.com
+</code></pre></div>
+<h2>シナトラをユニコーンで起動</h2>
+<div class="highlight"><pre><code class="text">unicorn -D
+</code></pre></div>

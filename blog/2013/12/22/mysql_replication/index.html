@@ -121,7 +121,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -131,12 +130,10 @@ $(document).ready( function () {
 </span><span class='line'>log-bin = mysql-bin
 </span><span class='line'>server-id = 1001</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>mysqlのスナップショットを作成</h3>
 
@@ -158,12 +155,10 @@ $(document).ready( function () {
 </span><span class='line'># File、Positionはスレーブ側の設定に必要なので控えておく
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>DBロックを解除</h3>
 
@@ -171,7 +166,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>UNLOCK TABLES;</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スレーブ側設定</h2>
 
@@ -186,18 +180,15 @@ $(document).ready( function () {
 </span><span class='line'>log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
 </span><span class='line'>server-id=1002</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>マスタで作成したスナップショットを復元</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql -u user -p  &lt; snapshot.db</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>マスタ情報を登録</h3>
 
@@ -214,7 +205,6 @@ $(document).ready( function () {
 </span><span class='line'>MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
 </span><span class='line'>MASTER_LOG_POS=98; #マスターのPosition</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>スレーブをスタート</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -222,12 +212,10 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>START SLAVE;
 </span><span class='line'># STOP SLAVE;RESTART SLAVE;RESET SLAVE;</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>起動確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>SHOW SLAVE STATUS\G</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

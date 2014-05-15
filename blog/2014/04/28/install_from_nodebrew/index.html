@@ -166,7 +166,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'># ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>nodeグループを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -178,7 +177,6 @@ $(document).ready( function () {
 </span><span class='line'># usermod -G wheel,node,ruby myuser
 </span><span class='line'>groups myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>.nodebrewの所有グループを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -188,12 +186,10 @@ $(document).ready( function () {
 </span><span class='line'>chgrp -R node .nodebrew
 </span><span class='line'>chmod -R g+rwxX .nodebrew</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo chgrp wheel /root</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>インストール可能なバージョンの確認</h2>
 
@@ -202,7 +198,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew ls-all
 </span><span class='line'># 奇数バージョンは開発版、偶数バージョンが安定版らしい</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>インストール(バイナリからインストールしたほうが速い)</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -210,18 +205,15 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew install-binary v0.10.20
 </span><span class='line'># インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>利用するバージョンを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew use v0.10.20</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>現在のバージョンを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>node -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>サーバーサンプル</h2>
 
@@ -241,7 +233,6 @@ $(document).ready( function () {
 </span><span class='line'>}).listen(8124);
 </span><span class='line'>
 </span><span class='line'>console.log('Server running at http://localhost:8124');</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

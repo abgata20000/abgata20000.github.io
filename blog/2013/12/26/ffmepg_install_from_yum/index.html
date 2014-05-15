@@ -120,7 +120,6 @@ $(document).ready( function () {
 <li><a href="http://hrysim.hatenablog.jp/entry/2013/02/05/101411">Cent OS 6.3にffmpegをインストールする方法</a></li>
 </ul>
 
-
 <h2>yum-prioritiesプラグイン導入</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -135,12 +134,10 @@ $(document).ready( function () {
 </span><span class='line'>sudo vi /etc/yum.repos.d/CentOS-Base.repo
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>各セクションの末尾に</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>priority=1</span></code></pre></td></tr></table></div></figure>
-
 
 <p>を追加。</p>
 
@@ -157,12 +154,10 @@ $(document).ready( function () {
 </span><span class='line'>sudo rm -f rpmforge-release-*
 </span><span class='line'>sudo yum -y update rpmforge-release</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ffmpegをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=rpmforge install ffmpeg</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

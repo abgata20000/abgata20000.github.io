@@ -138,7 +138,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant package</span></code></pre></td></tr></table></div></figure>
 
-
 <p>少し時間はかかりましたが問題なく package.box が生成されました。</p>
 
 <p>生成された package.box を vagrant に登録して</p>
@@ -147,20 +146,17 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant box add myImage package.box
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>Vagrantfile</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>config.vm.box = "myImage"</span></code></pre></td></tr></table></div></figure>
-
 
 <p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant up</span></code></pre></td></tr></table></div></figure>
 
-
-<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー"></p>
 
 <p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
 
@@ -179,50 +175,48 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 </pre></td><td class='code'><pre><code class=''><span class='line'>vagrant plugin install vagrant-vbguest
 </span><span class='line'>vi ~/.vagrant.d/Vagrantfile</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>javascript:~/.vagrant.d/Vagrantfile</h5>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Vagrant.configure("2") do |config|
-</span><span class='line'>  config.vbguest.auto_update = false
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Vagrant</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nx">config</span><span class="o">|</span>
+</span><span class='line'>  <span class="nx">config</span><span class="p">.</span><span class="nx">vbguest</span><span class="p">.</span><span class="nx">auto_update</span> <span class="o">=</span> <span class="kc">false</span>
+</span><span class='line'><span class="nx">end</span>
+</span></code></pre></td></tr></table></div></figure>
 
-
-<p>バージョンが異なっているかどうかを確認</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<p>バージョンが異なっているかどうかを確認
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'> GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'> <span class="nx">GuestAdditions</span> <span class="nx">versions</span> <span class="nx">on</span> <span class="nx">your</span> <span class="nx">host</span> <span class="p">(</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="p">)</span> <span class="nx">and</span> <span class="nx">guest</span> <span class="p">(</span><span class="mf">4.2</span><span class="p">.</span><span class="mi">16</span><span class="p">)</span> <span class="k">do</span> <span class="nx">not</span> <span class="nx">match</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
 
 <p>やはりバージョンが違うらしい</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --auto-reboot</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">auto</span><span class="o">-</span><span class="nx">reboot</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>で修正してくれるらしいので実行してみた。</p>
 
 <p>無事終了したっぽいので確認</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant vbguest --status
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">vbguest</span> <span class="o">--</span><span class="nx">status</span>
 </span><span class='line'>
-</span><span class='line'>GuestAdditions 4.3.10 running --- OK.</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'><span class="nx">GuestAdditions</span> <span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span> <span class="nx">running</span> <span class="o">---</span> <span class="nx">OK</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決したらしい。</p>
 
 <p>Vagrant をリブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -236,22 +230,21 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>v reload
-</span><span class='line'>~~~
-</span><span class='line'>==&gt; default: Configuring and enabling network interfaces...
-</span><span class='line'>The following SSH command responded with a non-zero exit status.
-</span><span class='line'>Vagrant assumes that this means the command failed!
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">v</span> <span class="nx">reload</span>
+</span><span class='line'><span class="o">~~~</span>
+</span><span class='line'><span class="o">==&gt;</span> <span class="k">default</span><span class="o">:</span> <span class="nx">Configuring</span> <span class="nx">and</span> <span class="nx">enabling</span> <span class="nx">network</span> <span class="nx">interfaces</span><span class="p">...</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">following</span> <span class="nx">SSH</span> <span class="nx">command</span> <span class="nx">responded</span> <span class="kd">with</span> <span class="nx">a</span> <span class="nx">non</span><span class="o">-</span><span class="nx">zero</span> <span class="nx">exit</span> <span class="nx">status</span><span class="p">.</span>
+</span><span class='line'><span class="nx">Vagrant</span> <span class="nx">assumes</span> <span class="nx">that</span> <span class="k">this</span> <span class="nx">means</span> <span class="nx">the</span> <span class="nx">command</span> <span class="nx">failed</span><span class="o">!</span>
 </span><span class='line'>
-</span><span class='line'>ARPCHECK=no /sbin/ifup eth1 2&gt; /dev/null
+</span><span class='line'><span class="nx">ARPCHECK</span><span class="o">=</span><span class="nx">no</span> <span class="o">/</span><span class="nx">sbin</span><span class="o">/</span><span class="nx">ifup</span> <span class="nx">eth1</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="err">/dev/null</span>
 </span><span class='line'>
-</span><span class='line'>Stdout from the command:
+</span><span class='line'><span class="nx">Stdout</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span><span class='line'>
-</span><span class='line'>Device eth1 does not seem to be present, delaying initialization.
+</span><span class='line'><span class="nx">Device</span> <span class="nx">eth1</span> <span class="nx">does</span> <span class="nx">not</span> <span class="nx">seem</span> <span class="nx">to</span> <span class="nx">be</span> <span class="nx">present</span><span class="p">,</span> <span class="nx">delaying</span> <span class="nx">initialization</span><span class="p">.</span>
 </span><span class='line'>
 </span><span class='line'>
-</span><span class='line'>Stderr from the command:
+</span><span class='line'><span class="nx">Stderr</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">command</span><span class="o">:</span>
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>ダメみたい。</p>
 
@@ -261,19 +254,19 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 
 <p>Vagrant にSSH接続して後に</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
-</span><span class='line'>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions</span></code></pre></td></tr></table></div></figure>
-
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span><span class='line'><span class="nx">sudo</span> <span class="nx">ln</span> <span class="o">-</span><span class="nx">s</span> <span class="o">/</span><span class="nx">opt</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span><span class="o">-</span><span class="mf">4.3</span><span class="p">.</span><span class="mi">10</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span> <span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">lib64</span><span class="o">/</span><span class="nx">VBoxGuestAdditions</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>を実行</p>
 
 <p>リブートしてみる</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vagrant reload</span></code></pre></td></tr></table></div></figure>
-
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">vagrant</span> <span class="nx">reload</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <p>解決した。</p>
 

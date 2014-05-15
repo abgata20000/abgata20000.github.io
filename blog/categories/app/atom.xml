@@ -4,7 +4,7 @@
   <title><![CDATA[Category: App | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/app/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-15T22:14:30+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -26,7 +26,6 @@
 <li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
 </ul>
 
-
 <h2>設定ファイルをDropBoxに移す</h2>
 
 <h3>本来の設定ファイルがある場所</h3>
@@ -36,28 +35,23 @@
 <li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
 </ul>
 
-
 <p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
 
 <h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
 
 <h3>mac</h3>
+<div class="highlight"><pre><code class="text">ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packages
 
-<p><code>
-ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages
-</code></p>
 
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages
+</code></pre></div>
 <h3>win</h3>
+<div class="highlight"><pre><code class="text">cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
 
-<p>```
-cd C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</p>
+mklink /D &quot;Installed Packages&quot; &quot;C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages&quot;
 
-<p>mklink /D &ldquo;Installed Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages&rdquo;</p>
-
-<p>mklink /D &ldquo;Packages&rdquo; &ldquo;C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages&rdquo;</p>
-
-<p>```</p>
-]]></content>
+mklink /D &quot;Packages&quot; &quot;C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages&quot;
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -68,21 +62,16 @@ cd C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</p>
     <content type="html"><![CDATA[<h2>参考サイト</h2>
 
 <ul>
-<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
+<li><a href="https://sublime.wbond.net/installation">Installation - Package Control</a></li>
 <li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
 <li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
 </ul>
 
-
 <h2>パッケージインストールできるようにする</h2>
 
-<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
-
-<p>```
-import urllib.request,os; pf = &lsquo;Package Control.sublime-package&rsquo;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &lsquo;wb&rsquo;).write(urllib.request.urlopen( &lsquo;<a href="http://sublime.wbond.net/">http://sublime.wbond.net/</a>&rsquo; + pf.replace(&lsquo; &rsquo;,&lsquo;%20&rsquo;)).read())</p>
-
-<p>```</p>
-
+<p>View &gt; Show Console でコマンドライン入力欄を出して以下を実行</p>
+<div class="highlight"><pre><code class="text">import urllib.request,os; pf = &#39;Package Control.sublime-package&#39;; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), &#39;wb&#39;).write(urllib.request.urlopen( &#39;http://sublime.wbond.net/&#39; + pf.replace(&#39; &#39;,&#39;%20&#39;)).read())
+</code></pre></div>
 <p>cmd + shift + p でパッケージインストールを実行可能に</p>
 
 <h2>インストールするもの</h2>
@@ -102,7 +91,6 @@ import urllib.request,os; pf = &lsquo;Package Control.sublime-package&rsquo;; ip
 <li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
 </ul>
 
-
 <h2>設定ファイルをDropBoxに移す</h2>
 
 <h3>本来の設定ファイルがある場所</h3>
@@ -113,30 +101,26 @@ import urllib.request,os; pf = &lsquo;Package Control.sublime-package&rsquo;; ip
 <li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
 </ul>
 
-
 <p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
 
 <h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
 
 <h3>mac</h3>
+<div class="highlight"><pre><code class="text">ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packages
 
-<p><code>
-ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
-</code></p>
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packages
 
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages
+</code></pre></div>
 <h3>win</h3>
+<div class="highlight"><pre><code class="text">cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 2\
 
-<p>```
-cd C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 2\</p>
+mklink /D &quot;Installed Packages&quot; &quot;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages&quot;
 
-<p>mklink /D &ldquo;Installed Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Installed Packages&rdquo;</p>
+mklink /D &quot;Packages&quot; &quot;C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages&quot;
 
-<p>mklink /D &ldquo;Packages&rdquo; &ldquo;C:/Users/hogehoge/(ユーザー名)/Dropbox/sublime Text 2/Packages&rdquo;</p>
-
-<p>mklink /D &ldquo;Pristine Packages&rdquo; &ldquo;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages&rdquo;</p>
-
-<p>```</p>
-]]></content>
+mklink /D &quot;Pristine Packages&quot; &quot;C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages&quot;
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

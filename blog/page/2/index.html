@@ -121,14 +121,12 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>使用言語を日本語に設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/i18n /etc/sysconfig/i18n.org
 </span><span class='line'>sudo vim /etc/sysconfig/i18n</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/i18n</h5>
 
@@ -139,14 +137,12 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>SYSFONT="latarcyrheb-sun16"</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>サーバーに時間変更（日本時間）</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo mv /etc/localtime /etc/localtime.org
 </span><span class='line'>sudo ln -s /usr/share/zoneinfo/Asia/Tokyo /etc/localtime</span></code></pre></td></tr></table></div></figure>
-
 
 <p>再度ログインで日本語化(dateで確認)</p>
 
@@ -157,7 +153,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/sysconfig/network /etc/sysconfig/network.org
 </span><span class='line'>sudo vim /etc/sysconfig/network</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/sysconfig/network</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -167,7 +162,6 @@ $(document).ready( function () {
 </span><span class='line'>NETWORKING_IPV6=yes
 </span><span class='line'>HOSTNAME=sample.abgata.org</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>hostsの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -175,19 +169,16 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo cp /etc/hosts /etc/hosts.org
 </span><span class='line'>sudo vim /etc/hosts</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/hosts</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>127.0.0.1 sample.abgata.org localhost.localdomain
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定後はネットワークを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo /etc/rc.d/init.d/network restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーを追加</h2>
 
@@ -200,7 +191,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>usermod -G wheel myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザーにsudo権限を付与</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -210,7 +200,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>visudo</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>visudo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -219,7 +208,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'># %wheel ~~
 </span><span class='line'># ↓
 </span><span class='line'>%wheel ~~</span></code></pre></td></tr></table></div></figure>
-
 
 <p>※一番最初のもの</p>
 
@@ -233,7 +221,6 @@ $(document).ready( function () {
 </span><span class='line'>vim /etc/ssh/sshd_config
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/ssh/sshd_config</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -245,18 +232,15 @@ $(document).ready( function () {
 </span><span class='line'>PermitRootLogin no
 </span><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sshdを再起動して設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service sshd restart</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSH接続してみる</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh -p YOUR_PORT_NUMBER myuser@192.168.10.10</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -296,7 +280,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/iptables</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/iptables</h5>
 
@@ -350,7 +333,6 @@ $(document).ready( function () {
 </span><span class='line'>COMMIT
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -370,7 +352,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>chkconfig --list iptables
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -445,7 +426,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'># ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>nodeグループを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -457,7 +437,6 @@ $(document).ready( function () {
 </span><span class='line'># usermod -G wheel,node,ruby myuser
 </span><span class='line'>groups myuser</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>.nodebrewの所有グループを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -467,12 +446,10 @@ $(document).ready( function () {
 </span><span class='line'>chgrp -R node .nodebrew
 </span><span class='line'>chmod -R g+rwxX .nodebrew</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo chgrp wheel /root</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>インストール可能なバージョンの確認</h2>
 
@@ -481,7 +458,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew ls-all
 </span><span class='line'># 奇数バージョンは開発版、偶数バージョンが安定版らしい</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>インストール(バイナリからインストールしたほうが速い)</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -489,18 +465,15 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew install-binary v0.10.20
 </span><span class='line'># インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>利用するバージョンを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>nodebrew use v0.10.20</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>現在のバージョンを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>node -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>サーバーサンプル</h2>
 
@@ -520,7 +493,6 @@ $(document).ready( function () {
 </span><span class='line'>}).listen(8124);
 </span><span class='line'>
 </span><span class='line'>console.log('Server running at http://localhost:8124');</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -559,13 +531,14 @@ $(document).ready( function () {
   <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
-なんかいろいろとはまってしまったので備忘録
-file pathを追加する
-
-<h5>config/application.rb</h5></li>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a></li>
 </ul>
 
+<p>なんかいろいろとはまってしまったので備忘録</p>
+
+<p>file pathを追加する</p>
+
+<h5>config/application.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -595,7 +568,6 @@ file pathを追加する
 </span><span class='line'>  mount TestAPI =&gt; 'api'
 </span><span class='line'>  ...
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>流れ</h3>
 
@@ -630,7 +602,6 @@ file pathを追加する
 </span><span class='line'>$ open http://localhost:3000/api/v1/hello
 </span><span class='line'>files</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>app/api/test_api.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -639,7 +610,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>class TestAPI &lt; Grape::API
 </span><span class='line'>  mount API_V1
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/api_v1.rb</h5>
 
@@ -653,7 +623,6 @@ file pathを追加する
 </span><span class='line'>  prefix 'v1' # とりあえずprefixだけつけている
 </span><span class='line'>  mount V1::Ping
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/v1/ping.rb</h5>
 
@@ -675,7 +644,6 @@ file pathを追加する
 </span><span class='line'>    end
 </span><span class='line'>  end
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
 
@@ -722,18 +690,15 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g forever</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>forever start sample001.js</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>スクリプトを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>forever list</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スクリプトを止める</h2>
 
@@ -741,7 +706,6 @@ file pathを追加する
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'># listで確認して、[0]で登録されたスクリプトを止めたい場合
 </span><span class='line'>forever stop 0</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -781,7 +745,6 @@ file pathを追加する
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim images_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>images_backup.sh</h5>
 
@@ -828,12 +791,10 @@ file pathを追加する
 </span><span class='line'># 古いバックアップファイルを削除
 </span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>権限設定の変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 images_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -879,7 +840,6 @@ file pathを追加する
 <li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
 </ul>
 
-
 <p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -891,14 +851,12 @@ file pathを追加する
 </span><span class='line'>
 </span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
 
-
 <p>設定ファイルを変更</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
 </span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/yum.repos.d/epel.repo</h5>
 
@@ -908,7 +866,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
 </span><span class='line'>
 </span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>remi</h2>
 
@@ -920,7 +877,6 @@ file pathを追加する
 <li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
 </ul>
 
-
 <p>※centosで検索</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -930,7 +886,6 @@ file pathを追加する
 </span><span class='line'>
 </span><span class='line'>rpm -Uvh remi-release-6.rpm
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
 </div>
@@ -979,7 +934,6 @@ file pathを追加する
 </span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 </span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -995,7 +949,6 @@ file pathを追加する
 </span><span class='line'>ServerName www.example.com:80
 </span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1005,7 +958,6 @@ file pathを追加する
 </span><span class='line'>sudo service httpd start
 </span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1013,12 +965,10 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
 </span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>バーチャルホスト用にフォルダを作成</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>php</h2>
 
@@ -1030,7 +980,6 @@ file pathを追加する
 </span><span class='line'>php -v
 </span><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -1072,12 +1021,10 @@ file pathを追加する
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>mysql</h2>
 
@@ -1087,7 +1034,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
 </span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/my.cnf</h5>
 
@@ -1115,7 +1061,6 @@ file pathを追加する
 </span><span class='line'>default-character-set=utf8
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1123,14 +1068,12 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
 </span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlの初期設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1179,7 +1122,6 @@ file pathを追加する
 </span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
 </span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SELinuxを一時的に無効化</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1191,12 +1133,8 @@ file pathを追加する
 </span><span class='line'>setenforce 1
 </span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -1207,14 +1145,12 @@ file pathを追加する
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 
-
 <p>設定ファイルを変更したら、あとはrebootすればOK</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
 </span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/sysconfig/selinux</h5>
 
@@ -1224,7 +1160,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
 </span><span class='line'>#　　　↓
 </span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1265,7 +1200,6 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
 
-
 <p>※執筆時点では5.4.19</p>
 
 <h2>利用しそうな依存ライブラリも一緒にインストール</h2>
@@ -1273,12 +1207,10 @@ file pathを追加する
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>バージョンの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>設定ファイルを変更</h2>
 
@@ -1286,7 +1218,6 @@ file pathを追加する
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -1326,12 +1257,10 @@ file pathを追加する
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apache再起動で反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   

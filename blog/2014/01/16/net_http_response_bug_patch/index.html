@@ -115,7 +115,6 @@ $(document).ready( function () {
 <li><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></li>
 </ul>
 
-
 <h2>概要</h2>
 
 <p>Rubyでブログ投稿しようと頑張っていたら、ハマった。</p>
@@ -125,10 +124,8 @@ $(document).ready( function () {
 <p>jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、</p>
 
 <p>FC2に投稿しようとするとエラーが出る。</p>
-
-<pre><code>Wrong size. Was 31564, should be 1501
-</code></pre>
-
+<div class="highlight"><pre><code class="text">Wrong size. Was 31564, should be 1501
+</code></pre></div>
 <p>いろいろ調べてみたらどうやらRubyの標準ライブラリの</p>
 
 <p><strong>net/http/response.rb</strong></p>
@@ -150,28 +147,24 @@ $(document).ready( function () {
 <p>※railsでxml/libxml がないとか言われたり、関数の表現変わったりで面倒だったので</p>
 
 <h2>修正方法</h2>
-
-<pre><code>rbenv version
-</code></pre>
-
+<div class="highlight"><pre><code class="text">rbenv version
+</code></pre></div>
 <p>で現在利用しているrubyのバージョンと場所を確認</p>
-
-<pre><code>.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
-</code></pre>
-
+<div class="highlight"><pre><code class="text">.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
+</code></pre></div>
 <p>内の</p>
 
-<p> <strong>response.rb</strong>を書き換える</p>
+<p><strong>response.rb</strong>を書き換える</p>
 
-<p> 修正箇所は参考URLを参照</p>
+<p>修正箇所は参考URLを参照</p>
 
-<p> 一応、修正したファイルをgithubにあげておいたので、</p>
+<p>一応、修正したファイルをgithubにあげておいたので、</p>
 
-<p> 今後は、こちらをpullしてコピーで対応しようと思う</p>
+<p>今後は、こちらをpullしてコピーで対応しようと思う</p>
 
-<p> シェルスクリプト書くかどうか検討中</p>
+<p>シェルスクリプト書くかどうか検討中</p>
 
-<p> <a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
+<p><a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
 </div>
 
 

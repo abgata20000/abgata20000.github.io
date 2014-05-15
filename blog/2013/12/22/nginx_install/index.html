@@ -120,7 +120,6 @@ $(document).ready( function () {
 <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/nginx.repo</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/yum.repos.d/nginx.repo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -133,9 +132,6 @@ $(document).ready( function () {
 </span><span class='line'>baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 </span><span class='line'>gpgcheck=0
 </span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
-
-
-
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -168,7 +164,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>sudo vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/nginx/nginx.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -179,7 +174,6 @@ $(document).ready( function () {
 </span><span class='line'>include /etc/nginx/sites-enabled/*;
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h1>自動起動をON</h1>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -189,7 +183,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>chkconfig nginx on
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

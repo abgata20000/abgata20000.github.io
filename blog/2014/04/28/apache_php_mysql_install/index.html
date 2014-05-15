@@ -127,7 +127,6 @@ $(document).ready( function () {
 </span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 </span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -143,7 +142,6 @@ $(document).ready( function () {
 </span><span class='line'>ServerName www.example.com:80
 </span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -153,7 +151,6 @@ $(document).ready( function () {
 </span><span class='line'>sudo service httpd start
 </span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -161,12 +158,10 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
 </span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>バーチャルホスト用にフォルダを作成</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>php</h2>
 
@@ -178,7 +173,6 @@ $(document).ready( function () {
 </span><span class='line'>php -v
 </span><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -220,12 +214,10 @@ $(document).ready( function () {
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>mysql</h2>
 
@@ -235,7 +227,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
 </span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/my.cnf</h5>
 
@@ -263,7 +254,6 @@ $(document).ready( function () {
 </span><span class='line'>default-character-set=utf8
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -271,14 +261,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
 </span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlの初期設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

@@ -116,7 +116,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum info --enablerepo=remi php</span></code></pre></td></tr></table></div></figure>
 
-
 <p>※執筆時点では5.4.19</p>
 
 <h2>利用しそうな依存ライブラリも一緒にインストール</h2>
@@ -124,12 +123,10 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=remi install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>バージョンの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>php -v</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>設定ファイルを変更</h2>
 
@@ -137,7 +134,6 @@ $(document).ready( function () {
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/php.ini /etc/php.ini.org
 </span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.ini</h5>
 
@@ -177,12 +173,10 @@ $(document).ready( function () {
 </span><span class='line'>upload_max_filesize 100M
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apache再起動で反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

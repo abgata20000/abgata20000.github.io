@@ -120,12 +120,10 @@ $(document).ready( function () {
 <li><a href="http://qiita.com/tomerun/items/9cb81d7a98150ff22f53">RubyでSeleniumを使ってスクレイピング</a></li>
 </ul>
 
-
 <h2>gemをインストールする。</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem install selenium-webdriver</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>起動と終了</h2>
 
@@ -135,7 +133,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>driver = Selenium::WebDriver.for :firefox # ブラウザ起動
 </span><span class='line'>
 </span><span class='line'>driver.quit # ブラウザ終了</span></code></pre></td></tr></table></div></figure>
-
 
 <p>:firefox のところは :ieとか:chromeとか:operaとか好きなのを</p>
 
@@ -147,7 +144,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>driver.navigate.to 'http://example.com' # URLを開く
 </span><span class='line'>driver.switch_to.frame(1)               # 1つめの子フレームに移動
 </span><span class='line'>driver.switch_to.frame("frameid")       # フレームのnameを指定して移動</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>要素を指定</h2>
 
@@ -164,8 +160,7 @@ $(document).ready( function () {
 </span><span class='line'>element = element.find_element(:xpath, 'tr[2]/td[3]/a') # XPathで指定
 </span><span class='line'>element = driver.find_element(:class, 'body').find_element(:name, 'form').find_elements(:xpath, './/input')[2] # メソッドチェーン</span></code></pre></td></tr></table></div></figure>
 
-
-<p>DriverとElementがどちらもfind_element・find_elementsメソッドを持っている。</p>
+<p>DriverとElementがどちらもfind<em>element・find</em>elementsメソッドを持っている。</p>
 
 <h2>入力</h2>
 
@@ -202,7 +197,6 @@ $(document).ready( function () {
 </span><span class='line'># リンクやボタンを押す
 </span><span class='line'>driver.find_element(:xpath, '//table[2]/tr[3]/td[1]/a').click</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>情報取得</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -232,7 +226,6 @@ $(document).ready( function () {
 </span><span class='line'># スクリーンショットを撮る
 </span><span class='line'>driver.save_screenshot('path/to/filename.png')</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>chomeのプロフィール設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -252,7 +245,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>driver = Selenium::WebDriver.for :chrome, :prefs =&gt; prefs</span></code></pre></td></tr></table></div></figure>
 
-
 <h1>macでchromeを指定するとエラーが出たので対応</h1>
 
 <h2>ドライバーをダウンロードしてくる</h2>
@@ -263,7 +255,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /path/to/chromedriver /usr/bin/chromedriver</span></code></pre></td></tr></table></div></figure>
-
 
 <p>とりあえず /user/bin/にシンボリックリンクを貼った
 直接パス通す方法でもOK</p>

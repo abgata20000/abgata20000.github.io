@@ -4,7 +4,7 @@
   <title><![CDATA[Category: MySQL | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/mysql/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -26,20 +26,14 @@
 <li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
 </ul>
 
-
 <h2>サンプル</h2>
+<div class="highlight"><pre><code class="text">begin;
 
-<p>```
-begin;</p>
+select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
 
-<p>select * from t_sample where id > 1 AND flg = 0 order by id asc limit1 for update;</p>
-
-<p>commit;</p>
-
-<h1>コミットするまでは、同一のレコードへ処理（select文を含む)をロックする</h1>
-
-<p>```</p>
-
+commit;
+# コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
+</code></pre></div>
 <h3>注意点</h3>
 
 <ul>
@@ -47,50 +41,29 @@ begin;</p>
 <li>for update をつけていないクエリはロックされない</li>
 <li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
 </ul>
-
-
-<p>```
-where id = 1</p>
-
-<p>```
-と</p>
-
-<p>```
-where id = 2</p>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">where id = 1
+</code></pre></div>
+<p>と</p>
+<div class="highlight"><pre><code class="text">where id = 2
+</code></pre></div>
 <p>であればロックされない</p>
-
-<p>```
-where id > 1</p>
-
-<p>```
-と</p>
-
-<p>```
-where id = 2</p>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">where id &gt; 1
+</code></pre></div>
+<p>と</p>
+<div class="highlight"><pre><code class="text">where id = 2
+</code></pre></div>
 <p>であればロックされる</p>
 
 <h2>ActiveRecordでの利用方法</h2>
+<div class="highlight"><pre><code class="text">Sample.transaction do
+    # select * from table where flg = 0 limit 1 for update
+    @target = Sample.where(&quot;flg = 0 &quot;).lock(true).first
 
-<p>```
-Sample.transaction do</p>
+    @target[&#39;flg&#39;] = 1
+    @target.save
 
-<pre><code># select * from table where flg = 0 limit 1 for update
-@target = Sample.where("flg = 0 ").lock(true).first
-
-@target['flg'] = 1
-@target.save
-</code></pre>
-
-<p>end</p>
-
-<p>```</p>
-]]></content>
+end
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -101,106 +74,64 @@ Sample.transaction do</p>
     <content type="html"><![CDATA[<h2>マスター側設定</h2>
 
 <h3>レプリケーション用のユーザーを作成</h3>
-
-<p><code>
-GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';
-</code></p>
-
+<div class="highlight"><pre><code class="text">GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY &#39;password&#39;;
+</code></pre></div>
 <h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
-
-<p><code>
-[mysqld]
+<div class="highlight"><pre><code class="text">[mysqld]
 log-bin = mysql-bin
 server-id = 1001
-</code></p>
-
+</code></pre></div>
 <h3>mysqlを再起動</h3>
-
-<p><code>
-service mysqld restart
-</code></p>
-
+<div class="highlight"><pre><code class="text">service mysqld restart
+</code></pre></div>
 <h3>mysqlのスナップショットを作成</h3>
 
 <h4>mysqlにて</h4>
+<div class="highlight"><pre><code class="text"># DBロック
+FLUSH TABLES WITH READ LOCK;
 
-<p>```</p>
+# 現在のバイナリポジションを取得
+SHOW MASTER STATUS;
 
-<h1>DBロック</h1>
-
-<p>FLUSH TABLES WITH READ LOCK;</p>
-
-<h1>現在のバイナリポジションを取得</h1>
-
-<p>SHOW MASTER STATUS;</p>
-
-<h1>File、Positionはスレーブ側の設定に必要なので控えておく</h1>
-
-<p>```</p>
-
+# File、Positionはスレーブ側の設定に必要なので控えておく
+</code></pre></div>
 <h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
-
-<p><code>
-mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db
-</code></p>
-
+<div class="highlight"><pre><code class="text">mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db
+</code></pre></div>
 <h3>DBロックを解除</h3>
 
 <h4>mysqlにて</h4>
-
-<p><code>
-UNLOCK TABLES;
-</code></p>
-
+<div class="highlight"><pre><code class="text">UNLOCK TABLES;
+</code></pre></div>
 <h2>スレーブ側設定</h2>
 
 <h3>my.cnfを修正(追加)</h3>
-
-<p><code>
-[mysqld]
+<div class="highlight"><pre><code class="text">[mysqld]
 log-bin=mysql-bin
 log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
 server-id=1002
-</code></p>
-
+</code></pre></div>
 <h3>マスタで作成したスナップショットを復元</h3>
-
-<p><code>
-mysql -u user -p  &lt; snapshot.db
-</code></p>
-
+<div class="highlight"><pre><code class="text">mysql -u user -p  &lt; snapshot.db
+</code></pre></div>
 <h3>mysqlを再起動</h3>
-
-<p><code>
-service mysqld restart
-</code></p>
-
+<div class="highlight"><pre><code class="text">service mysqld restart
+</code></pre></div>
 <h3>マスタ情報を登録</h3>
-
-<p><code>
-CHANGE MASTER TO
-MASTER_HOST='sample.com',
-MASTER_USER='rep-user',
-MASTER_PASSWORD='passwd',
-MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
+<div class="highlight"><pre><code class="text">CHANGE MASTER TO
+MASTER_HOST=&#39;sample.com&#39;,
+MASTER_USER=&#39;rep-user&#39;,
+MASTER_PASSWORD=&#39;passwd&#39;,
+MASTER_LOG_FILE=&#39;mysql-bin.000001&#39;, #マスターのFIle
 MASTER_LOG_POS=98; #マスターのPosition
-</code></p>
-
+</code></pre></div>
 <h3>スレーブをスタート</h3>
-
-<p>```
-START SLAVE;</p>
-
-<h1>STOP SLAVE;RESTART SLAVE;RESET SLAVE;</h1>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">START SLAVE;
+# STOP SLAVE;RESTART SLAVE;RESET SLAVE;
+</code></pre></div>
 <h3>起動確認</h3>
-
-<p><code>
-SHOW SLAVE STATUS\G
-</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">SHOW SLAVE STATUS\G
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -214,52 +145,33 @@ SHOW SLAVE STATUS\G
 <li><a href="http://linuxserver.jp/%E3%82%B5%E3%83%BC%E3%83%90%E6%A7%8B%E7%AF%89/db/mysql/%E5%85%A8%E6%96%87%E6%A4%9C%E7%B4%A2-groonga.php">MySQLでgroongaを利用して高速に日本語の全文検索を行う</a></li>
 <li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
 </ul>
+<div class="highlight"><pre><code class="text">rpm -ivh http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm
+# --sorceで強制的に上書き
+yum makecache
+yum -y update
 
+yum -y install mysql-server
+# version5.1.67を指定しないとだめかも
 
-<p>```
-rpm -ivh <a href="http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm">http://packages.groonga.org/centos/groonga-release-1.1.0-1.noarch.rpm</a></p>
-
-<h1>&mdash;sorceで強制的に上書き</h1>
-
-<p>yum makecache
-yum -y update</p>
-
-<p>yum -y install mysql-server</p>
-
-<h1>version5.1.67を指定しないとだめかも</h1>
-
-<p>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic
-```</p>
-
+yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic
+</code></pre></div>
 <h2>MySQLの設定</h2>
-
-<p><code>
-cp /etc/my.cnf /etc/my.cnf.org
+<div class="highlight"><pre><code class="text">cp /etc/my.cnf /etc/my.cnf.org
 vim /etc/my.cnf
-</code></p>
-
+</code></pre></div>
 <h2>MySQLの初期設定</h2>
-
-<p><code>
-mysql_secure_installation
-</code></p>
-
+<div class="highlight"><pre><code class="text">mysql_secure_installation
+</code></pre></div>
 <h2>MySQLを起動</h2>
-
-<p><code>
-service mysqld start
+<div class="highlight"><pre><code class="text">service mysqld start
 yum -y install mysql-groonga
 service mysqld restart
 chkconfig mysqld on
 mysql -u root -p
-</code></p>
-
+</code></pre></div>
 <h3>利用可能なストレージエンジンを確認</h3>
-
-<p><code>
-mysql&gt; SHOW ENGINES \G
-</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">mysql&gt; SHOW ENGINES \G
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -267,81 +179,67 @@ mysql&gt; SHOW ENGINES \G
     <link href="http://blog.abgata.org/blog/2013/12/22/mysql_backup/"/>
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/mysql_backup</id>
-    <content type="html"><![CDATA[<p>```
-cd</p>
+    <content type="html"><![CDATA[<div class="highlight"><pre><code class="text">cd
 
-<p>mkdir backup
-mkdir backup/mysql</p>
+mkdir backup
+mkdir backup/mysql
 
-<p>vim mysql_backup.sh
-```</p>
-
+vim mysql_backup.sh
+</code></pre></div>
 <h5>mysql_backup.sh</h5>
+<div class="highlight"><pre><code class="text">#!/bin/sh
 
-<p>```</p>
+# バックアップファイルを何日分残しておくか
+period=1
+# バックアップファイルを保存するディレクトリ
+dirpath=&#39;/root/backup/mysql&#39;
+cd $dirpath
 
-<h1>!/bin/sh</h1>
+#mysql_password
+mysqlpassword=&quot;passwd&quot;
 
-<h1>バックアップファイルを何日分残しておくか</h1>
+# ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
+mydate=`date +%y%m%d%H%M%S`
+filename=&quot;mysql_$mydate.sql&quot;
+zipfilename=&quot;mysql_$mydate.sql.tar.gz&quot;
+# スレーブ停止
+mysql -uroot -p$mysqlpassword -e &quot;flush tables;&quot;
+mysql -uroot -p$mysqlpassword -e &quot;stop slave;&quot;
 
-<p>period=&lsquo;+7&rsquo;</p>
+# mysqldump実行
+mysqldump -uroot -p$mysqlpassword -A -E &gt; $filename
 
-<h1>バックアップファイルを保存するディレクトリ</h1>
+# スレーブ開始
+mysql -uroot -p$mysqlpassword -e &quot;start slave;&quot;
 
-<p>dirpath=&lsquo;/path/to/backup/mysql&rsquo;</p>
+#backup実行
+tar -zcvf $zipfilename $filename
 
-<h1>mysql password</h1>
+# 圧縮前のファイルを削除
+rm -f $filename
 
-<p>mysqlpassword=&ldquo;passwd&rdquo;</p>
+# パーミッション変更
+chmod 700 $zipfilename
 
-<h1>ファイル名を定義(※ファイル名で日付がわかるようにしておきます)</h1>
-
-<p>mydate=<code>date +%y%m%d%H%M%S</code>
-filename=&ldquo;mysql_$mydate.sql&rdquo;</p>
-
-<h1>mysqldump実行</h1>
-
-<p>mysqldump -uroot -p$mysqlpassword -A -E > $dirpath/$filename</p>
-
-<h1>パーミッション変更</h1>
-
-<p>chmod 700 $dirpath/$filename</p>
-
-<h1>古いバックアップファイルを削除</h1>
-
-<p>find $dirpath -type f -daystart -mtime $period -exec rm {} \;
-```</p>
-
+# 古いバックアップファイルを削除
+find $dirpath -type f -daystart -mtime +3 -exec rm {} \;
+</code></pre></div>
 <h3>実行権限を付与</h3>
-
-<p><code>
-chmod 700 mysql_backup.sh
-</code></p>
-
+<div class="highlight"><pre><code class="text">chmod 700 mysql_backup.sh
+</code></pre></div>
 <h2>cronをインストール</h2>
+<div class="highlight"><pre><code class="text">yum install cronie-anacron
+# cron.dailyをランダム実行したくない場合は yum -y install cronie-noanacron
 
-<p>```
-yum install cronie-anacron</p>
+chkconfig --level 2345 crond on
+chkconfig --list crond  
 
-<h1>cron.dailyをランダム実行したくない場合は yum -y install cronie-noanacron</h1>
-
-<p>chkconfig &mdash;level 2345 crond on
-chkconfig &mdash;list crond</p>
-
-<p>crontab -e</p>
-
-<p>```</p>
-
-<p><code>
-0 3 * * * bash /path/to/mysql_backup.sh
-</code></p>
-
+crontab -e
+</code></pre></div><div class="highlight"><pre><code class="text">0 3 * * * bash /path/to/mysql_backup.sh
+</code></pre></div>
 <h3>設定済みのクーロンを確認</h3>
-
-<p><code>
-crontab -l
-</code></p>
-]]></content>
+<div class="highlight"><pre><code class="text">crontab -l
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

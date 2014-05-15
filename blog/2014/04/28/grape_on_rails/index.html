@@ -9,9 +9,7 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト grape on railsしてみる
-なんかいろいろとはまってしまったので備忘録
-file pathを追加する config/application.rb 1
+  <meta name="description" content="参考サイト grape on railsしてみる なんかいろいろとはまってしまったので備忘録 file pathを追加する config/application.rb 1
 2
 3
 4
@@ -128,13 +126,14 @@ $(document).ready( function () {
 <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a>
-なんかいろいろとはまってしまったので備忘録
-file pathを追加する
-
-<h5>config/application.rb</h5></li>
+<li><a href="http://lemonade.hatenablog.jp/entry/2013/11/28/031126">grape on railsしてみる</a></li>
 </ul>
 
+<p>なんかいろいろとはまってしまったので備忘録</p>
+
+<p>file pathを追加する</p>
+
+<h5>config/application.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -164,7 +163,6 @@ file pathを追加する
 </span><span class='line'>  mount TestAPI =&gt; 'api'
 </span><span class='line'>  ...
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>流れ</h3>
 
@@ -199,7 +197,6 @@ file pathを追加する
 </span><span class='line'>$ open http://localhost:3000/api/v1/hello
 </span><span class='line'>files</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>app/api/test_api.rb</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -208,7 +205,6 @@ file pathを追加する
 </pre></td><td class='code'><pre><code class=''><span class='line'>class TestAPI &lt; Grape::API
 </span><span class='line'>  mount API_V1
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/api_v1.rb</h5>
 
@@ -222,7 +218,6 @@ file pathを追加する
 </span><span class='line'>  prefix 'v1' # とりあえずprefixだけつけている
 </span><span class='line'>  mount V1::Ping
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>app/api/v1/ping.rb</h5>
 
@@ -244,7 +239,6 @@ file pathを追加する
 </span><span class='line'>    end
 </span><span class='line'>  end
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
 
 <p>ベースのクラスをモジュールで囲うと何故かサブクラス呼び出せない</p>
 

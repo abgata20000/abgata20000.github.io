@@ -9,9 +9,9 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト Installation &ndash; Package Control
+  <meta name="description" content="参考サイト Installation - Package Control
 SublimeText3のセットアップ
-SublimeText2/3 環境設定とか（基本3） パッケージインストールできるようにする View > Show Console &hellip;">
+SublimeText2/3 環境設定とか（基本3） パッケージインストールできるようにする View &gt; Show Console でコマンドライン入力欄を出して以下を実行 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -114,20 +114,18 @@ $(document).ready( function () {
 <div class="entry-content"><h2>参考サイト</h2>
 
 <ul>
-<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
+<li><a href="https://sublime.wbond.net/installation">Installation - Package Control</a></li>
 <li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
 <li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
 </ul>
 
-
 <h2>パッケージインストールできるようにする</h2>
 
-<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
+<p>View &gt; Show Console でコマンドライン入力欄を出して以下を実行</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>cmd + shift + p でパッケージインストールを実行可能に</p>
 

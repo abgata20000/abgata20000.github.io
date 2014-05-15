@@ -124,7 +124,6 @@ $(document).ready( function () {
 <li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
 </ul>
 
-
 <h2>サンプル</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -141,7 +140,6 @@ $(document).ready( function () {
 </span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>注意点</h3>
 
 <ul>
@@ -150,18 +148,15 @@ $(document).ready( function () {
 <li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
 </ul>
 
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>と</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>であればロックされない</p>
 
@@ -169,13 +164,11 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>と</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>であればロックされる</p>
 
@@ -200,7 +193,6 @@ $(document).ready( function () {
 </span><span class='line'>end
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

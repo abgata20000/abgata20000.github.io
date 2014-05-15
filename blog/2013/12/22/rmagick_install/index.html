@@ -117,18 +117,15 @@ $(document).ready( function () {
 <li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
 </ul>
 
-
 <h2>Yumでインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install ImageMagick ImageMagick-devel -y</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>gemでライブラリをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem install rmagick</span></code></pre></td></tr></table></div></figure>
-
 
 <p>※sudoじゃなきゃだめかも</p>
 
@@ -137,12 +134,10 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>require 'RMagick'</span></code></pre></td></tr></table></div></figure>
 
-
 <p>やら</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem 'rmagick', :require =&gt; 'RMagick'</span></code></pre></td></tr></table></div></figure>
-
 
 <p>のような書き方が必要</p>
 </div>

@@ -123,24 +123,20 @@ $(document).ready( function () {
 </span><span class='line'>git config --global user.email "abgata@abgata.jp"
 </span><span class='line'>git config --global color.ui true</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>gitの設定確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git config -l</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>現在のディレクトリを共有リポジトリにする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git init --bare --share</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>レポジトリをクローンする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git clone /git/smaple.git</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>pushされた際のhooks(post-receive)</h2>
 
@@ -148,7 +144,6 @@ $(document).ready( function () {
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd hooks
 </span><span class='line'>vim post-receive</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>post-receive</h5>
 
@@ -159,12 +154,10 @@ $(document).ready( function () {
 </span><span class='line'>cd /var/www/vhosts/
 </span><span class='line'>git --git-dir=.git pull origin master</span></code></pre></td></tr></table></div></figure>
 
-
 <p>実行権限を付与</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x post-receive</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

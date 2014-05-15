@@ -149,7 +149,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'># 3回くらい質問されるがとりあえずenter連打</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>インストール完了後のコメント</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -238,12 +237,10 @@ $(document).ready( function () {
 </span><span class='line'>Phusion Passenger is a trademark of Hongli Lai & Ninh Bui.
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheの設定ファイルを変更白みたいなことが書いてあるので変更する</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf.d/passenger.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/httpd/conf.d/passenger.conf</h5>
 
@@ -254,18 +251,15 @@ $(document).ready( function () {
 </span><span class='line'>PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
 </span><span class='line'>PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apahceの設定ファイルでドキュメントルート、バーチャルホストを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>DocumentRoot /var/www/ruby/public</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ドキュメントルートのディレクトリ作成</h2>
 
@@ -280,12 +274,10 @@ $(document).ready( function () {
 </span><span class='line'>mkdir public
 </span><span class='line'>mkdir tmp</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行用の設定ファイル作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim config.ru</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>config.ru</h5>
 
@@ -302,7 +294,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>run App
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>実行用ファイルの作成</h2>
 
@@ -325,7 +316,6 @@ $(document).ready( function () {
 </span><span class='line'>  end
 </span><span class='line'>end
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>webブラウザ等でアクセスしてみる</p>
 </div>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: AngularJS | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-15T22:14:30+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -20,64 +20,47 @@
     <id>http://blog.abgata.org/blog/2014/02/03/angularjs_careful</id>
     <content type="html"><![CDATA[<h3>参考サイト</h3>
 
-<p>&ndash;</p>
+<h2></h2>
 
 <h2>POSTでパラメータを送信する際は、設定が必要</h2>
+<div class="highlight"><pre><code class="text">    @testApp.config ($httpProvider) -&gt;
+        $httpProvider.defaults.transformRequest = (data = {}) -&gt;
+            $.param(data);
+        $httpProvider.defaults.headers.post[&#39;Content-Type&#39;] = &#39;application/x-www-form-urlencoded; charset=UTF-8&#39;
 
-<p>```</p>
+     @
+</code></pre></div>
+<p>そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
 
-<pre><code>@testApp.config ($httpProvider) -&gt;
-    $httpProvider.defaults.transformRequest = (data = {}) -&gt;
-        $.param(data);
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+<p>うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
 
- @
-</code></pre>
-
-<p>```
- そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
-
-<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
-
-<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+<p>ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
 
 <h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
+<div class="highlight"><pre><code class="text">    url = &#39;/api/action/:id&#39;
 
-<p>```</p>
+    model = $resource url, null ,
+        get: {method: &#39;GET&#39;, isArray: false}
+        post: {method: &#39;POST&#39;, isArray: false, params: {id: &quot;@id&quot;}
+        put: {method: &#39;PUT&#39;, isArray: false, params: {id: &quot;@id&quot;}}
+        delete: {method: &#39;DELETE&#39;, isArray: false}
 
-<pre><code>url = '/api/action/:id'
+    param =
+        id: 1
+        name: &#39;myName&#39;
 
-model = $resource url, null ,
-    get: {method: 'GET', isArray: false}
-    post: {method: 'POST', isArray: false, params: {id: "@id"}
-    put: {method: 'PUT', isArray: false, params: {id: "@id"}}
-    delete: {method: 'DELETE', isArray: false}
-
-param =
-    id: 1
-    name: 'myName'
-
-model.put param, (res, e) -&gt;
-        console.log res
-</code></pre>
-
-<p>```</p>
-
+    model.put param, (res, e) -&gt;
+            console.log res
+</code></pre></div>
 <p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
 に反映されるが、
 PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
-
-<p>```</p>
-
-<pre><code>model = $resource url, {id: "@id"} ,
-    get: {method: 'GET', isArray: false}
-    post: {method: 'POST', isArray: false}
-    put: {method: 'PUT', isArray: false}
-    delete: {method: 'DELETE', isArray: false}
-</code></pre>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">    model = $resource url, {id: &quot;@id&quot;} ,
+        get: {method: &#39;GET&#39;, isArray: false}
+        post: {method: &#39;POST&#39;, isArray: false}
+        put: {method: &#39;PUT&#39;, isArray: false}
+        delete: {method: &#39;DELETE&#39;, isArray: false}
+</code></pre></div>
 <p>これでも大丈夫そう。</p>
 ]]></content>
   </entry>

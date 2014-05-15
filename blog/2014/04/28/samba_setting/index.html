@@ -118,14 +118,12 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum -y install samba system-config-samba samba-common samba-client</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/samba/smb.conf /etc/samba/smb.conf.org
 </span><span class='line'>vim /etc/samba/smb.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/samba/smb.conf</h5>
 
@@ -213,7 +211,6 @@ $(document).ready( function () {
 </span><span class='line'>          dos filetimes = yes
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sambaにユーザ追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -227,7 +224,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>pdbedit -L</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>samba起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -235,14 +231,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>service smb start
 </span><span class='line'>service nmb start</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>問題なければ、自動起動に。</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig smb on
 </span><span class='line'>chkconfig nmb on</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>samba用にiptables編集(下記を追加)</h2>
 
@@ -253,12 +247,10 @@ $(document).ready( function () {
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
 </span><span class='line'>-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>iptables再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service iptables restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

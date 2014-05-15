@@ -14,7 +14,7 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/install_for_gem/</loc>
-        <lastmod>2014-04-28T23:42:43+09:00</lastmod>
+        <lastmod>2014-05-01T18:51:13+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mongodb_for_php/</loc>
@@ -22,11 +22,11 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mongodb_install/</loc>
-        <lastmod>2014-04-28T23:08:07+09:00</lastmod>
+        <lastmod>2014-05-01T18:02:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mysql_backup/</loc>
-        <lastmod>2014-04-29T00:37:48+09:00</lastmod>
+        <lastmod>2014-05-01T20:27:08+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2013/12/22/mysql_mroonga_install/</loc>
@@ -202,15 +202,19 @@
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/2014/05/02/vagrant-packege-vb_version_diff/</loc>
-        <lastmod>2014-05-01T17:19:52+09:00</lastmod>
+        <lastmod>2014-05-03T10:40:08+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.abgata.org/blog/2014/05/16/vagrant-nfs/</loc>
+        <lastmod>2014-05-15T22:13:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/blog/archives/</loc>
-        <lastmod>2014-05-01T17:19:52+09:00</lastmod>
+        <lastmod>2014-05-15T22:13:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/</loc>
-        <lastmod>2014-05-01T17:19:52+09:00</lastmod>
+        <lastmod>2014-05-15T22:13:32+09:00</lastmod>
     </url>
     <url>
         <loc>http://blog.abgata.org/links.html</loc>

@@ -116,7 +116,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum info --enablerepo=remi mysql mysql-server mysql-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <p>※執筆時点では5.5.53</p>
 
 <h2>利用しそうな依存ライブラリも一緒にインストール</h2>
@@ -125,14 +124,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install -y --enablerepo=remi mysql-server mysql-devel
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定ファイルの変更</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/my.cnf</h5>
 
@@ -160,7 +157,6 @@ $(document).ready( function () {
 </span><span class='line'>default-character-set=utf8
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -168,14 +164,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
 </span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlの初期設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

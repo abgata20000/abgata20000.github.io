@@ -126,7 +126,6 @@ $(document).ready( function () {
 <li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
 </ul>
 
-
 <h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -144,12 +143,10 @@ $(document).ready( function () {
 </span><span class='line'>cd extract_forwarded
 </span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheの実行ユーザーとポートを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
@@ -186,12 +183,10 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
 
-
 <p>apacheを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>nginxでの転送設定</h2>
 
@@ -199,7 +194,6 @@ $(document).ready( function () {
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
 </span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>default.conf</h5>
 
@@ -257,7 +251,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>最初に↓入れたほうがいいかも？？</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -292,12 +285,10 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>nginxを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -336,7 +327,6 @@ $(document).ready( function () {
   <div class="entry-content"><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/nginx.repo</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/yum.repos.d/nginx.repo</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -349,9 +339,6 @@ $(document).ready( function () {
 </span><span class='line'>baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 </span><span class='line'>gpgcheck=0
 </span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
-
-
-
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -384,7 +371,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>sudo vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/nginx/nginx.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -395,7 +381,6 @@ $(document).ready( function () {
 </span><span class='line'>include /etc/nginx/sites-enabled/*;
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h1>自動起動をON</h1>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -405,7 +390,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>chkconfig nginx on
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -448,7 +432,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>GRANT REPLICATION SLAVE ON *.* TO repl@% IDENTIFIED BY 'password';</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>my.cnf(winの場合はmy.ini)を修正（追加）</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -458,12 +441,10 @@ $(document).ready( function () {
 </span><span class='line'>log-bin = mysql-bin
 </span><span class='line'>server-id = 1001</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>mysqlのスナップショットを作成</h3>
 
@@ -485,12 +466,10 @@ $(document).ready( function () {
 </span><span class='line'># File、Positionはスレーブ側の設定に必要なので控えておく
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>別ターミナル等でDBのバックアップを取る(mysqldumpを利用)</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysqldump -u user -p --all-databases --lock-all-tables &gt; snapshot.db</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>DBロックを解除</h3>
 
@@ -498,7 +477,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>UNLOCK TABLES;</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>スレーブ側設定</h2>
 
@@ -513,18 +491,15 @@ $(document).ready( function () {
 </span><span class='line'>log_slave_updates #このスレーブを他のマスターとして使いたい場合追加
 </span><span class='line'>server-id=1002</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>マスタで作成したスナップショットを復元</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql -u user -p  &lt; snapshot.db</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlを再起動</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>マスタ情報を登録</h3>
 
@@ -541,7 +516,6 @@ $(document).ready( function () {
 </span><span class='line'>MASTER_LOG_FILE='mysql-bin.000001', #マスターのFIle
 </span><span class='line'>MASTER_LOG_POS=98; #マスターのPosition</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>スレーブをスタート</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -549,12 +523,10 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>START SLAVE;
 </span><span class='line'># STOP SLAVE;RESTART SLAVE;RESET SLAVE;</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>起動確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>SHOW SLAVE STATUS\G</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -597,7 +569,6 @@ $(document).ready( function () {
 <li><a href="http://groonga.org/ja/docs/install/centos.html#centos-6">2.5. CentOS &mdash; Groonga v4.0.1ドキュメント</a></li>
 </ul>
 
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -617,7 +588,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>yum install -y groonga groonga-devel groonga-tokenizer-mecab mecab-ipadic mecab-jumandic</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>MySQLの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -625,12 +595,10 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>MySQLの初期設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>MySQLを起動</h2>
 
@@ -645,12 +613,10 @@ $(document).ready( function () {
 </span><span class='line'>chkconfig mysqld on
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>利用可能なストレージエンジンを確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql&gt; SHOW ENGINES \G</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -699,7 +665,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>vim mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>mysql_backup.sh</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -722,33 +687,64 @@ $(document).ready( function () {
 <span class='line-number'>18</span>
 <span class='line-number'>19</span>
 <span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
 </span><span class='line'>
 </span><span class='line'># バックアップファイルを何日分残しておくか
-</span><span class='line'>period='+7'
+</span><span class='line'>period=1
 </span><span class='line'># バックアップファイルを保存するディレクトリ
-</span><span class='line'>dirpath='/path/to/backup/mysql'
-</span><span class='line'>#mysql password
+</span><span class='line'>dirpath='/root/backup/mysql'
+</span><span class='line'>cd $dirpath
+</span><span class='line'>
+</span><span class='line'>#mysql_password
 </span><span class='line'>mysqlpassword="passwd"
 </span><span class='line'>
 </span><span class='line'># ファイル名を定義(※ファイル名で日付がわかるようにしておきます)
 </span><span class='line'>mydate=`date +%y%m%d%H%M%S`
 </span><span class='line'>filename="mysql_$mydate.sql"
+</span><span class='line'>zipfilename="mysql_$mydate.sql.tar.gz"
+</span><span class='line'># スレーブ停止
+</span><span class='line'>mysql -uroot -p$mysqlpassword -e "flush tables;"
+</span><span class='line'>mysql -uroot -p$mysqlpassword -e "stop slave;"
+</span><span class='line'>
 </span><span class='line'># mysqldump実行
-</span><span class='line'>mysqldump -uroot -p$mysqlpassword -A -E &gt; $dirpath/$filename
+</span><span class='line'>mysqldump -uroot -p$mysqlpassword -A -E &gt; $filename
+</span><span class='line'>
+</span><span class='line'># スレーブ開始
+</span><span class='line'>mysql -uroot -p$mysqlpassword -e "start slave;"
+</span><span class='line'>
+</span><span class='line'>#backup実行
+</span><span class='line'>tar -zcvf $zipfilename $filename
+</span><span class='line'>
+</span><span class='line'># 圧縮前のファイルを削除
+</span><span class='line'>rm -f $filename
 </span><span class='line'>
 </span><span class='line'># パーミッション変更
-</span><span class='line'>chmod 700 $dirpath/$filename
+</span><span class='line'>chmod 700 $zipfilename
 </span><span class='line'>
 </span><span class='line'># 古いバックアップファイルを削除
-</span><span class='line'>find $dirpath -type f -daystart -mtime $period -exec rm {} \;</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'>find $dirpath -type f -daystart -mtime +3 -exec rm {} \;
+</span></code></pre></td></tr></table></div></figure>
 
 <h3>実行権限を付与</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>cronをインストール</h2>
 
@@ -768,18 +764,13 @@ $(document).ready( function () {
 </span><span class='line'>crontab -e
 </span></code></pre></td></tr></table></div></figure>
 
-
-
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>0 3 * * * bash /path/to/mysql_backup.sh</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>設定済みのクーロンを確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>crontab -l</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -822,14 +813,12 @@ $(document).ready( function () {
 <li><p><a href="http://dotinstall.com/lessons/basic_sakura_vps/8021">ドットインストール</a></p></li>
 </ul>
 
-
 <h4>※2ヶ月ほど前と内容が少し変わっていたので、毎回確認したほうがいいかもしれないです。</h4>
 
 <h2>yumでインストールできるようにリポジトリを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/yum.repos.d/mongodb.repo</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/yum.repos.d/mongodb.repo</h5>
 
@@ -844,44 +833,37 @@ $(document).ready( function () {
 </span><span class='line'>gpgcheck=0
 </span><span class='line'>enabled=1</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>yumでmongodbをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum update -y
-</span><span class='line'>sudo yum install mongo-10gen mongo-10gen-server -y</span></code></pre></td></tr></table></div></figure>
-
+</span><span class='line'>sudo yum install mongodb-org -y</span></code></pre></td></tr></table></div></figure>
 
 <h2>mongodbを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mongod start</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>起動時に自動起動設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig mongod on</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>バージョンを確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mongo --version</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>シェルを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mongo</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>シェルを終了</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>exit</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザー認証をONにする</h2>
 
@@ -892,24 +874,20 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/mongod.conf /etc/mongod.conf.org</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定ファイルを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/mongod.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/mongod.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>auth = ture</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>mongodbを再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mongod restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>管理者ユーザーの作成</h2>
 
@@ -918,60 +896,50 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>use admin
 </span><span class='line'>db.addUser("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザー認証</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("admin","master_passpass")</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>管理者ユーザーの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>DBの切り替え</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>use test</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーの作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.addUser("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザーの確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.find()</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ユーザーの削除</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.system.users.remove({user:"test"})</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユーザー認証</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.auth("test_user","test_passpass")</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>テストデータの登録</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.test.save( { a: 1 } )</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>テストデータの閲覧</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>db.test.find()</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1020,18 +988,15 @@ $(document).ready( function () {
 </span><span class='line'>sudo yum -y install gcc
 </span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>pcelでインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>mongodb用の設定ファイルを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.d/mongo.ini</h5>
 
@@ -1041,12 +1006,10 @@ $(document).ready( function () {
 </span><span class='line'>extension=mongo.so
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheを再起動して設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1083,16 +1046,28 @@ $(document).ready( function () {
 
 
   <div class="entry-content"><p>とりあえずインストールしておくと便利そうなものをピックアップ</p>
+<div class="highlight"><pre><code class="text">gem install sinatra
+gem install sinatra-contrib
+gem install sqlite3
+gem install bundler
+gem install haml
+gem install activerecord
+gem install wsse
+gem install xml-simple
+gem install nokogiri
 
-<p>&#8220;`
-gem install sinatragem install sinatra-contribgem install sqlite3gem install bundlergem install hamlgem install activerecordgem install wssegem install xml-simplegem install nokogiri
 gem install unicorn
-gem install mysql &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config
-gem install mysql2 &mdash; &mdash;with-mysql-config=/usr/bin/mysql_config</p>
 
-<p>gem install activerecord-mysql-adapter
-gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しないとシンボリックが生成されない？？</code>rbenv rehash&#8220;`</p>
-</div>
+gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+
+
+gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter
+</code></pre></div>
+<h2>↓のコマンド実行しないとシンボリックが生成されない？？</h2>
+<div class="highlight"><pre><code class="text">rbenv rehash
+</code></pre></div></div>
   
   
 
@@ -1136,24 +1111,20 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>git config --global user.email "abgata@abgata.jp"
 </span><span class='line'>git config --global color.ui true</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>gitの設定確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git config -l</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>現在のディレクトリを共有リポジトリにする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git init --bare --share</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>レポジトリをクローンする</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>git clone /git/smaple.git</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>pushされた際のhooks(post-receive)</h2>
 
@@ -1161,7 +1132,6 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd hooks
 </span><span class='line'>vim post-receive</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>post-receive</h5>
 
@@ -1172,12 +1142,10 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>cd /var/www/vhosts/
 </span><span class='line'>git --git-dir=.git pull origin master</span></code></pre></td></tr></table></div></figure>
 
-
 <p>実行権限を付与</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x post-receive</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1239,7 +1207,6 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>/usr/local/rbenv/versions/2.0.0-p247/bin/passenger-install-apache2-module
 </span><span class='line'>
 </span><span class='line'># 3回くらい質問されるがとりあえずenter連打</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>インストール完了後のコメント</h2>
 
@@ -1329,12 +1296,10 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>Phusion Passenger is a trademark of Hongli Lai & Ninh Bui.
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheの設定ファイルを変更白みたいなことが書いてあるので変更する</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf.d/passenger.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/httpd/conf.d/passenger.conf</h5>
 
@@ -1345,18 +1310,15 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>PassengerRoot /usr/local/rbenv/versions/2.0.0-p247/lib/ruby/gems/2.0.0/gems/passenger-4.0.17
 </span><span class='line'>PassengerDefaultRuby /usr/local/rbenv/versions/2.0.0-p247/bin/ruby</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apahceの設定ファイルでドキュメントルート、バーチャルホストを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
 
-
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>DocumentRoot /var/www/ruby/public</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>ドキュメントルートのディレクトリ作成</h2>
 
@@ -1371,12 +1333,10 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>mkdir public
 </span><span class='line'>mkdir tmp</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>実行用の設定ファイル作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim config.ru</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>config.ru</h5>
 
@@ -1393,7 +1353,6 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>
 </span><span class='line'>run App
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>実行用ファイルの作成</h2>
 
@@ -1416,7 +1375,6 @@ gem install activerecord-mysql2-adapter<code>##↓のコマンド実行しない
 </span><span class='line'>  end
 </span><span class='line'>end
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>webブラウザ等でアクセスしてみる</p>
 </div>

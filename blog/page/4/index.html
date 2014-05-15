@@ -122,7 +122,6 @@ $(document).ready( function () {
 <li><a href="http://eturlt.net/blog/20130705/dropboxsublimetext/">Dropboxを活用して複数のmacでSublimeTextの設定を共有する</a></li>
 </ul>
 
-
 <h2>設定ファイルをDropBoxに移す</h2>
 
 <h3>本来の設定ファイルがある場所</h3>
@@ -133,7 +132,6 @@ $(document).ready( function () {
 <li>Ubuntu： /home/(ユーザー名)/.config/sublime-text-2/</li>
 </ul>
 
-
 <p>今回はDropBoxの直下に「SublimeText2」フォルダを作成してその中に設定ファイルを配置</p>
 
 <h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
@@ -141,8 +139,11 @@ $(document).ready( function () {
 <h3>mac</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Packages
 
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Pristine\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Pristine\ Packages
+
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 2/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
 
 <h3>win</h3>
 
@@ -163,7 +164,6 @@ $(document).ready( function () {
 </span><span class='line'>mklink /D "Pristine Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 2/Pristine Packages"
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -205,10 +205,8 @@ $(document).ready( function () {
 <li><a href="http://pkgs.org/centos-6-rhel-6/naulinux-school-x86_64/GraphicsMagick-1.3.12-1.el6.x86_64.rpm.html">GraphicsMagick-1.3.12-1.el6.x86_64.rpm</a></li>
 </ul>
 
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/yum.repos.d/naulinux-school.repo</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/yum.repos.d/naulinux-school.repo</h5>
 
@@ -226,12 +224,10 @@ $(document).ready( function () {
 </span><span class='line'>gpgkey=http://downloads.naulinux.ru/pub/NauLinux/RPM-GPG-KEY-linux-ink
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>インストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=naulinux-school install GraphicsMagick -y</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -273,7 +269,6 @@ $(document).ready( function () {
 <li><a href="http://hrysim.hatenablog.jp/entry/2013/02/05/101411">Cent OS 6.3にffmpegをインストールする方法</a></li>
 </ul>
 
-
 <h2>yum-prioritiesプラグイン導入</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -288,12 +283,10 @@ $(document).ready( function () {
 </span><span class='line'>sudo vi /etc/yum.repos.d/CentOS-Base.repo
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>各セクションの末尾に</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>priority=1</span></code></pre></td></tr></table></div></figure>
-
 
 <p>を追加。</p>
 
@@ -310,12 +303,10 @@ $(document).ready( function () {
 </span><span class='line'>sudo rm -f rpmforge-release-*
 </span><span class='line'>sudo yum -y update rpmforge-release</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ffmpegをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum --enablerepo=rpmforge install ffmpeg</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -357,20 +348,17 @@ $(document).ready( function () {
 <li><a href="http://linuxserver.jp/linux/zsh%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.php">Linuxで自宅サーバ構築 » Linux » ZSHのインストール</a></li>
 </ul>
 
-
 <h3>zshがインストールされているかを確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>zsh --version
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>yumでzshをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install zsh
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>zshの起動とログイン・シェルの設定</h2>
 
@@ -380,20 +368,17 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo $SHELL
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>使用可能なshellの確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cat /etc/shells
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>ログイン・シェルに設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chsh -s /bin/zsh
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>zshの設定をgithubから取得して反映する</h2>
 
@@ -404,7 +389,6 @@ $(document).ready( function () {
 </span><span class='line'>echo "source ~/.zsh.d/zshrc" &gt; ~/.zshrc
 </span><span class='line'>echo "source ~/.zsh.d/zshenv" &gt; ~/.zshenv
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>ログインし直すと反映される
 ※ユーザー毎に設定</p>
@@ -449,7 +433,6 @@ $(document).ready( function () {
 <li><a href="https://github.com/sstephenson/rbenv">https://github.com/sstephenson/rbenv</a></li>
 </ul>
 
-
 <h3>依存ライブリをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -465,7 +448,6 @@ $(document).ready( function () {
 </span><span class='line'>sudo yum -y install gcc-c++
 </span><span class='line'>sudo yum install -y mysql-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>全ユーザーで共通のrbenvを利用</h2>
 
 <h3>rubyグループを作成</h3>
@@ -476,7 +458,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo groupadd ruby
 </span><span class='line'>sudo usermod -G wheel,ruby myuser
 </span><span class='line'>sudo groups myuser</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>rbenvをインストール</h3>
 
@@ -523,7 +504,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>echo $PATH</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>rubyをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -553,14 +533,12 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>ruby -v</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>折角なのでgemをアップデート</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem update</span></code></pre></td></tr></table></div></figure>
 
-
-<hr />
+<hr>
 
 <h2>ユーザー別のインストールする場合</h2>
 
@@ -581,12 +559,10 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>exec $SHELL -l</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>rbenv -v</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -630,12 +606,10 @@ $(document).ready( function () {
 <li><a href="http://qiita.com/tomerun/items/9cb81d7a98150ff22f53">RubyでSeleniumを使ってスクレイピング</a></li>
 </ul>
 
-
 <h2>gemをインストールする。</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem install selenium-webdriver</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>起動と終了</h2>
 
@@ -645,7 +619,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>driver = Selenium::WebDriver.for :firefox # ブラウザ起動
 </span><span class='line'>
 </span><span class='line'>driver.quit # ブラウザ終了</span></code></pre></td></tr></table></div></figure>
-
 
 <p>:firefox のところは :ieとか:chromeとか:operaとか好きなのを</p>
 
@@ -657,7 +630,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>driver.navigate.to 'http://example.com' # URLを開く
 </span><span class='line'>driver.switch_to.frame(1)               # 1つめの子フレームに移動
 </span><span class='line'>driver.switch_to.frame("frameid")       # フレームのnameを指定して移動</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>要素を指定</h2>
 
@@ -674,8 +646,7 @@ $(document).ready( function () {
 </span><span class='line'>element = element.find_element(:xpath, 'tr[2]/td[3]/a') # XPathで指定
 </span><span class='line'>element = driver.find_element(:class, 'body').find_element(:name, 'form').find_elements(:xpath, './/input')[2] # メソッドチェーン</span></code></pre></td></tr></table></div></figure>
 
-
-<p>DriverとElementがどちらもfind_element・find_elementsメソッドを持っている。</p>
+<p>DriverとElementがどちらもfind<em>element・find</em>elementsメソッドを持っている。</p>
 
 <h2>入力</h2>
 
@@ -712,7 +683,6 @@ $(document).ready( function () {
 </span><span class='line'># リンクやボタンを押す
 </span><span class='line'>driver.find_element(:xpath, '//table[2]/tr[3]/td[1]/a').click</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>情報取得</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -742,7 +712,6 @@ $(document).ready( function () {
 </span><span class='line'># スクリーンショットを撮る
 </span><span class='line'>driver.save_screenshot('path/to/filename.png')</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>chomeのプロフィール設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -762,7 +731,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>driver = Selenium::WebDriver.for :chrome, :prefs =&gt; prefs</span></code></pre></td></tr></table></div></figure>
 
-
 <h1>macでchromeを指定するとエラーが出たので対応</h1>
 
 <h2>ドライバーをダウンロードしてくる</h2>
@@ -773,7 +741,6 @@ $(document).ready( function () {
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /path/to/chromedriver /usr/bin/chromedriver</span></code></pre></td></tr></table></div></figure>
-
 
 <p>とりあえず /user/bin/にシンボリックリンクを貼った
 直接パス通す方法でもOK</p>
@@ -822,12 +789,10 @@ $(document).ready( function () {
 </span><span class='line'>gem install unicorn
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユニコーンの設定ファイルを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>RAILS_ROOT/config/unicorn.rb</h5>
 
@@ -861,18 +826,15 @@ $(document).ready( function () {
 </span><span class='line'>preload_app true
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユニコーンでRailsを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>Nginxの設定ファイルを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/nginx/nginx.conf</h5>
 
@@ -936,12 +898,10 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ヴァーチャルホストの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/nginx/sites-avalable/default</h5>
 
@@ -957,13 +917,11 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>Nginxを再起動して設定を反映</h2>
 
@@ -977,7 +935,6 @@ $(document).ready( function () {
 </span><span class='line'>service nginx start
 </span><span class='line'>
 </span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1021,7 +978,6 @@ $(document).ready( function () {
 <li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
 </ul>
 
-
 <h2>サンプル</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -1038,7 +994,6 @@ $(document).ready( function () {
 </span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>注意点</h3>
 
 <ul>
@@ -1047,18 +1002,15 @@ $(document).ready( function () {
 <li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
 </ul>
 
-
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>と</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>であればロックされない</p>
 
@@ -1066,13 +1018,11 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>と</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>であればロックされる</p>
 
@@ -1097,7 +1047,6 @@ $(document).ready( function () {
 </span><span class='line'>end
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1142,7 +1091,6 @@ $(document).ready( function () {
 </span><span class='line'>gem install mongoid
 </span><span class='line'>gem install bson_ext</span></code></pre></td></tr></table></div></figure>
 
-
 <p>そのまま使うとactiverecordとの併用の際に衝突するので、
 activerecordのバージョンを3.2.14に落とす
 ※2013/9/17時点</p>
@@ -1154,7 +1102,6 @@ activerecordのバージョンを3.2.14に落とす
 </span><span class='line'>
 </span><span class='line'>gem install activerecord -v 3.2.14
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1196,18 +1143,15 @@ activerecordのバージョンを3.2.14に落とす
 <li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
 </ul>
 
-
 <h2>Yumでインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install ImageMagick ImageMagick-devel -y</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>gemでライブラリをインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem install rmagick</span></code></pre></td></tr></table></div></figure>
-
 
 <p>※sudoじゃなきゃだめかも</p>
 
@@ -1216,12 +1160,10 @@ activerecordのバージョンを3.2.14に落とす
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>require 'RMagick'</span></code></pre></td></tr></table></div></figure>
 
-
 <p>やら</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>gem 'rmagick', :require =&gt; 'RMagick'</span></code></pre></td></tr></table></div></figure>
-
 
 <p>のような書き方が必要</p>
 </div>

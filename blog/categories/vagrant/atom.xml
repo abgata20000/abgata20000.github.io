@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Vagrant | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/vagrant/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -43,33 +43,20 @@
 <h3>vagrant の box を作成してみる</h3>
 
 <p>折角環境を作ったのでboxを作ってみました。</p>
-
-<p><code>
-vagrant package
-</code></p>
-
+<div class="highlight"><pre><code class="text">vagrant package
+</code></pre></div>
 <p>少し時間はかかりましたが問題なく package.box が生成されました。</p>
 
 <p>生成された package.box を vagrant に登録して</p>
-
-<p>```
-vagrant box add myImage package.box</p>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">vagrant box add myImage package.box
+</code></pre></div>
 <h5>Vagrantfile</h5>
-
-<p><code>
-config.vm.box = "myImage"
-</code></p>
-
+<div class="highlight"><pre><code class="text">config.vm.box = &quot;myImage&quot;
+</code></pre></div>
 <p>新しく仮想環境を作成してみようとした所、エラーが発生してしまいました。</p>
-
-<p><code>
-vagrant up
-</code></p>
-
-<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー" /></p>
+<div class="highlight"><pre><code class="text">vagrant up
+</code></pre></div>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/8f79b7a3b5a86bb518825b25f0dee47c.png" alt="エラー"></p>
 
 <p>仮想環境自体は作成されて ssh接続は出来るのですが、どうやら共有フォルダがマウントされていないようです。</p>
 
@@ -82,85 +69,65 @@ VirtualBox のバージョンがbox作成時と現在とで異なっているの
 を参考に問題を解決してみることに</p>
 
 <h4>VirtualBoxのバージョン違いを解決するプラグインをインストールする</h4>
-
-<p><code>
-vagrant plugin install vagrant-vbguest
+<div class="highlight"><pre><code class="text">vagrant plugin install vagrant-vbguest
 vi ~/.vagrant.d/Vagrantfile
-</code></p>
-
+</code></pre></div>
 <h5>javascript:~/.vagrant.d/Vagrantfile</h5>
-
-<p><code>
-Vagrant.configure("2") do |config|
-  config.vbguest.auto_update = false
-end
-</code></p>
-
+<div class="highlight"><pre><code class="javascript"><span class="nx">Vagrant</span><span class="p">.</span><span class="nx">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="nx">config</span><span class="o">|</span>
+  <span class="nx">config</span><span class="p">.</span><span class="nx">vbguest</span><span class="p">.</span><span class="nx">auto_update</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="nx">end</span>
+</code></pre></div>
 <p>バージョンが異なっているかどうかを確認
 ```
-vagrant vbguest &mdash;status</p>
+vagrant vbguest --status</p>
 
-<p> GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.
+<p>GuestAdditions versions on your host (4.3.10) and guest (4.2.16) do not match.
 ```</p>
 
 <p>やはりバージョンが違うらしい</p>
-
-<p><code>
-vagrant vbguest --auto-reboot
-</code></p>
-
+<div class="highlight"><pre><code class="text">vagrant vbguest --auto-reboot
+</code></pre></div>
 <p>で修正してくれるらしいので実行してみた。</p>
 
 <p>無事終了したっぽいので確認</p>
+<div class="highlight"><pre><code class="text">vagrant vbguest --status
 
-<p>```
-vagrant vbguest &mdash;status</p>
-
-<p>GuestAdditions 4.3.10 running &mdash;&ndash; OK.
-```</p>
-
+GuestAdditions 4.3.10 running --- OK.
+</code></pre></div>
 <p>解決したらしい。</p>
 
 <p>Vagrant をリブートしてみる</p>
-
-<p>```
-v reload
-~~~
-==> default: Configuring and enabling network interfaces&hellip;
+<div class="highlight"><pre><code class="text">v reload
+</code></pre></div>
+<p>==&gt; default: Configuring and enabling network interfaces...
 The following SSH command responded with a non-zero exit status.
 Vagrant assumes that this means the command failed!</p>
 
-<p>ARPCHECK=no /sbin/ifup eth1 2> /dev/null</p>
+<p>ARPCHECK=no /sbin/ifup eth1 2&gt; /dev/null</p>
 
 <p>Stdout from the command:</p>
 
 <p>Device eth1 does not seem to be present, delaying initialization.</p>
 
 <p>Stderr from the command:</p>
+<div class="highlight"><pre><code class="text">ダメみたい。
 
-<p>```</p>
+IPアドレスがうまく振り当てられていないみたいなので、
 
-<p>ダメみたい。</p>
+[ここ](https://github.com/mitchellh/vagrant/issues/3341)を参考に少し修正してみる
 
-<p>IPアドレスがうまく振り当てられていないみたいなので、</p>
 
-<p><a href="https://github.com/mitchellh/vagrant/issues/3341">ここ</a>を参考に少し修正してみる</p>
-
-<p>Vagrant にSSH接続して後に</p>
-
-<p><code>
-sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
+Vagrant にSSH接続して後に
+</code></pre></div>
+<p>sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
 sudo ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib64/VBoxGuestAdditions
-</code></p>
+```</p>
 
 <p>を実行</p>
 
 <p>リブートしてみる</p>
-
-<p><code>
-vagrant reload
-</code></p>
-
+<div class="highlight"><pre><code class="text">vagrant reload
+</code></pre></div>
 <p>解決した。</p>
 
 <p>なかなか大変でした。</p>

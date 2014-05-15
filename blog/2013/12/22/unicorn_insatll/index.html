@@ -123,12 +123,10 @@ $(document).ready( function () {
 </span><span class='line'>gem install unicorn
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユニコーンの設定ファイルを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>RAILS_ROOT/config/unicorn.rb</h5>
 
@@ -162,18 +160,15 @@ $(document).ready( function () {
 </span><span class='line'>preload_app true
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ユニコーンでRailsを起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>Nginxの設定ファイルを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/nginx/nginx.conf</h5>
 
@@ -237,12 +232,10 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>ヴァーチャルホストの設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/nginx/sites-avalable/default</h5>
 
@@ -258,13 +251,11 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>Nginxを再起動して設定を反映</h2>
 
@@ -278,7 +269,6 @@ $(document).ready( function () {
 </span><span class='line'>service nginx start
 </span><span class='line'>
 </span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

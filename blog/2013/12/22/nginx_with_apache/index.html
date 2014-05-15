@@ -123,7 +123,6 @@ $(document).ready( function () {
 <li><a href="http://abeerforyou.com/?p=430">Nginxでリバースプロキシを設定し、Apacheと共存させる</a></li>
 </ul>
 
-
 <h2>nginxでリバースプロキシした際にIP情報を正しく取れるようにモジュールを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -141,12 +140,10 @@ $(document).ready( function () {
 </span><span class='line'>cd extract_forwarded
 </span><span class='line'>apxs -i -c -a mod_extract_forwarded.c</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheの実行ユーザーとポートを変更</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/httpd/conf/httpd.conf</h5>
 
@@ -183,12 +180,10 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'># ヴァーチャルホスト使っている場合はヴァーチャルホストのポートも変更</span></code></pre></td></tr></table></div></figure>
 
-
 <p>apacheを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>nginxでの転送設定</h2>
 
@@ -196,7 +191,6 @@ $(document).ready( function () {
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/nginx/conf.d
 </span><span class='line'>vim default.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>default.conf</h5>
 
@@ -254,7 +248,6 @@ $(document).ready( function () {
 </span><span class='line'>
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>最初に↓入れたほうがいいかも？？</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -289,12 +282,10 @@ $(document).ready( function () {
 </span><span class='line'>}
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>nginxを再起動して設定を反映</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service nginx restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rmagick | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/rmagick/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -24,33 +24,20 @@
 <li><a href="http://akkunchoi.github.io/imagemagick-rmagick-centos.html">CentOS に ImageMagick, RMagick のインストール</a></li>
 </ul>
 
-
 <h2>Yumでインストール</h2>
-
-<p><code>
-sudo yum install ImageMagick ImageMagick-devel -y
-</code></p>
-
+<div class="highlight"><pre><code class="text">sudo yum install ImageMagick ImageMagick-devel -y
+</code></pre></div>
 <h2>gemでライブラリをインストール</h2>
-
-<p><code>
-gem install rmagick
-</code></p>
-
+<div class="highlight"><pre><code class="text">gem install rmagick
+</code></pre></div>
 <p>※sudoじゃなきゃだめかも</p>
 
 <p>ライブラリ名が異なる？？らしくRubyやRailsから呼び出す際には、</p>
-
-<p><code>
-require 'RMagick'
-</code></p>
-
+<div class="highlight"><pre><code class="text">require &#39;RMagick&#39;
+</code></pre></div>
 <p>やら</p>
-
-<p><code>
-gem 'rmagick', :require =&gt; 'RMagick'
-</code></p>
-
+<div class="highlight"><pre><code class="text">gem &#39;rmagick&#39;, :require =&gt; &#39;RMagick&#39;
+</code></pre></div>
 <p>のような書き方が必要</p>
 ]]></content>
   </entry>

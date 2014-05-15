@@ -117,20 +117,17 @@ $(document).ready( function () {
 <li><a href="http://linuxserver.jp/linux/zsh%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB.php">Linuxで自宅サーバ構築 » Linux » ZSHのインストール</a></li>
 </ul>
 
-
 <h3>zshがインストールされているかを確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>zsh --version
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>yumでzshをインストール</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install zsh
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>zshの起動とログイン・シェルの設定</h2>
 
@@ -140,20 +137,17 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>echo $SHELL
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>使用可能なshellの確認</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cat /etc/shells
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>ログイン・シェルに設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chsh -s /bin/zsh
 </span></code></pre></td></tr></table></div></figure>
-
 
 <h2>zshの設定をgithubから取得して反映する</h2>
 
@@ -164,7 +158,6 @@ $(document).ready( function () {
 </span><span class='line'>echo "source ~/.zsh.d/zshrc" &gt; ~/.zshrc
 </span><span class='line'>echo "source ~/.zsh.d/zshenv" &gt; ~/.zshenv
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>ログインし直すと反映される
 ※ユーザー毎に設定</p>

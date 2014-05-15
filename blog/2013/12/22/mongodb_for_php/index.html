@@ -131,18 +131,15 @@ $(document).ready( function () {
 </span><span class='line'>sudo yum -y install gcc
 </span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>pcelでインストール</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>mongodb用の設定ファイルを追加</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/php.d/mongo.ini</h5>
 
@@ -152,12 +149,10 @@ $(document).ready( function () {
 </span><span class='line'>extension=mongo.so
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>apacheを再起動して設定を反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
 </div>
 
 

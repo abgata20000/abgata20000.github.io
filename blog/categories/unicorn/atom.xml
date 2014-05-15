@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Unicorn | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/unicorn/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,129 +19,86 @@
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/unicorn_insatll</id>
     <content type="html"><![CDATA[<h2>Gedでユニコーンをインストールすろ</h2>
+<div class="highlight"><pre><code class="text">gem install unicorn-rails
 
-<p>```
-gem install unicorn-rails</p>
-
-<p>gem install unicorn</p>
-
-<p>```</p>
-
+gem install unicorn
+</code></pre></div>
 <h2>ユニコーンの設定ファイルを作成</h2>
-
-<p><code>
-vim RAILS_ROOT/config/unicorn.rb
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim RAILS_ROOT/config/unicorn.rb
+</code></pre></div>
 <h5>RAILS_ROOT/config/unicorn.rb</h5>
+<div class="highlight"><pre><code class="text">APP_PATH = &quot;/var/www/ruby/rss&quot;
 
-<p>```
-APP_PATH = &ldquo;/var/www/ruby/rss&rdquo;</p>
+worker_processes 2
 
-<p>worker_processes 2</p>
+working_directory &quot;/var/www/ruby/rss&quot;
 
-<p>working_directory &ldquo;/var/www/ruby/rss&rdquo;</p>
+listen 3000
 
-<p>listen 3000</p>
+pid APP_PATH + &quot;/tmp/pids/unicorn.pid&quot;
+stderr_path APP_PATH + &quot;/log/unicorn.log&quot;
+stdout_path APP_PATH + &quot;/log/unicorn.log&quot;
 
-<p>pid APP_PATH + &ldquo;/tmp/pids/unicorn.pid&rdquo;
-stderr_path APP_PATH + &ldquo;/log/unicorn.log&rdquo;
-stdout_path APP_PATH + &ldquo;/log/unicorn.log&rdquo;</p>
 
-<p>preload_app true</p>
-
-<p>```</p>
-
+preload_app true
+</code></pre></div>
 <h2>ユニコーンでRailsを起動</h2>
-
-<p><code>
-bundle exec unicorn_rails -E development -c config/unicorn.rb
-</code></p>
-
+<div class="highlight"><pre><code class="text">bundle exec unicorn_rails -E development -c config/unicorn.rb
+</code></pre></div>
 <h2>Nginxの設定ファイルを作成</h2>
-
-<p><code>
-vim /etc/nginx/nginx.conf
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim /etc/nginx/nginx.conf
+</code></pre></div>
 <h5>/etc/nginx/nginx.conf</h5>
-
-<p>```
-upstream abgata.org {</p>
-
-<pre><code>#server 127.0.0.1:3000;
-server unix:/var/tmp/rss.sock;
-</code></pre>
-
-<p>}</p>
-
-<p>server {</p>
-
-<pre><code>listen 80;
-server_name abgata.org;
-
-root /var/www/ruby/rss/public;
-
-access_log /var/log/rss_access.log;
-error_log  /var/log/rss_error.log;
-
-location / {
-  if (-f $request_filename) {
-    break;
-  }
-
-  proxy_set_header X-Real-IP  $remote_addr;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header Host $http_host;
-  proxy_pass http://abgata.org;
+<div class="highlight"><pre><code class="text">upstream abgata.org {
+    #server 127.0.0.1:3000;
+    server unix:/var/tmp/rss.sock;
 }
 
-location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
-  # expires 1y;
+server {
+    listen 80;
+    server_name abgata.org;
+
+    root /var/www/ruby/rss/public;
+
+    access_log /var/log/rss_access.log;
+    error_log  /var/log/rss_error.log;
+
+    location / {
+      if (-f $request_filename) {
+        break;
+      }
+
+      proxy_set_header X-Real-IP  $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $http_host;
+      proxy_pass http://abgata.org;
+    }
+
+    location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+      # expires 1y;
+    }
 }
-</code></pre>
-
-<p>}</p>
-
-<p>```</p>
-
+</code></pre></div>
 <h2>ヴァーチャルホストの設定</h2>
-
-<p><code>
-sudo vim /etc/nginx/sites-avalable/default
-</code></p>
-
+<div class="highlight"><pre><code class="text">sudo vim /etc/nginx/sites-avalable/default
+</code></pre></div>
 <h5>/etc/nginx/sites-avalable/default</h5>
-
-<p>```
-server {</p>
-
-<pre><code>    listen 80 default_server;
-    server_name _;
-    deny all;
-</code></pre>
-
-<p>}</p>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">server {
+        listen 80 default_server;
+        server_name _;
+        deny all;
+}
+</code></pre></div>
 <h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
-
-<p>```
-sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/</p>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
+</code></pre></div>
 <h2>Nginxを再起動して設定を反映</h2>
+<div class="highlight"><pre><code class="text">chkconfig nginx on
 
-<p>```
-chkconfig nginx on</p>
+service nginx start
 
-<p>service nginx start</p>
-
-<p>service nginx reload
-```</p>
-]]></content>
+service nginx reload
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

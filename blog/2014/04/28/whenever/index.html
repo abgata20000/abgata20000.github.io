@@ -115,15 +115,13 @@ $(document).ready( function () {
 <div class="entry-content"><h3>参考サイト</h3>
 
 <ul>
-<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a>
-
-<h2>登録内容の確認</h2></li>
+<li><a href="http://higelog.brassworks.jp/?p=1548">WheneverでRailsのバッチ処理</a></li>
 </ul>
 
+<h2>登録内容の確認</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever</span></code></pre></td></tr></table></div></figure>
-
 
 <p>を実行するとcrontabの内容をコンソール出力。
 この時点ではまだcrontabに登録されてはいない。</p>
@@ -133,7 +131,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --update-crontab</span></code></pre></td></tr></table></div></figure>
 
-
 <p>–update-crontabオプションをつけるとcrontabに登録する。
 Whenever以外で登録されていたジョブが上書きされることはない。</p>
 
@@ -141,7 +138,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec whenever --clear-crontab</span></code></pre></td></tr></table></div></figure>
-
 
 <p>Cronを止めたい場合は–clear-crontabですべて削除。
 登録の場合と同様にWhenever管理外のジョブが削除されることはない。</p>

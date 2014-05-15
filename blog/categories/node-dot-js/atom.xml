@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Node.js | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/node-dot-js/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,98 +19,63 @@
     <updated>2014-04-28T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2014/04/28/install_from_nodebrew</id>
     <content type="html"><![CDATA[<h2>nodebrewをインストール</h2>
+<div class="highlight"><pre><code class="text">curl https://raw.github.com/hokaccha/nodebrew/master/nodebrew | perl - setup
 
-<p>```
-curl <a href="https://raw.github.com/hokaccha/nodebrew/master/nodebrew">https://raw.github.com/hokaccha/nodebrew/master/nodebrew</a> | perl &ndash; setup</p>
+# ユーザーディレクトリにインストールされるので、全ユーザーで利用する場合はノードユーザー作ってインストールして共通パス通すのがいいかも
 
-<h1>ユーザーディレクトリにインストールされるので、全ユーザーで利用する場合はノードユーザー作ってインストールして共通パス通すのがいいかも</h1>
+useradd node
 
-<p>useradd node</p>
-
-<p>cd /home/node</p>
-
-<p>chmod -R 777 /home/node</p>
-
-<p>echo &lsquo;export PATH=&ldquo;/home/node/.nodebrew/current/bin:$PATH&rdquo;&rsquo;     >> /etc/profile.d/nodebrew.sh</p>
-
-<h1>echo &lsquo;export PATH=&ldquo;/home/node/.nodebrew/current/bin:$PATH&rdquo;&rsquo;     >> /etc/profile.d/nodebrew.sh</h1>
-
-<p>source /etc/profile.d/nodebrew.sh</p>
-
-<p>echo $PATH</p>
-
-<h1>ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。</h1>
-
-<p>```</p>
-
-<h2>nodeグループを作成</h2>
-
-<p>```
-groupadd node
-usermod -G wheel,node myuser</p>
-
-<h1>usermod -G wheel,node,ruby myuser</h1>
-
-<p>groups myuser
-```</p>
-
-<h2>.nodebrewの所有グループを変更</h2>
-
-<p><code>
 cd /home/node
+
+chmod -R 777 /home/node
+
+echo &#39;export PATH=&quot;/home/node/.nodebrew/current/bin:$PATH&quot;&#39;     &gt;&gt; /etc/profile.d/nodebrew.sh
+# echo &#39;export PATH=&quot;/home/node/.nodebrew/current/bin:$PATH&quot;&#39;     &gt;&gt; /etc/profile.d/nodebrew.sh
+
+source /etc/profile.d/nodebrew.sh
+
+echo $PATH
+
+# ユーザー権限でも実行したい場合は実行グループ作って登録すれば大丈夫。
+</code></pre></div>
+<h2>nodeグループを作成</h2>
+<div class="highlight"><pre><code class="text">groupadd node
+usermod -G wheel,node myuser
+# usermod -G wheel,node,ruby myuser
+groups myuser
+</code></pre></div>
+<h2>.nodebrewの所有グループを変更</h2>
+<div class="highlight"><pre><code class="text">cd /home/node
 chgrp -R node .nodebrew
 chmod -R g+rwxX .nodebrew
-</code></p>
-
+</code></pre></div>
 <h2>/home/nodeへの閲覧権限がなかったのでグループをwheelに変更</h2>
-
-<p><code>
-sudo chgrp wheel /root
-</code></p>
-
+<div class="highlight"><pre><code class="text">sudo chgrp wheel /root
+</code></pre></div>
 <h2>インストール可能なバージョンの確認</h2>
-
-<p>```
-nodebrew ls-all</p>
-
-<h1>奇数バージョンは開発版、偶数バージョンが安定版らしい</h1>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">nodebrew ls-all
+# 奇数バージョンは開発版、偶数バージョンが安定版らしい
+</code></pre></div>
 <h2>インストール(バイナリからインストールしたほうが速い)</h2>
-
-<p>```
-nodebrew install-binary v0.10.20</p>
-
-<h1>インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする</h1>
-
-<p>```</p>
-
+<div class="highlight"><pre><code class="text">nodebrew install-binary v0.10.20
+# インストールはユーザーディレクトリにされるっぽいのでノードユーザーでインストールする
+</code></pre></div>
 <h2>利用するバージョンを変更</h2>
-
-<p><code>
-nodebrew use v0.10.20
-</code></p>
-
+<div class="highlight"><pre><code class="text">nodebrew use v0.10.20
+</code></pre></div>
 <h2>現在のバージョンを確認</h2>
-
-<p><code>
-node -v
-</code></p>
-
+<div class="highlight"><pre><code class="text">node -v
+</code></pre></div>
 <h2>サーバーサンプル</h2>
+<div class="highlight"><pre><code class="text">var http = require(&#39;http&#39;);
 
-<p>```
-var http = require(&lsquo;http&rsquo;);</p>
+http.createServer(function (request, response) {
+  response.writeHead(200, {&#39;Content-Type&#39;: &#39;text/plain&#39;});
+  response.end(&#39;Hello Node.js&#39;);
+}).listen(8124);
 
-<p>http.createServer(function (request, response) {
-  response.writeHead(200, {&lsquo;Content-Type&rsquo;: &lsquo;text/plain&rsquo;});
-  response.end(&lsquo;Hello Node.js&rsquo;);
-}).listen(8124);</p>
-
-<p>console.log(&lsquo;Server running at <a href="http://localhost:8124">http://localhost:8124</a>&rsquo;);
-```</p>
-]]></content>
+console.log(&#39;Server running at http://localhost:8124&#39;);
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

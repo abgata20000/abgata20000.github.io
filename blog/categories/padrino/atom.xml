@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Padrino | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/padrino/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -18,29 +18,22 @@
     <link href="http://blog.abgata.org/blog/2013/12/22/Padrino/"/>
     <updated>2013-12-22T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2013/12/22/Padrino</id>
-    <content type="html"><![CDATA[<p>```
-padrino generate project rss -t shoulda -e haml -c sass -s jquery -d mongoid</p>
+    <content type="html"><![CDATA[<div class="highlight"><pre><code class="text">padrino generate project rss -t shoulda -e haml -c sass -s jquery -d mongoid
 
-<p>padrino generate project rss3 -t shoulda -e haml -c sass -s jquery -d activerecord</p>
 
-<p>padrino generate project rss4 -t shoulda -e haml -c scss -s jquery -d activerecord -a mysql2 -b
-```</p>
+padrino generate project rss3 -t shoulda -e haml -c sass -s jquery -d activerecord
 
+padrino generate project rss4 -t shoulda -e haml -c scss -s jquery -d activerecord -a mysql2 -b
+</code></pre></div>
 <h2>テンプレートを使ってプロジェクトを作成</h2>
-
-<p><code>
-padrino g project sample001 --template template.rb &amp;&amp; cd sample001
-</code></p>
-
+<div class="highlight"><pre><code class="text">padrino g project sample001 --template template.rb &amp;&amp; cd sample001
+</code></pre></div>
 <h2>Accountモデルを作成</h2>
+<div class="highlight"><pre><code class="text">padrino g model Account provider:string uid:string name:string email:string role:string token:string
 
-<p>```
-padrino g model Account provider:string uid:string name:string email:string role:string token:string</p>
-
-<p>padrino rake ar:create
+padrino rake ar:create
 padrino rake ar:migrate
-```</p>
-]]></content>
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

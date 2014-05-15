@@ -4,7 +4,7 @@
   <title><![CDATA[Category: CentOS | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/centos/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-01T17:20:00+09:00</updated>
+  <updated>2014-05-03T10:41:07+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -19,54 +19,43 @@
     <updated>2014-04-28T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2014/04/28/iptables</id>
     <content type="html"><![CDATA[<h2>設定ファイルを作成</h2>
-
-<p><code>
-vim /etc/sysconfig/iptables
-</code></p>
-
+<div class="highlight"><pre><code class="text">vim /etc/sysconfig/iptables
+</code></pre></div>
 <h5>/etc/sysconfig/iptables</h5>
-
-<p>```
-*filter
+<div class="highlight"><pre><code class="text">*filter
 :INPUT    DROP    [0:0]
 :FORWARD  DROP    [0:0]
 :OUTPUT   ACCEPT  [0:0]
-:SERVICES &ndash;       [0:0]
+:SERVICES -       [0:0]
 -A INPUT -i lo -j ACCEPT
--A INPUT -p icmp &mdash;icmp-type echo-request -m limit &mdash;limit 1/s &mdash;limit-burst 4  -j ACCEPT
--A INPUT -p tcp -m state &mdash;state ESTABLISHED,RELATED -j ACCEPT
--A INPUT -p tcp -m state &mdash;state NEW -j SERVICES
--A INPUT -p udp &mdash;sport 53 -j ACCEPT
--A INPUT -p udp &mdash;sport 123 &mdash;dport 123 -j ACCEPT</p>
+-A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 4  -j ACCEPT
+-A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -j SERVICES
+-A INPUT -p udp --sport 53 -j ACCEPT
+-A INPUT -p udp --sport 123 --dport 123 -j ACCEPT
 
-<p>-A SERVICES -p tcp &mdash;dport 25 -j ACCEPT
--A SERVICES -p tcp &mdash;dport 110 -j ACCEPT
--A SERVICES -p tcp &mdash;dport 587 -j ACCEPT
--A SERVICES -p tcp &mdash;dport 80 -j ACCEPT
--A SERVICES -p tcp &mdash;dport 443 -j ACCEPT</p>
+-A SERVICES -p tcp --dport 25 -j ACCEPT
+-A SERVICES -p tcp --dport 110 -j ACCEPT
+-A SERVICES -p tcp --dport 587 -j ACCEPT
+-A SERVICES -p tcp --dport 80 -j ACCEPT
+-A SERVICES -p tcp --dport 443 -j ACCEPT
 
-<p>-A INPUT -p udp -m udp &mdash;dport 137:138 -j ACCEPT
--A INPUT -p tcp -m tcp &mdash;dport 139 -j ACCEPT
--A INPUT -p tcp -m tcp &mdash;dport 445 -j ACCEPT</p>
+-A INPUT -p udp -m udp --dport 137:138 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 139 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 445 -j ACCEPT
 
-<p>COMMIT</p>
 
-<p>```</p>
-
+COMMIT
+</code></pre></div>
 <h2>設定を反映</h2>
+<div class="highlight"><pre><code class="text">service iptables restart
 
-<p>```</p>
+iptables -L
 
-<p>service iptables restart</p>
+chkconfig iptables on
 
-<p>iptables -L</p>
-
-<p>chkconfig iptables on</p>
-
-<p>chkconfig &mdash;list iptables</p>
-
-<p>```</p>
-]]></content>
+chkconfig --list iptables
+</code></pre></div>]]></content>
   </entry>
   
   <entry>
@@ -75,59 +64,39 @@ vim /etc/sysconfig/iptables
     <updated>2014-04-28T09:00:00+09:00</updated>
     <id>http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install</id>
     <content type="html"><![CDATA[<h2>apache</h2>
-
-<p><code>
-sudo yum install httpd
+<div class="highlight"><pre><code class="text">sudo yum install httpd
 sudo chkconfig httpd on
 cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
 vim /etc/httpd/conf/httpd.conf
-</code></p>
-
+</code></pre></div>
 <h5>/etc/httpd/conf/httpd.conf</h5>
-
-<p><code>
-ServerTokens Prod
+<div class="highlight"><pre><code class="text">ServerTokens Prod
 ServerSignature Off
 Options Indexes → Options -Indexes FollowSymLinks
 ※var/www/html内のもの
 ServerName www.example.com:80
 NameVirtualHost *:80
-</code></p>
-
+</code></pre></div>
 <h3>設定を反映</h3>
-
-<p><code>
-sudo service httpd configtest
+<div class="highlight"><pre><code class="text">sudo service httpd configtest
 sudo service httpd start
 chkconfig httpd on
-</code></p>
-
+</code></pre></div>
 <h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
-
-<p><code>
-cd /etc/httpd/conf.d
+<div class="highlight"><pre><code class="text">cd /etc/httpd/conf.d
 vim vhost.conf
-</code></p>
-
+</code></pre></div>
 <h3>バーチャルホスト用にフォルダを作成</h3>
-
-<p><code>
-mkdir -p /var/www/vhosts/default/public
-</code></p>
-
+<div class="highlight"><pre><code class="text">mkdir -p /var/www/vhosts/default/public
+</code></pre></div>
 <h2>php</h2>
-
-<p><code>
-yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
+<div class="highlight"><pre><code class="text">yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
 php -v
 cp /etc/php.ini /etc/php.ini.org
 vim /etc/php.ini
-</code></p>
-
+</code></pre></div>
 <h5>/etc/php.ini</h5>
-
-<p>```
-error_log = /var/log/php.log
+<div class="highlight"><pre><code class="text">error_log = /var/log/php.log
 error_reporting = E_ALL &amp; ~E_NOTICE &amp; ~E_DEPRECATED
 display_errors = On
 mbstring.language = Japanese
@@ -140,59 +109,41 @@ mbstring.internal_encoding = UTF-8
 mbstring.http_input = auto
 mbstring.http_output = pass
 mbstring.detect_order = auto
-;mbstring.substitute_character = none;</p>
+;mbstring.substitute_character = none;
 
-<p>max_file_uploads = 100
+max_file_uploads = 100
 post_max_size = 100M
-upload_max_filesize 100M</p>
-
-<p>```</p>
-
+upload_max_filesize 100M
+</code></pre></div>
 <h3>設定を反映</h3>
-
-<p><code>
-service httpd restart
-</code></p>
-
+<div class="highlight"><pre><code class="text">service httpd restart
+</code></pre></div>
 <h2>mysql</h2>
-
-<p><code>
-yum install -y mysql-server
+<div class="highlight"><pre><code class="text">yum install -y mysql-server
 cp /etc/my.cnf /etc/my.cnf.org
 vim /etc/my.cnf
-</code></p>
-
+</code></pre></div>
 <h5>/etc/my.cnf</h5>
-
-<p>```
-[mysqld]以下に追加
+<div class="highlight"><pre><code class="text">[mysqld]以下に追加
 character_set_server=utf8
 default-storage-engine=InnoDB
 innodb_file_per_table
-group_concat_max_len=10000000</p>
+group_concat_max_len=10000000
 
-<p>[mysql]
-default-character-set=utf8</p>
+[mysql]
+default-character-set=utf8
 
-<p>[mysqldump]
-default-character-set=utf8</p>
-
-<p>```</p>
-
+[mysqldump]
+default-character-set=utf8
+</code></pre></div>
 <h3>設定を反映</h3>
-
-<p><code>
-service mysqld start
+<div class="highlight"><pre><code class="text">service mysqld start
 chkconfig mysqld on
-</code></p>
-
+</code></pre></div>
 <h3>mysqlの初期設定</h3>
-
-<p><code>
-mysql_secure_installation
+<div class="highlight"><pre><code class="text">mysql_secure_installation
 mysql -u root -p
-</code></p>
-]]></content>
+</code></pre></div>]]></content>
   </entry>
   
 </feed>

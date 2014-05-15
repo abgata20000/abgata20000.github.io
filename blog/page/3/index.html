@@ -119,7 +119,6 @@ $(document).ready( function () {
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>yum info --enablerepo=remi mysql mysql-server mysql-devel</span></code></pre></td></tr></table></div></figure>
 
-
 <p>※執筆時点では5.5.53</p>
 
 <h2>利用しそうな依存ライブラリも一緒にインストール</h2>
@@ -128,14 +127,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install -y --enablerepo=remi mysql-server mysql-devel
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定ファイルの変更</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
 </span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/my.cnf</h5>
 
@@ -163,7 +160,6 @@ $(document).ready( function () {
 </span><span class='line'>default-character-set=utf8
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h3>設定を反映</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -171,14 +167,12 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
 </span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
 
-
 <h3>mysqlの初期設定</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -214,8 +208,71 @@ $(document).ready( function () {
   </header>
 
 
-  <div class="entry-content"><p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: Ruby sinatraでwebサーバー構築category : Sinatratags : [Sinatra, Ruby]&mdash;&ndash;##プロジェクトの下準備<code>bundle init</code>##設定ファイルを記述<code>vim Gemfile</code>#####Gemfile<code># coding: utf-8source "http://rubygems.org"# sinatra本体と便利なプラグインgem "sinatra", require: "sinatra/base"gem "sinatra-contrib", require: "sinatra/contrib/all"# nodejsインストールしていない環境では必要gem "execjs"gem "therubyracer"# 三種の神器gem "haml"gem "sass"gem "coffee-script"</code>##依存ファイルをインストール<code>bundle install --path vendor/bundle</code>##config.ruを作成<code>vim config.ru</code>#####config.ru<code>require 'bundler'Bundler.requirerequire './app'run App</code>##実行ファイル作成<code>vim app.rb</code>#####app.rb<code>class App &lt; Sinatra::Base  register Sinatra::Reloader  get '/' do    'Hello World'  endend</code>##サーバー起動<code>bundle exec rackup -p 3000 -o sample.com</code>##シナトラをユニコーンで起動<code>unicorn -D</code></p>
-</div>
+  <div class="entry-content"><hr>
+
+<p>layout: post
+date: 2013-12-22 00:00:00
+title: Ruby sinatraでwebサーバー構築
+category : Sinatra</p>
+
+<h2>tags : [Sinatra, Ruby]</h2>
+
+<h2>プロジェクトの下準備</h2>
+<div class="highlight"><pre><code class="text">bundle init
+</code></pre></div>
+<h2>設定ファイルを記述</h2>
+<div class="highlight"><pre><code class="text">vim Gemfile
+</code></pre></div>
+<h5>Gemfile</h5>
+<div class="highlight"><pre><code class="text"># coding: utf-8
+source &quot;http://rubygems.org&quot;
+
+# sinatra本体と便利なプラグイン
+gem &quot;sinatra&quot;, require: &quot;sinatra/base&quot;
+gem &quot;sinatra-contrib&quot;, require: &quot;sinatra/contrib/all&quot;
+
+
+# nodejsインストールしていない環境では必要
+gem &quot;execjs&quot;
+gem &quot;therubyracer&quot;
+
+# 三種の神器
+gem &quot;haml&quot;
+gem &quot;sass&quot;
+gem &quot;coffee-script&quot;
+</code></pre></div>
+<h2>依存ファイルをインストール</h2>
+<div class="highlight"><pre><code class="text">bundle install --path vendor/bundle
+</code></pre></div>
+<h2>config.ruを作成</h2>
+<div class="highlight"><pre><code class="text">vim config.ru
+</code></pre></div>
+<h5>config.ru</h5>
+<div class="highlight"><pre><code class="text">require &#39;bundler&#39;
+Bundler.require
+
+require &#39;./app&#39;
+
+run App
+</code></pre></div>
+<h2>実行ファイル作成</h2>
+<div class="highlight"><pre><code class="text">vim app.rb
+</code></pre></div>
+<h5>app.rb</h5>
+<div class="highlight"><pre><code class="text">class App &lt; Sinatra::Base
+  register Sinatra::Reloader
+
+  get &#39;/&#39; do
+    &#39;Hello World&#39;
+  end
+end
+</code></pre></div>
+<h2>サーバー起動</h2>
+<div class="highlight"><pre><code class="text">bundle exec rackup -p 3000 -o sample.com
+</code></pre></div>
+<h2>シナトラをユニコーンで起動</h2>
+<div class="highlight"><pre><code class="text">unicorn -D
+</code></pre></div></div>
   
   
 
@@ -250,10 +307,25 @@ $(document).ready( function () {
   </header>
 
 
-  <div class="entry-content"><p>&mdash;-layout: postdate: 2013-12-22 00:00:00title: gemでmysqlライブラリをインストールするcategory : Rubytags : [Ruby, Gem, MySQL]&mdash;-mysql-develがないとダメみたいなのでyumでインストール
-<code>sudo yum install -y mysql-devel</code>##Gemでライブラリをインストール<code>gem install mysql -- --with-mysql-config=/usr/bin/mysql_configgem install mysql2 -- --with-mysql-config=/usr/bin/mysql_configgem install activerecord-mysql-adaptergem install activerecord-mysql2-adapter
-</code></p>
-</div>
+  <div class="entry-content"><hr>
+
+<p>layout: post
+date: 2013-12-22 00:00:00
+title: gemでmysqlライブラリをインストールする
+category : Ruby</p>
+
+<h2>tags : [Ruby, Gem, MySQL]</h2>
+
+<p>mysql-develがないとダメみたいなのでyumでインストール</p>
+<div class="highlight"><pre><code class="text">sudo yum install -y mysql-devel
+</code></pre></div>
+<h2>Gemでライブラリをインストール</h2>
+<div class="highlight"><pre><code class="text">gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+
+gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter
+</code></pre></div></div>
   
   
 
@@ -294,12 +366,10 @@ $(document).ready( function () {
 <li><a href="http://siguniang.wordpress.com/2013/07/18/capturing-screenshots-with-casperjs/">CasperJSで画面キャプチャをとる</a></li>
 </ul>
 
-
 <h3>Macの場合はhomebrewで一発</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>brew install phantomjs casperjs</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>Phantom.jsをインストール</h3>
 
@@ -309,7 +379,6 @@ $(document).ready( function () {
 </pre></td><td class='code'><pre><code class=''><span class='line'>wget https://phantomjs.googlecode.com/files/phantomjs-1.9.1-linux-x86_64.tar.bz2
 </span><span class='line'>tar jxfv phantomjs-1.9.1-linux-x86_64.tar.bz2
 </span><span class='line'>sudo cp phantomjs-1.9.1-linux-x86_64/bin/phantomjs  /usr/local/bin/</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>Casper.jsをインストール</h3>
 
@@ -321,7 +390,6 @@ $(document).ready( function () {
 </span><span class='line'>tar zxfv 1.1-beta1.tar.gz
 </span><span class='line'>cd casperjs-1.1-beta1/
 </span><span class='line'>sudo ln -sf `pwd`/bin/casperjs /usr/local/bin/casperjs</span></code></pre></td></tr></table></div></figure>
-
 
 <h3>Googleのキャプチャを撮ってみる</h3>
 
@@ -337,7 +405,6 @@ $(document).ready( function () {
 </span><span class='line'>          return
 </span><span class='line'>
 </span><span class='line'>casper.run()</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -375,7 +442,7 @@ $(document).ready( function () {
 
   <div class="entry-content"><h3>参考サイト</h3>
 
-<p>&ndash;</p>
+<h2></h2>
 
 <h2>POSTでパラメータを送信する際は、設定が必要</h2>
 
@@ -392,12 +459,11 @@ $(document).ready( function () {
 </span><span class='line'>
 </span><span class='line'>   @</span></code></pre></td></tr></table></div></figure>
 
+<p>そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
 
-<p> そのままPOST送信するとパラメータがJSON文字列？で送信されるらしく、</p>
+<p>うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
 
-<p> うまくデータを送れないので通常のForm送信の方式に合わせる必要がある</p>
-
-<p> ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
+<p>ただ、 <strong>rails</strong> で <strong>angularjs-rails-resource</strong> を使っていると大丈夫な模様</p>
 
 <h2>$resourceでPOST or PUT する際のURLパラメータの渡し方。</h2>
 
@@ -431,7 +497,6 @@ $(document).ready( function () {
 </span><span class='line'>      console.log res
 </span></code></pre></td></tr></table></div></figure>
 
-
 <p>GET と DELETE は そのままで <strong>param</strong> の <strong>id</strong> が <strong>action/:id</strong>
 に反映されるが、
 PUT と POST の場合は、モデルのメソッド作成の際に指定しておく必要がある模様</p>
@@ -446,7 +511,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'>  post: {method: 'POST', isArray: false}
 </span><span class='line'>  put: {method: 'PUT', isArray: false}
 </span><span class='line'>  delete: {method: 'DELETE', isArray: false}</span></code></pre></td></tr></table></div></figure>
-
 
 <p>これでも大丈夫そう。</p>
 </div>
@@ -489,9 +553,8 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <ul>
 <li><a href="http://easyramble.com/install-setup-fsftpd.html">FTP サーバー（vsftpd）のインストールと設定 〜 CentOS6</a></li>
 <li><a href="http://www.geocities.co.jp/SiliconValley-PaloAlto/3626/server_setting/vsftpd/20070126_vsftpd.htm">vsftp設定 ～ SSL接続/PASV接続</a></li>
-<li><a href="http://www.aconus.com/~oyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
+<li><a href="http://www.aconus.com/%7Eoyaji/suse/vsftpd_ssl_suse.htm">セキュアFTPサーバの構築(vsftpd+SSL/TLS:SuSE編)</a></li>
 </ul>
-
 
 <h2>FTPサーバー導入の経緯</h2>
 
@@ -516,7 +579,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'>
 </span><span class='line'>sudo chkconfig vsftpd on</span></code></pre></td></tr></table></div></figure>
 
-
 <p>で、後はポート開放して完了。</p>
 
 <p>結構あっさりですね。</p>
@@ -529,7 +591,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/vsftpd/vsftpd.conf</h5>
 
@@ -599,12 +660,10 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'># クライアントソフト名が表示されるのを変更
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSL関係設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/vsftpd/vsftpd.conf</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/vsftpd/vsftpd.conf</h5>
 
@@ -686,12 +745,10 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'># データチャンネルでSSL接続しか許可しない。
 </span></code></pre></td></tr></table></div></figure>
 
-
 <h2>再起動で反映</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo service vsftpd restart</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>FTPS接続の種類</h2>
 
@@ -761,18 +818,15 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <li><a href="http://fnya.cocolog-nifty.com/blog/2012/03/centos-ssh-8291.html">CentOS で公開鍵暗号方式を使用した SSH ログイン設定</a></li>
 </ul>
 
-
 <h2>秘密鍵と公開鍵を作成</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -t rsa</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>公開鍵を転送</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>scp -P 22 id_rsa.pub user@hostname/.ssh</span></code></pre></td></tr></table></div></figure>
-
 
 <h2>公開鍵を設定</h2>
 
@@ -781,30 +835,25 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </pre></td><td class='code'><pre><code class=''><span class='line'>mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
 </span><span class='line'>chmod 600 ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>SSHで公開鍵認証を設定</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure>
-
 
 <h5>/etc/ssh/sshd_config</h5>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>sshdを再起動</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>sudo service sshd restart</span></code></pre></td></tr></table></div></figure>
 
-
 <h2>公開鍵でSSH接続する</h2>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i ~/.ssh/id_rsa user@hostname</span></code></pre></td></tr></table></div></figure>
-
 
 <p>~/.ssh/id_rsa であれば省略可能</p>
 </div>
@@ -848,7 +897,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <li><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></li>
 </ul>
 
-
 <h2>概要</h2>
 
 <p>Rubyでブログ投稿しようと頑張っていたら、ハマった。</p>
@@ -858,10 +906,8 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <p>jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、</p>
 
 <p>FC2に投稿しようとするとエラーが出る。</p>
-
-<pre><code>Wrong size. Was 31564, should be 1501
-</code></pre>
-
+<div class="highlight"><pre><code class="text">Wrong size. Was 31564, should be 1501
+</code></pre></div>
 <p>いろいろ調べてみたらどうやらRubyの標準ライブラリの</p>
 
 <p><strong>net/http/response.rb</strong></p>
@@ -883,28 +929,24 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <p>※railsでxml/libxml がないとか言われたり、関数の表現変わったりで面倒だったので</p>
 
 <h2>修正方法</h2>
-
-<pre><code>rbenv version
-</code></pre>
-
+<div class="highlight"><pre><code class="text">rbenv version
+</code></pre></div>
 <p>で現在利用しているrubyのバージョンと場所を確認</p>
-
-<pre><code>.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
-</code></pre>
-
+<div class="highlight"><pre><code class="text">.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
+</code></pre></div>
 <p>内の</p>
 
-<p> <strong>response.rb</strong>を書き換える</p>
+<p><strong>response.rb</strong>を書き換える</p>
 
-<p> 修正箇所は参考URLを参照</p>
+<p>修正箇所は参考URLを参照</p>
 
-<p> 一応、修正したファイルをgithubにあげておいたので、</p>
+<p>一応、修正したファイルをgithubにあげておいたので、</p>
 
-<p> 今後は、こちらをpullしてコピーで対応しようと思う</p>
+<p>今後は、こちらをpullしてコピーで対応しようと思う</p>
 
-<p> シェルスクリプト書くかどうか検討中</p>
+<p>シェルスクリプト書くかどうか検討中</p>
 
-<p> <a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
+<p><a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
 </div>
   
   
@@ -948,7 +990,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
 </ul>
 
-
 <h2>設定ファイルをDropBoxに移す</h2>
 
 <h3>本来の設定ファイルがある場所</h3>
@@ -958,7 +999,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
 </ul>
 
-
 <p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
 
 <h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
@@ -966,8 +1006,10 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 <h3>mac</h3>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packagesln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packages
 
+
+ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
 
 <h3>win</h3>
 
@@ -982,7 +1024,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 </span><span class='line'>
 </span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
 </span></code></pre></td></tr></table></div></figure>
-
 </div>
   
   
@@ -1021,20 +1062,18 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   <div class="entry-content"><h2>参考サイト</h2>
 
 <ul>
-<li><a href="https://sublime.wbond.net/installation">Installation &ndash; Package Control</a></li>
+<li><a href="https://sublime.wbond.net/installation">Installation - Package Control</a></li>
 <li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
 <li><a href="http://qiita.com/tatsuoSakurai/items/cd9e22a9dc4e10ea6deb">SublimeText2/3 環境設定とか（基本3）</a></li>
 </ul>
 
-
 <h2>パッケージインストールできるようにする</h2>
 
-<p>View > Show Console でコマンドライン入力欄を出して以下を実行</p>
+<p>View &gt; Show Console でコマンドライン入力欄を出して以下を実行</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())
 </span></code></pre></td></tr></table></div></figure>
-
 
 <p>cmd + shift + p でパッケージインストールを実行可能に</p>
 
