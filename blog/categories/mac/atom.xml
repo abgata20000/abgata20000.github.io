@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mac | AB Lab]]></title>
+  <link href="http://blog.abgata.org/blog/categories/mac/atom.xml" rel="self"/>
+  <link href="http://blog.abgata.org/"/>
+  <updated>2014-05-20T10:19:23+09:00</updated>
+  <id>http://blog.abgata.org/</id>
+  <author>
+    <name><![CDATA[abgata20000]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MacBookPro が頻繁にフリーズするのでディスクを修正してみた]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/20/mac_disk_recover/"/>
+    <updated>2014-05-20T19:10:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/20/mac_disk_recover</id>
+    <content type="html"><![CDATA[<h2>MacBookPro Early 2013</h2>
+
+<p>ディスクユーティリティで <strong>ディスクを検証</strong> をクリック</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/bdbb85050a068740ccbe117e7ac18115.png" alt="ディスクユーティリティ"></p>
+
+<p>待つこと数分、</p>
+
+<p>「ディスクが壊れているのでRecorvery HD でディスクを修復してください」といった感じのメッセージが出てきた。</p>
+
+<p>再起動してappleマークが表示されている間 <strong>cmd + R</strong> を長押しして
+ディスクユーティリティを選択</p>
+
+<p>ディスクを検証して、エラーが出たら、ディスクを修正</p>
+
+<p>10分強くらいでディスクが修正されました。</p>
+
+<p>これで治ったらいいな。</p>
+]]></content>
+  </entry>
+  
+</feed>

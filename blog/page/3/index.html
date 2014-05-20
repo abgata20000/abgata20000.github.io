@@ -9,9 +9,16 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="インストール可能なバージョンの確認 1
-sudo yum info --enablerepo=remi php ※執筆時点では5.4.19 利用しそうな依存ライブラリも一緒にインストール 1
-sudo yum --enablerepo=remi install -y php php-devel &hellip;">
+  <meta name="description" content="動作状態の確認 1
+2
+3
+4
+5
+getenforce
+# &gt; Enforcing
+# Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
+# permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
+# disabled　　　　 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +92,92 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/SELinux/">SElinuxの設定</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>動作状態の確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
+</span><span class='line'># &gt; Enforcing
+</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
+</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
+</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
+
+<h2>SELinuxを一時的に無効化</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
+</span><span class='line'># SELinuxを復活
+</span><span class='line'>setenforce 1
+</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
+
+<p>設定ファイルを変更したら、あとはrebootすればOK</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
+</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/sysconfig/selinux</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
+</span><span class='line'>#　　　↓
+</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1055,83 +1148,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/26/sublime_text_3_setting_share/">Sublime Text 3 で設定を共有</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-26T09:00:00+09:00" pubdate data-updated="true">Dec 26<span>th</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>参考サイト</h2>
-
-<ul>
-<li><a href="http://p-toro.com/web/?p=137">WindowsのSublimeText3の設定ファイルをDropboxで共有する</a></li>
-<li><a href="http://isiz.hateblo.jp/entry/2013/07/17/Windows%E3%81%A7sublime_text_3%E3%81%AE%E8%A8%AD%E5%AE%9A%E3%82%92DropBox%E3%81%A7%E5%85%B1%E6%9C%89%E3%81%86%E3%82%93%E3%81%9F%E3%82%89%E3%80%82">Windowsでsublime text 3の設定をDropBoxで共有うんたら。</a></li>
-<li><a href="http://qiita.com/FiNGAHOLiC/items/6981424cf59a6d46788d">SublimeText3のセットアップ</a></li>
-</ul>
-
-<h2>設定ファイルをDropBoxに移す</h2>
-
-<h3>本来の設定ファイルがある場所</h3>
-
-<ul>
-<li>Windows： C:\Users(ユーザー名)\AppData\Roaming\Sublime Text 3\</li>
-<li>Mac： /Users/(ユーザー名)/Library/Application Support/Sublime Text 3/</li>
-</ul>
-
-<p>今回はDropBoxの直下に「SublimeText3」フォルダを作成してその中に設定ファイルを配置</p>
-
-<h2>DropBoxの設定ファイルからシンボリックリンクを貼る</h2>
-
-<h3>mac</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Packages
-
-
-ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(ユーザー名)/Library/Application\ Support/Sublime\ Text\ 3/Installed\ Packages</span></code></pre></td></tr></table></div></figure>
-
-<h3>win</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd C:\Users\(ユーザー名)\AppData\Roaming\Sublime Text 3\
-</span><span class='line'>
-</span><span class='line'>mklink /D "Installed Packages" "C:/Users/(ユーザー名)/Dropbox/sublime Text 3/Installed Packages"
-</span><span class='line'>
-</span><span class='line'>mklink /D "Packages" "C:/Users/hogehoge/(ユーザー名)/sublime Text 3/Packages"
-</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1149,6 +1165,10 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
       </li>
     
@@ -1162,10 +1182,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText3/Installed\ Packages /Users/(
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

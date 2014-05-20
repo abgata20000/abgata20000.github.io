@@ -9,20 +9,12 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="passengerをインストール 1
+  <meta name="description" content="gitのグローバル設定 1
 2
 3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-gem install passenger passenger-install-apache2-module
-# パスとおっていない場合は場所を探す sudo find / -name passenger- &hellip;">
+git config --global user.name "abgata20000"
+git config --global user.email "abgata@abgata.jp"
+git config --global color.ui true &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +88,85 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/git_push_refresh/">GitのプッシュでHPの更新(反映)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>gitのグローバル設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config --global user.name "abgata20000"
+</span><span class='line'>git config --global user.email "abgata@abgata.jp"
+</span><span class='line'>git config --global color.ui true</span></code></pre></td></tr></table></div></figure>
+
+<h2>gitの設定確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git config -l</span></code></pre></td></tr></table></div></figure>
+
+<h2>現在のディレクトリを共有リポジトリにする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git init --bare --share</span></code></pre></td></tr></table></div></figure>
+
+<h2>レポジトリをクローンする</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>git clone /git/smaple.git</span></code></pre></td></tr></table></div></figure>
+
+<h2>pushされた際のhooks(post-receive)</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd hooks
+</span><span class='line'>vim post-receive</span></code></pre></td></tr></table></div></figure>
+
+<h5>post-receive</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>#!/bin/sh
+</span><span class='line'>cd /var/www/vhosts/
+</span><span class='line'>git --git-dir=.git pull origin master</span></code></pre></td></tr></table></div></figure>
+
+<p>実行権限を付与</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chmod +x post-receive</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -406,6 +477,10 @@ $(document).ready( function () {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
       </li>
     
@@ -419,10 +494,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

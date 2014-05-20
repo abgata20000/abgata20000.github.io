@@ -9,13 +9,13 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="npmでグローバルにインストール 1
-npm install -g pm2 スクリプトを登録 1
-pm2 start sample001.js スクリプトを確認 1
-pm2 list スクリプトを止める 1
+  <meta name="description" content="参考サイト Rakeタスクをつくる タスクファイルの作成
+rails g task task_name lib/task/task_name.rake が作成される lib/task/task_name.rake 1
 2
-# listで確認して、appで登録されたスクリプトを止めたい場合
-pm2 stop &hellip;">
+3
+4
+desc "Sample です" #=&gt; 説明
+task : &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +89,72 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/rails_task/">Railsでtaskを作成</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a></li>
+</ul>
+
+<h2>タスクファイルの作成</h2>
+<div class="highlight"><pre><code class="text">rails g task  task_name
+</code></pre></div>
+<p>lib/task/task_name.rake が作成される</p>
+
+<h5>lib/task/task_name.rake</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>desc "Sample です" #=&gt; 説明
+</span><span class='line'>task :sample =&gt; :environment do
+</span><span class='line'>  print 'hello sample.'
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+<h2>実行</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
+
+<h2>確認</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1149,92 +1215,6 @@ $(document).ready( function () {
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/28/SELinux/">SElinuxの設定</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>動作状態の確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
-</span><span class='line'># &gt; Enforcing
-</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
-</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
-</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
-
-<h2>SELinuxを一時的に無効化</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
-</span><span class='line'># SELinuxを復活
-</span><span class='line'>setenforce 1
-</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
-<p>設定ファイルを変更したら、あとはrebootすればOK</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
-</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1252,6 +1232,10 @@ $(document).ready( function () {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
       </li>
     
@@ -1265,10 +1249,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

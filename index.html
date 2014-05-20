@@ -9,10 +9,7 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="先日、Vagrantの共有フォルダがデフォルト設定だと遅くて使いものにならないという話を聞き、nfsを使って高速化してみた時の話 nfsd が起動しているかを確認 1
-sudo nfsd status 起動していなければ起動する
-1
-sudo nfsd enable /etc/exports &hellip;">
+  <meta name="description" content="MacBookPro Early 2013 ディスクユーティリティで ディスクを検証 をクリック 待つこと数分、 「ディスクが壊れているのでRecorvery HD でディスクを修復してください」といった感じのメッセージが出てきた。 再起動してappleマークが表示されている間 cmd + R &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -86,6 +83,59 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-20T19:10:00+09:00" pubdate data-updated="true">May 20<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>MacBookPro Early 2013</h2>
+
+<p>ディスクユーティリティで <strong>ディスクを検証</strong> をクリック</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/bdbb85050a068740ccbe117e7ac18115.png" alt="ディスクユーティリティ"></p>
+
+<p>待つこと数分、</p>
+
+<p>「ディスクが壊れているのでRecorvery HD でディスクを修復してください」といった感じのメッセージが出てきた。</p>
+
+<p>再起動してappleマークが表示されている間 <strong>cmd + R</strong> を長押しして
+ディスクユーティリティを選択</p>
+
+<p>ディスクを検証して、エラーが出たら、ディスクを修正</p>
+
+<p>10分強くらいでディスクが修正されました。</p>
+
+<p>これで治ったらいいな。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -920,72 +970,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/28/rails_task/">Railsでtaskを作成</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://qiita.com/mosson/items/9a9b0703ac4c76ebfd4e">Rakeタスクをつくる</a></li>
-</ul>
-
-<h2>タスクファイルの作成</h2>
-<div class="highlight"><pre><code class="text">rails g task  task_name
-</code></pre></div>
-<p>lib/task/task_name.rake が作成される</p>
-
-<h5>lib/task/task_name.rake</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>desc "Sample です" #=&gt; 説明
-</span><span class='line'>task :sample =&gt; :environment do
-</span><span class='line'>  print 'hello sample.'
-</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
-
-<h2>実行</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake task_name:sample</span></code></pre></td></tr></table></div></figure>
-
-<h2>確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>rake -vT</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1001,6 +985,10 @@ Whenever以外で登録されていたジョブが上書きされることはな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
       </li>
     
@@ -1014,10 +1002,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
     
       <li class="post">
         <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/ssl_settiong/">SSLの設定</a>
       </li>
     
   </ul>

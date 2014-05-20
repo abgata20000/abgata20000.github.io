@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-15T22:17:45+09:00</updated>
+  <updated>2014-05-20T10:19:23+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacBookPro が頻繁にフリーズするのでディスクを修正してみた]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/20/mac_disk_recover/"/>
+    <updated>2014-05-20T19:10:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/20/mac_disk_recover</id>
+    <content type="html"><![CDATA[<h2>MacBookPro Early 2013</h2>
+
+<p>ディスクユーティリティで <strong>ディスクを検証</strong> をクリック</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/bdbb85050a068740ccbe117e7ac18115.png" alt="ディスクユーティリティ"></p>
+
+<p>待つこと数分、</p>
+
+<p>「ディスクが壊れているのでRecorvery HD でディスクを修復してください」といった感じのメッセージが出てきた。</p>
+
+<p>再起動してappleマークが表示されている間 <strong>cmd + R</strong> を長押しして
+ディスクユーティリティを選択</p>
+
+<p>ディスクを検証して、エラーが出たら、ディスクを修正</p>
+
+<p>10分強くらいでディスクが修正されました。</p>
+
+<p>これで治ったらいいな。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Vagrant共有フォルダをnfsを使って高速化する]]></title>
@@ -1455,65 +1481,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
 </span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[SElinuxの設定]]></title>
-    <link href="http://blog.abgata.org/blog/2014/04/28/SELinux/"/>
-    <updated>2014-04-28T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/04/28/SELinux</id>
-    <content type="html"><![CDATA[<h2>動作状態の確認</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>getenforce
-</span><span class='line'># &gt; Enforcing
-</span><span class='line'># Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
-</span><span class='line'># permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
-</span><span class='line'># disabled　　　　SElinux機能・アクセス制御ともに無効</span></code></pre></td></tr></table></div></figure>
-
-<h2>SELinuxを一時的に無効化</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>setenforce 0
-</span><span class='line'># SELinuxを復活
-</span><span class='line'>setenforce 1
-</span><span class='line'># SELinuxの完全無効化</span></code></pre></td></tr></table></div></figure>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'># SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
-
-<p>設定ファイルを変更したら、あとはrebootすればOK</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/sysconfig/selinux /etc/sysconfig/selinux.org
-</span><span class='line'>vim /etc/sysconfig/selinux</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/sysconfig/selinux</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>#SELINUX=enforcing
-</span><span class='line'>#　　　↓
-</span><span class='line'>SELINUX=disabled</span></code></pre></td></tr></table></div></figure>
 ]]></content>
   </entry>
   
