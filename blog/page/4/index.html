@@ -9,9 +9,7 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト WindowsのSublimeText3の設定ファイルをDropboxで共有する
-Windowsでsublime text 3の設定をDropBoxで共有うんたら。
-SublimeText3のセットアップ 設定ファイルをDropBoxに移す 本来の設定ファイルがある場所 Windows &hellip;">
+  <meta name="description" content="参考サイト https://github.com/ruby/ruby/pull/308/files 概要 Rubyでブログ投稿しようと頑張っていたら、ハマった。 xml-rpcで投稿していた所、 jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,6 +83,97 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/16/net_http_response_bug_patch/">net/http/response.rbのバグ修正</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-16T10:15:00+09:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></li>
+</ul>
+
+<h2>概要</h2>
+
+<p>Rubyでブログ投稿しようと頑張っていたら、ハマった。</p>
+
+<p>xml-rpcで投稿していた所、</p>
+
+<p>jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、</p>
+
+<p>FC2に投稿しようとするとエラーが出る。</p>
+<div class="highlight"><pre><code class="text">Wrong size. Was 31564, should be 1501
+</code></pre></div>
+<p>いろいろ調べてみたらどうやらRubyの標準ライブラリの</p>
+
+<p><strong>net/http/response.rb</strong></p>
+
+<p>のバグらしい</p>
+
+<p><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></p>
+
+<p>で修正パッチが記載してあったので、こちらを利用することに</p>
+
+<h2>他の対応方法</h2>
+
+<p>response.rb を書き換える方法ではなく、</p>
+
+<p>libxml というライブラリを使う方法もあるようだが、</p>
+
+<p>今回は修正パッチの方法で対応</p>
+
+<p>※railsでxml/libxml がないとか言われたり、関数の表現変わったりで面倒だったので</p>
+
+<h2>修正方法</h2>
+<div class="highlight"><pre><code class="text">rbenv version
+</code></pre></div>
+<p>で現在利用しているrubyのバージョンと場所を確認</p>
+<div class="highlight"><pre><code class="text">.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
+</code></pre></div>
+<p>内の</p>
+
+<p><strong>response.rb</strong>を書き換える</p>
+
+<p>修正箇所は参考URLを参照</p>
+
+<p>一応、修正したファイルをgithubにあげておいたので、</p>
+
+<p>今後は、こちらをpullしてコピーで対応しようと思う</p>
+
+<p>シェルスクリプト書くかどうか検討中</p>
+
+<p><a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1073,118 +1162,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/select_for_update/">Select_for_updateについて(並列処理の運用)</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
-<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
-<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
-</ul>
-
-<h2>サンプル</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>begin;
-</span><span class='line'>
-</span><span class='line'>select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
-</span><span class='line'>
-</span><span class='line'>commit;
-</span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
-</span></code></pre></td></tr></table></div></figure>
-
-<h3>注意点</h3>
-
-<ul>
-<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
-<li>for update をつけていないクエリはロックされない</li>
-<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
-</ul>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
-</span></code></pre></td></tr></table></div></figure>
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-<p>であればロックされない</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
-</span></code></pre></td></tr></table></div></figure>
-
-<p>と</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
-</span></code></pre></td></tr></table></div></figure>
-
-<p>であればロックされる</p>
-
-<h2>ActiveRecordでの利用方法</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Sample.transaction do
-</span><span class='line'>  # select * from table where flg = 0 limit 1 for update
-</span><span class='line'>  @target = Sample.where("flg = 0 ").lock(true).first
-</span><span class='line'>
-</span><span class='line'>  @target['flg'] = 1
-</span><span class='line'>  @target.save
-</span><span class='line'>
-</span><span class='line'>end
-</span><span class='line'>
-</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1202,6 +1179,10 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
       </li>
     
@@ -1215,10 +1196,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
     
       <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
   </ul>

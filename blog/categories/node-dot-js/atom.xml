@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Node.js | AB Lab]]></title>
   <link href="http://blog.abgata.org/blog/categories/node-dot-js/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-20T10:19:23+09:00</updated>
+  <updated>2014-05-25T14:54:30+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,203 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Expressを使ってみる（Jade、LESS、CoffeeScript）]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/25/express_install/"/>
+    <updated>2014-05-25T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/25/express_install</id>
+    <content type="html"><![CDATA[<h2>npmでグローバルにインストール</h2>
+<div class="highlight"><pre><code class="text">npm install -g express
+</code></pre></div>
+<h2>express コマンドを実行してみる</h2>
+<div class="highlight"><pre><code class="text">express myApp
+</code></pre></div>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/957b8eafae631c6b5dbea76723b6526e.png" alt="img"></p>
+
+<p>そんなものはないと怒られる。</p>
+
+<p>少し調べてみた結果、express コマンドには <strong>express-generator</strong> が必要らしい</p>
+<div class="highlight"><pre><code class="text">npm install -g express-generator
+</code></pre></div>
+<p>再チャレンジしてみる</p>
+<div class="highlight"><pre><code class="text">express myApp
+</code></pre></div>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/58413184a08641c9fbfbceb588d6978e.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>expressを起動してみる</h2>
+
+<p>まずは設定</p>
+<div class="highlight"><pre><code class="text">cd myApp
+npm install
+node app
+</code></pre></div>
+<p>あれ、何も起きない。。。</p>
+
+<p>起動ファイルが、 app.js ではなく、 bin/www らしい</p>
+
+<p>package.json の start コマンドに設定されていた。</p>
+<div class="highlight"><pre><code class="text">npm start
+</code></pre></div>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2a50a3c8a93be254d87363329362f689.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>CSSをLESSで書きたい</h2>
+
+<p>html の テンプレートエンジンはデフォルトで jade だったので、</p>
+
+<p>このまま使うとして CSS は LESS を使いたいと言うことで、</p>
+
+<p><a href="https://github.com/emberfeather/less.js-middleware">less.js-middleware</a></p>
+
+<p>を設定してみた。</p>
+
+<p>まずは、npmでインストール</p>
+<div class="highlight"><pre><code class="text">npm install less-middleware --save
+</code></pre></div>
+<p>次に設定ファイルを変更</p>
+
+<h5>app.js</h5>
+<div class="highlight"><pre><code class="text">// use css engine less
+var lessMiddleware = require(&#39;less-middleware&#39;);
+
+app.use(lessMiddleware(
+  path.join(__dirname, &#39;public&#39;)
+));
+</code></pre></div>
+<h5>public/stylesheets/style.less</h5>
+<div class="highlight"><pre><code class="text">h1{
+  color: green;
+}
+#main
+{
+  color:#FFF;
+  #sub{
+    color:#666;
+  }
+}
+</code></pre></div>
+<p>アクセスしてみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/e807c53a7d054e9d138fbc66bff761c3.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p><strong>が</strong>、</p>
+
+<p>これだと、public/stylesheets にlessファイル置かないといけないので</p>
+
+<p>lessファイルの配置場所を変更</p>
+
+<h5>app.js</h5>
+<div class="highlight"><pre><code class="text">// use css engine less
+var lessMiddleware = require(&#39;less-middleware&#39;);
+
+app.use(lessMiddleware(
+  path.join(__dirname, &#39;assets&#39;),
+  {
+    dest: path.join(__dirname, &#39;public&#39;)
+  }
+));
+</code></pre></div>
+<p>これで asets/stylesheets にless ファイルを配置すればOK </p>
+
+<h2>CoffeeScriptで記述できるようにしたい</h2>
+
+<p>参考 <a href="http://qiita.com/koki_cheese/items/4cbacecf293f5c869be2">express.js 4をCoffeeScriptで開発できるようにする</a></p>
+
+<p>coffee-script と js2coffee をインストールする</p>
+<div class="highlight"><pre><code class="text">npm install -g coffee-script js2coffee
+</code></pre></div>
+<p>jsファイルをcoffeescriptに変換</p>
+<div class="highlight"><pre><code class="text">find . -type f -name &quot;*.js&quot; | while read f; do js2coffee &quot;$f&quot; &gt; &quot;${f%.*}.coffee&quot;; done
+</code></pre></div>
+<p>ここで大量のエラーが。</p>
+
+<p><strong>node_modules</strong>の中身にまで変換かけているっぽいですね。</p>
+
+<p>スクリプト修正しようかと思ったが、</p>
+
+<p>既にわけがわからなくなっているので、</p>
+
+<p>復習も兼ねて、最初から作り直すことに</p>
+<div class="highlight"><pre><code class="text">express myApp
+cd myApp
+</code></pre></div>
+<p>で <code>npm install</code> をする前に</p>
+<div class="highlight"><pre><code class="text">find . -type f -name &quot;*.js&quot; | while read f; do js2coffee &quot;$f&quot; &gt; &quot;${f%.*}.coffee&quot;; done
+</code></pre></div>
+<p>今度は大丈夫みたいです。</p>
+
+<p>jsファイルを削除</p>
+<div class="highlight"><pre><code class="text">find . -type f -name &quot;*.js&quot; | xargs rm -f
+</code></pre></div>
+<p>ここで</p>
+<div class="highlight"><pre><code class="text">npm install
+npm install coffee-script --save
+</code></pre></div>
+<p>スタートアップファイルを編集</p>
+
+<h5>bin/www の先頭に以下を追記</h5>
+<div class="highlight"><pre><code class="text">require(&#39;coffee-script/register&#39;);
+</code></pre></div>
+<p>実行してみる</p>
+<div class="highlight"><pre><code class="text">npm start
+</code></pre></div>
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2f7005395707093b773b7be923e285f0.png" alt="img"></p>
+
+<p>できた</p>
+
+<h2>外部ファイルもCoffeeScriptで書きたい</h2>
+
+<p>あとは、 public/javascripts のファイルもCoffeeScriptで書けるようになれば、</p>
+
+<p>やりたいことは叶いますね。</p>
+
+<p><a href="https://www.npmjs.org/package/coffee-middleware">coffee-middleware</a> がよさそうなのでインストールしてみる</p>
+<div class="highlight"><pre><code class="text">npm install coffee-middleware --save
+</code></pre></div>
+<p>設定ファイルを編集</p>
+
+<h5>app.coffee</h5>
+<div class="highlight"><pre><code class="text"># use coffeescript
+coffeeMiddleware = require(&#39;coffee-middleware&#39;)
+
+app.use coffeeMiddleware(
+  src: path.join(__dirname, &quot;public&quot;)
+  compress: true
+  bare: true
+)
+</code></pre></div>
+<p>CoffeeScriptのファイルを配置してみる</p>
+
+<h5>public/main.coffee</h5>
+<div class="highlight"><pre><code class="text">alert &#39;main coffee&#39;
+</code></pre></div>
+<p>実行してみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/9e17666badefe5abe6146f4ed979967f.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p>とりあえず、</p>
+
+<p>やりたいことは、出来るようになったので満足なのですが、</p>
+
+<p>実際の運用を考えたら、</p>
+
+<p>html はともかく</p>
+
+<p>js や css は、</p>
+
+<p>毎回expressで生成するのもどうかというわけで、</p>
+
+<p>多分 <strong>grunt</strong> を使うことになるだろうなと思いました。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Node.jsをnodebrewでインストール]]></title>

@@ -9,14 +9,14 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="gemにてライブラリをインストール 1
+  <meta name="description" content="参考サイト ActiveRecord::Locking::Pessimistic
+MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) SELECT FOR UPDATEとロックの挙動 サンプル 1
 2
 3
-gem install mongo
-gem install mongoid
-gem install bson_ext そのまま使うとactiverecordとの併用の際に衝突するので、
-activerecordのバージョンを3.2.14に落とす
-※ &hellip;">
+4
+5
+6
+begin; select * from &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +90,118 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/select_for_update/">Select_for_updateについて(並列処理の運用)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/Locking/Pessimistic.html">ActiveRecord::Locking::Pessimistic</a></li>
+<li><a href="http://dev.mysql.com/doc/refman/5.1-olh/ja/innodb-locking-reads.html">MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) </a></li>
+<li><a href="http://d.hatena.ne.jp/walf443/20130829/1377788440">SELECT FOR UPDATEとロックの挙動</a></li>
+</ul>
+
+<h2>サンプル</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>begin;
+</span><span class='line'>
+</span><span class='line'>select * from t_sample where id &gt; 1 AND flg = 0 order by id asc limit1 for update;
+</span><span class='line'>
+</span><span class='line'>commit;
+</span><span class='line'># コミットするまでは、同一のレコードへ処理（select文を含む)をロックする
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>注意点</h3>
+
+<ul>
+<li>トランザクションの効くストレージエンジン(innodb)でのみ有効</li>
+<li>for update をつけていないクエリはロックされない</li>
+<li>同一のレコードへの処理をロックするため別条件で別レコードへの処理はロックされない</li>
+</ul>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 1
+</span></code></pre></td></tr></table></div></figure>
+
+<p>と</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
+</span></code></pre></td></tr></table></div></figure>
+
+<p>であればロックされない</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id &gt; 1
+</span></code></pre></td></tr></table></div></figure>
+
+<p>と</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>where id = 2
+</span></code></pre></td></tr></table></div></figure>
+
+<p>であればロックされる</p>
+
+<h2>ActiveRecordでの利用方法</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Sample.transaction do
+</span><span class='line'>  # select * from table where flg = 0 limit 1 for update
+</span><span class='line'>  @target = Sample.where("flg = 0 ").lock(true).first
+</span><span class='line'>
+</span><span class='line'>  @target['flg'] = 1
+</span><span class='line'>  @target.save
+</span><span class='line'>
+</span><span class='line'>end
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1135,63 +1247,6 @@ activerecordのバージョンを3.2.14に落とす
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/install_for_gem/">Gemでインストールするもの</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>とりあえずインストールしておくと便利そうなものをピックアップ</p>
-<div class="highlight"><pre><code class="text">gem install sinatra
-gem install sinatra-contrib
-gem install sqlite3
-gem install bundler
-gem install haml
-gem install activerecord
-gem install wsse
-gem install xml-simple
-gem install nokogiri
-
-gem install unicorn
-
-gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
-gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
-
-
-gem install activerecord-mysql-adapter
-gem install activerecord-mysql2-adapter
-</code></pre></div>
-<h2>↓のコマンド実行しないとシンボリックが生成されない？？</h2>
-<div class="highlight"><pre><code class="text">rbenv rehash
-</code></pre></div></div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1209,6 +1264,10 @@ gem install activerecord-mysql2-adapter
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
       </li>
     
@@ -1222,10 +1281,6 @@ gem install activerecord-mysql2-adapter
     
       <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
   </ul>

@@ -9,16 +9,14 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="動作状態の確認 1
+  <meta name="description" content="apache 1
 2
 3
 4
-5
-getenforce
-# &gt; Enforcing
-# Enforcing　　　 SELinux機能は有効でアクセス制御も有効。
-# permissive　　　SElinuxはwarningを出すが、アクセス制限は行われません
-# disabled　　　　 &hellip;">
+sudo yum install httpd
+sudo chkconfig httpd on
+cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+vim /etc/httpd/conf/httpd. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -92,6 +90,192 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/apache_php_mysql_install/">Apache Php Mysqlをインストール(yum)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>apache</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd
+</span><span class='line'>sudo chkconfig httpd on
+</span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
+</span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/httpd/conf/httpd.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ServerTokens Prod
+</span><span class='line'>ServerSignature Off
+</span><span class='line'>Options Indexes → Options -Indexes FollowSymLinks
+</span><span class='line'>※var/www/html内のもの
+</span><span class='line'>ServerName www.example.com:80
+</span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service httpd configtest
+</span><span class='line'>sudo service httpd start
+</span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
+
+<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
+</span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
+
+<h3>バーチャルホスト用にフォルダを作成</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
+
+<h2>php</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
+</span><span class='line'>php -v
+</span><span class='line'>cp /etc/php.ini /etc/php.ini.org
+</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/php.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
+</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
+</span><span class='line'>display_errors = On
+</span><span class='line'>mbstring.language = Japanese
+</span><span class='line'>expose_php = Off
+</span><span class='line'>date.timezone = Asia/Tokyo
+</span><span class='line'>max_execution_time = 300
+</span><span class='line'>magic_quotes_gpc = Off
+</span><span class='line'>upload_max_filesize = 200M
+</span><span class='line'>mbstring.internal_encoding = UTF-8
+</span><span class='line'>mbstring.http_input = auto
+</span><span class='line'>mbstring.http_output = pass
+</span><span class='line'>mbstring.detect_order = auto
+</span><span class='line'>;mbstring.substitute_character = none;
+</span><span class='line'>
+</span><span class='line'>max_file_uploads = 100
+</span><span class='line'>post_max_size = 100M
+</span><span class='line'>upload_max_filesize 100M
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+
+<h2>mysql</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
+</span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
+</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/my.cnf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
+</span><span class='line'>character_set_server=utf8
+</span><span class='line'>default-storage-engine=InnoDB
+</span><span class='line'>innodb_file_per_table
+</span><span class='line'>group_concat_max_len=10000000
+</span><span class='line'>
+</span><span class='line'>[mysql]
+</span><span class='line'>default-character-set=utf8
+</span><span class='line'>
+</span><span class='line'>[mysqldump]
+</span><span class='line'>default-character-set=utf8
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>設定を反映</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
+</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
+
+<h3>mysqlの初期設定</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
+</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1057,97 +1241,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/16/net_http_response_bug_patch/">net/http/response.rbのバグ修正</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-16T10:15:00+09:00" pubdate data-updated="true">Jan 16<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></li>
-</ul>
-
-<h2>概要</h2>
-
-<p>Rubyでブログ投稿しようと頑張っていたら、ハマった。</p>
-
-<p>xml-rpcで投稿していた所、</p>
-
-<p>jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、</p>
-
-<p>FC2に投稿しようとするとエラーが出る。</p>
-<div class="highlight"><pre><code class="text">Wrong size. Was 31564, should be 1501
-</code></pre></div>
-<p>いろいろ調べてみたらどうやらRubyの標準ライブラリの</p>
-
-<p><strong>net/http/response.rb</strong></p>
-
-<p>のバグらしい</p>
-
-<p><a href="https://github.com/ruby/ruby/pull/308/files">https://github.com/ruby/ruby/pull/308/files</a></p>
-
-<p>で修正パッチが記載してあったので、こちらを利用することに</p>
-
-<h2>他の対応方法</h2>
-
-<p>response.rb を書き換える方法ではなく、</p>
-
-<p>libxml というライブラリを使う方法もあるようだが、</p>
-
-<p>今回は修正パッチの方法で対応</p>
-
-<p>※railsでxml/libxml がないとか言われたり、関数の表現変わったりで面倒だったので</p>
-
-<h2>修正方法</h2>
-<div class="highlight"><pre><code class="text">rbenv version
-</code></pre></div>
-<p>で現在利用しているrubyのバージョンと場所を確認</p>
-<div class="highlight"><pre><code class="text">.rbenv/versions/2.0.0-p247/lib/ruby/2.0.0/net/http
-</code></pre></div>
-<p>内の</p>
-
-<p><strong>response.rb</strong>を書き換える</p>
-
-<p>修正箇所は参考URLを参照</p>
-
-<p>一応、修正したファイルをgithubにあげておいたので、</p>
-
-<p>今後は、こちらをpullしてコピーで対応しようと思う</p>
-
-<p>シェルスクリプト書くかどうか検討中</p>
-
-<p><a href="https://github.com/abgata20000/net-http-response.rb.git">https://github.com/abgata20000/net-http-response.rb.git</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1165,6 +1258,10 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
       </li>
     
@@ -1178,10 +1275,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
     
       <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
   </ul>

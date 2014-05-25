@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Expressを使ってみる（Jade、LESS、CoffeeScript） - AB Lab</title>
+  <meta name="author" content="abgata20000">
+
+  
+  <meta name="description" content="npmでグローバルにインストール 1
+npm install -g express express コマンドを実行してみる 1
+express myApp そんなものはないと怒られる。 少し調べてみた結果、express コマンドには express-generator が必要らしい 1
+npm &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.abgata.org/blog/2014/05/25/express_install">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="AB Lab" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+<script>
+$(document).ready( function () {
+   $("a[href^='http']:not([href*='" + location.hostname + "'])").attr('target', '_blank');
+})
+</script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-50444253-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">AB Lab</a></h1>
+  
+    <h2>abgata20000 blog.</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.abgata.org" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Expressを使ってみる（Jade、LESS、CoffeeScript）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-25T09:00:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>npmでグローバルにインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g express</span></code></pre></td></tr></table></div></figure>
+
+<h2>express コマンドを実行してみる</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/957b8eafae631c6b5dbea76723b6526e.png" alt="img"></p>
+
+<p>そんなものはないと怒られる。</p>
+
+<p>少し調べてみた結果、express コマンドには <strong>express-generator</strong> が必要らしい</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g express-generator</span></code></pre></td></tr></table></div></figure>
+
+<p>再チャレンジしてみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/58413184a08641c9fbfbceb588d6978e.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>expressを起動してみる</h2>
+
+<p>まずは設定</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd myApp
+</span><span class='line'>npm install
+</span><span class='line'>node app</span></code></pre></td></tr></table></div></figure>
+
+<p>あれ、何も起きない。。。</p>
+
+<p>起動ファイルが、 app.js ではなく、 bin/www らしい</p>
+
+<p>package.json の start コマンドに設定されていた。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm start</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2a50a3c8a93be254d87363329362f689.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>CSSをLESSで書きたい</h2>
+
+<p>html の テンプレートエンジンはデフォルトで jade だったので、</p>
+
+<p>このまま使うとして CSS は LESS を使いたいと言うことで、</p>
+
+<p><a href="https://github.com/emberfeather/less.js-middleware">less.js-middleware</a></p>
+
+<p>を設定してみた。</p>
+
+<p>まずは、npmでインストール</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install less-middleware --save</span></code></pre></td></tr></table></div></figure>
+
+<p>次に設定ファイルを変更</p>
+
+<h5>app.js</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// use css engine less
+</span><span class='line'>var lessMiddleware = require('less-middleware');
+</span><span class='line'>
+</span><span class='line'>app.use(lessMiddleware(
+</span><span class='line'>  path.join(__dirname, 'public')
+</span><span class='line'>));
+</span></code></pre></td></tr></table></div></figure>
+
+<h5>public/stylesheets/style.less</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>h1{
+</span><span class='line'>  color: green;
+</span><span class='line'>}
+</span><span class='line'>#main
+</span><span class='line'>{
+</span><span class='line'>  color:#FFF;
+</span><span class='line'>  #sub{
+</span><span class='line'>    color:#666;
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+<p>アクセスしてみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/e807c53a7d054e9d138fbc66bff761c3.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p><strong>が</strong>、</p>
+
+<p>これだと、public/stylesheets にlessファイル置かないといけないので</p>
+
+<p>lessファイルの配置場所を変更</p>
+
+<h5>app.js</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// use css engine less
+</span><span class='line'>var lessMiddleware = require('less-middleware');
+</span><span class='line'>
+</span><span class='line'>app.use(lessMiddleware(
+</span><span class='line'>  path.join(__dirname, 'assets'),
+</span><span class='line'>  {
+</span><span class='line'>    dest: path.join(__dirname, 'public')
+</span><span class='line'>  }
+</span><span class='line'>));</span></code></pre></td></tr></table></div></figure>
+
+<p>これで asets/stylesheets にless ファイルを配置すればOK </p>
+
+<h2>CoffeeScriptで記述できるようにしたい</h2>
+
+<p>参考 <a href="http://qiita.com/koki_cheese/items/4cbacecf293f5c869be2">express.js 4をCoffeeScriptで開発できるようにする</a></p>
+
+<p>coffee-script と js2coffee をインストールする</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g coffee-script js2coffee</span></code></pre></td></tr></table></div></figure>
+
+<p>jsファイルをcoffeescriptに変換</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | while read f; do js2coffee "$f" &gt; "${f%.*}.coffee"; done</span></code></pre></td></tr></table></div></figure>
+
+<p>ここで大量のエラーが。</p>
+
+<p><strong>node_modules</strong>の中身にまで変換かけているっぽいですね。</p>
+
+<p>スクリプト修正しようかと思ったが、</p>
+
+<p>既にわけがわからなくなっているので、</p>
+
+<p>復習も兼ねて、最初から作り直すことに</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp
+</span><span class='line'>cd myApp</span></code></pre></td></tr></table></div></figure>
+
+<p>で <code>npm install</code> をする前に</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | while read f; do js2coffee "$f" &gt; "${f%.*}.coffee"; done</span></code></pre></td></tr></table></div></figure>
+
+<p>今度は大丈夫みたいです。</p>
+
+<p>jsファイルを削除</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | xargs rm -f</span></code></pre></td></tr></table></div></figure>
+
+<p>ここで</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install
+</span><span class='line'>npm install coffee-script --save</span></code></pre></td></tr></table></div></figure>
+
+<p>スタートアップファイルを編集</p>
+
+<h5>bin/www の先頭に以下を追記</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require('coffee-script/register');</span></code></pre></td></tr></table></div></figure>
+
+<p>実行してみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm start</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2f7005395707093b773b7be923e285f0.png" alt="img"></p>
+
+<p>できた</p>
+
+<h2>外部ファイルもCoffeeScriptで書きたい</h2>
+
+<p>あとは、 public/javascripts のファイルもCoffeeScriptで書けるようになれば、</p>
+
+<p>やりたいことは叶いますね。</p>
+
+<p><a href="https://www.npmjs.org/package/coffee-middleware">coffee-middleware</a> がよさそうなのでインストールしてみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install coffee-middleware --save</span></code></pre></td></tr></table></div></figure>
+
+<p>設定ファイルを編集</p>
+
+<h5>app.coffee</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># use coffeescript
+</span><span class='line'>coffeeMiddleware = require('coffee-middleware')
+</span><span class='line'>
+</span><span class='line'>app.use coffeeMiddleware(
+</span><span class='line'>  src: path.join(__dirname, "public")
+</span><span class='line'>  compress: true
+</span><span class='line'>  bare: true
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+<p>CoffeeScriptのファイルを配置してみる</p>
+
+<h5>public/main.coffee</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alert 'main coffee'</span></code></pre></td></tr></table></div></figure>
+
+<p>実行してみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/9e17666badefe5abe6146f4ed979967f.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p>とりあえず、</p>
+
+<p>やりたいことは、出来るようになったので満足なのですが、</p>
+
+<p>実際の運用を考えたら、</p>
+
+<p>html はともかく</p>
+
+<p>js や css は、</p>
+
+<p>毎回expressで生成するのもどうかというわけで、</p>
+
+<p>多分 <strong>grunt</strong> を使うことになるだろうなと思いました。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">abgata20000</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-25T09:00:00+09:00" pubdate data-updated="true">May 25<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/node-dot-js/'>Node.js</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="social_box">
+    <ul class="social">
+        <li class="hatena">
+          <!-- hatebu-start -->
+          
+          <a href="http://b.hatena.ne.jp/entry/http://blog.abgata.org/blog/2014/05/25/express_install/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only.gif" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+          
+          <!-- hatebu-end -->
+        </li>
+        <li class="twitter">
+            
+                
+                <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.abgata.org/blog/2014/05/25/express_install/" data-via="abgata20000" data-counturl="http://blog.abgata.org/blog/2014/05/25/express_install/" >Tweet</a>
+                
+            
+        </li>
+        <!--
+        <li class="facebook">
+            
+            <div class="fb-like" data-send="false" data-layout="button_count" data-show-faces="false" data-font="verdana" data-href="http://blog.abgata.org/blog/2014/05/25/express_install/"></div>
+            
+        </li>
+        -->
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/20/mac_disk_recover/" title="Previous Post: MacBookPro が頻繁にフリーズするのでディスクを修正してみた">&laquo; MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>最近の記事</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/16/vagrant-nfs/">Vagrant共有フォルダをnfsを使って高速化する</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHubレポジトリ</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/abgata20000">@abgata20000</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'abgata20000',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - abgata20000 -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'abgata20000';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

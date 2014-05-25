@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-20T10:19:23+09:00</updated>
+  <updated>2014-05-25T14:54:30+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,279 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Expressを使ってみる（Jade、LESS、CoffeeScript）]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/25/express_install/"/>
+    <updated>2014-05-25T09:00:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/25/express_install</id>
+    <content type="html"><![CDATA[<h2>npmでグローバルにインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g express</span></code></pre></td></tr></table></div></figure>
+
+<h2>express コマンドを実行してみる</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/957b8eafae631c6b5dbea76723b6526e.png" alt="img"></p>
+
+<p>そんなものはないと怒られる。</p>
+
+<p>少し調べてみた結果、express コマンドには <strong>express-generator</strong> が必要らしい</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g express-generator</span></code></pre></td></tr></table></div></figure>
+
+<p>再チャレンジしてみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/58413184a08641c9fbfbceb588d6978e.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>expressを起動してみる</h2>
+
+<p>まずは設定</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd myApp
+</span><span class='line'>npm install
+</span><span class='line'>node app</span></code></pre></td></tr></table></div></figure>
+
+<p>あれ、何も起きない。。。</p>
+
+<p>起動ファイルが、 app.js ではなく、 bin/www らしい</p>
+
+<p>package.json の start コマンドに設定されていた。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm start</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2a50a3c8a93be254d87363329362f689.png" alt="img"></p>
+
+<p>できた。</p>
+
+<h2>CSSをLESSで書きたい</h2>
+
+<p>html の テンプレートエンジンはデフォルトで jade だったので、</p>
+
+<p>このまま使うとして CSS は LESS を使いたいと言うことで、</p>
+
+<p><a href="https://github.com/emberfeather/less.js-middleware">less.js-middleware</a></p>
+
+<p>を設定してみた。</p>
+
+<p>まずは、npmでインストール</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install less-middleware --save</span></code></pre></td></tr></table></div></figure>
+
+<p>次に設定ファイルを変更</p>
+
+<h5>app.js</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// use css engine less
+</span><span class='line'>var lessMiddleware = require('less-middleware');
+</span><span class='line'>
+</span><span class='line'>app.use(lessMiddleware(
+</span><span class='line'>  path.join(__dirname, 'public')
+</span><span class='line'>));
+</span></code></pre></td></tr></table></div></figure>
+
+<h5>public/stylesheets/style.less</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>h1{
+</span><span class='line'>  color: green;
+</span><span class='line'>}
+</span><span class='line'>#main
+</span><span class='line'>{
+</span><span class='line'>  color:#FFF;
+</span><span class='line'>  #sub{
+</span><span class='line'>    color:#666;
+</span><span class='line'>  }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+<p>アクセスしてみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/e807c53a7d054e9d138fbc66bff761c3.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p><strong>が</strong>、</p>
+
+<p>これだと、public/stylesheets にlessファイル置かないといけないので</p>
+
+<p>lessファイルの配置場所を変更</p>
+
+<h5>app.js</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// use css engine less
+</span><span class='line'>var lessMiddleware = require('less-middleware');
+</span><span class='line'>
+</span><span class='line'>app.use(lessMiddleware(
+</span><span class='line'>  path.join(__dirname, 'assets'),
+</span><span class='line'>  {
+</span><span class='line'>    dest: path.join(__dirname, 'public')
+</span><span class='line'>  }
+</span><span class='line'>));</span></code></pre></td></tr></table></div></figure>
+
+<p>これで asets/stylesheets にless ファイルを配置すればOK </p>
+
+<h2>CoffeeScriptで記述できるようにしたい</h2>
+
+<p>参考 <a href="http://qiita.com/koki_cheese/items/4cbacecf293f5c869be2">express.js 4をCoffeeScriptで開発できるようにする</a></p>
+
+<p>coffee-script と js2coffee をインストールする</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install -g coffee-script js2coffee</span></code></pre></td></tr></table></div></figure>
+
+<p>jsファイルをcoffeescriptに変換</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | while read f; do js2coffee "$f" &gt; "${f%.*}.coffee"; done</span></code></pre></td></tr></table></div></figure>
+
+<p>ここで大量のエラーが。</p>
+
+<p><strong>node_modules</strong>の中身にまで変換かけているっぽいですね。</p>
+
+<p>スクリプト修正しようかと思ったが、</p>
+
+<p>既にわけがわからなくなっているので、</p>
+
+<p>復習も兼ねて、最初から作り直すことに</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>express myApp
+</span><span class='line'>cd myApp</span></code></pre></td></tr></table></div></figure>
+
+<p>で <code>npm install</code> をする前に</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | while read f; do js2coffee "$f" &gt; "${f%.*}.coffee"; done</span></code></pre></td></tr></table></div></figure>
+
+<p>今度は大丈夫みたいです。</p>
+
+<p>jsファイルを削除</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>find . -type f -name "*.js" | xargs rm -f</span></code></pre></td></tr></table></div></figure>
+
+<p>ここで</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install
+</span><span class='line'>npm install coffee-script --save</span></code></pre></td></tr></table></div></figure>
+
+<p>スタートアップファイルを編集</p>
+
+<h5>bin/www の先頭に以下を追記</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require('coffee-script/register');</span></code></pre></td></tr></table></div></figure>
+
+<p>実行してみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm start</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/2f7005395707093b773b7be923e285f0.png" alt="img"></p>
+
+<p>できた</p>
+
+<h2>外部ファイルもCoffeeScriptで書きたい</h2>
+
+<p>あとは、 public/javascripts のファイルもCoffeeScriptで書けるようになれば、</p>
+
+<p>やりたいことは叶いますね。</p>
+
+<p><a href="https://www.npmjs.org/package/coffee-middleware">coffee-middleware</a> がよさそうなのでインストールしてみる</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>npm install coffee-middleware --save</span></code></pre></td></tr></table></div></figure>
+
+<p>設定ファイルを編集</p>
+
+<h5>app.coffee</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># use coffeescript
+</span><span class='line'>coffeeMiddleware = require('coffee-middleware')
+</span><span class='line'>
+</span><span class='line'>app.use coffeeMiddleware(
+</span><span class='line'>  src: path.join(__dirname, "public")
+</span><span class='line'>  compress: true
+</span><span class='line'>  bare: true
+</span><span class='line'>)</span></code></pre></td></tr></table></div></figure>
+
+<p>CoffeeScriptのファイルを配置してみる</p>
+
+<h5>public/main.coffee</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>alert 'main coffee'</span></code></pre></td></tr></table></div></figure>
+
+<p>実行してみる</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/9e17666badefe5abe6146f4ed979967f.png" alt="img"></p>
+
+<p>できた。</p>
+
+<p>とりあえず、</p>
+
+<p>やりたいことは、出来るようになったので満足なのですが、</p>
+
+<p>実際の運用を考えたら、</p>
+
+<p>html はともかく</p>
+
+<p>js や css は、</p>
+
+<p>毎回expressで生成するのもどうかというわけで、</p>
+
+<p>多分 <strong>grunt</strong> を使うことになるだろうなと思いました。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MacBookPro が頻繁にフリーズするのでディスクを修正してみた]]></title>
@@ -1322,165 +1595,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 </span></code></pre></td></tr></table></div></figure>
 
 <p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Apache Php Mysqlをインストール(yum)]]></title>
-    <link href="http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install/"/>
-    <updated>2014-04-28T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/04/28/apache_php_mysql_install</id>
-    <content type="html"><![CDATA[<h2>apache</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum install httpd
-</span><span class='line'>sudo chkconfig httpd on
-</span><span class='line'>cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
-</span><span class='line'>vim /etc/httpd/conf/httpd.conf</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/httpd/conf/httpd.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ServerTokens Prod
-</span><span class='line'>ServerSignature Off
-</span><span class='line'>Options Indexes → Options -Indexes FollowSymLinks
-</span><span class='line'>※var/www/html内のもの
-</span><span class='line'>ServerName www.example.com:80
-</span><span class='line'>NameVirtualHost *:80</span></code></pre></td></tr></table></div></figure>
-
-<h3>設定を反映</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service httpd configtest
-</span><span class='line'>sudo service httpd start
-</span><span class='line'>chkconfig httpd on</span></code></pre></td></tr></table></div></figure>
-
-<h3>※ヴァーチャルホストの設定を別ファイルに記載でもOK</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cd /etc/httpd/conf.d
-</span><span class='line'>vim vhost.conf</span></code></pre></td></tr></table></div></figure>
-
-<h3>バーチャルホスト用にフォルダを作成</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mkdir -p /var/www/vhosts/default/public</span></code></pre></td></tr></table></div></figure>
-
-<h2>php</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y php php-devel php-mysql php-mbstring php-gd php-pear httpd-devel
-</span><span class='line'>php -v
-</span><span class='line'>cp /etc/php.ini /etc/php.ini.org
-</span><span class='line'>vim /etc/php.ini</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/php.ini</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>error_log = /var/log/php.log
-</span><span class='line'>error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED
-</span><span class='line'>display_errors = On
-</span><span class='line'>mbstring.language = Japanese
-</span><span class='line'>expose_php = Off
-</span><span class='line'>date.timezone = Asia/Tokyo
-</span><span class='line'>max_execution_time = 300
-</span><span class='line'>magic_quotes_gpc = Off
-</span><span class='line'>upload_max_filesize = 200M
-</span><span class='line'>mbstring.internal_encoding = UTF-8
-</span><span class='line'>mbstring.http_input = auto
-</span><span class='line'>mbstring.http_output = pass
-</span><span class='line'>mbstring.detect_order = auto
-</span><span class='line'>;mbstring.substitute_character = none;
-</span><span class='line'>
-</span><span class='line'>max_file_uploads = 100
-</span><span class='line'>post_max_size = 100M
-</span><span class='line'>upload_max_filesize 100M
-</span></code></pre></td></tr></table></div></figure>
-
-<h3>設定を反映</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-
-<h2>mysql</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>yum install -y mysql-server
-</span><span class='line'>cp /etc/my.cnf /etc/my.cnf.org
-</span><span class='line'>vim /etc/my.cnf</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/my.cnf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mysqld]以下に追加
-</span><span class='line'>character_set_server=utf8
-</span><span class='line'>default-storage-engine=InnoDB
-</span><span class='line'>innodb_file_per_table
-</span><span class='line'>group_concat_max_len=10000000
-</span><span class='line'>
-</span><span class='line'>[mysql]
-</span><span class='line'>default-character-set=utf8
-</span><span class='line'>
-</span><span class='line'>[mysqldump]
-</span><span class='line'>default-character-set=utf8
-</span></code></pre></td></tr></table></div></figure>
-
-<h3>設定を反映</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service mysqld start
-</span><span class='line'>chkconfig mysqld on</span></code></pre></td></tr></table></div></figure>
-
-<h3>mysqlの初期設定</h3>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mysql_secure_installation
-</span><span class='line'>mysql -u root -p</span></code></pre></td></tr></table></div></figure>
 ]]></content>
   </entry>
   

@@ -9,12 +9,13 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="gitのグローバル設定 1
-2
-3
-git config --global user.name "abgata20000"
-git config --global user.email "abgata@abgata.jp"
-git config --global color.ui true &hellip;">
+  <meta name="description" content="とりあえずインストールしておくと便利そうなものをピックアップ
+gem install sinatra
+gem install sinatra-contrib
+gem install sqlite3
+gem install bundler
+gem install haml
+gem install &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,6 +89,63 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/install_for_gem/">Gemでインストールするもの</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>とりあえずインストールしておくと便利そうなものをピックアップ</p>
+<div class="highlight"><pre><code class="text">gem install sinatra
+gem install sinatra-contrib
+gem install sqlite3
+gem install bundler
+gem install haml
+gem install activerecord
+gem install wsse
+gem install xml-simple
+gem install nokogiri
+
+gem install unicorn
+
+gem install mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install mysql2 -- --with-mysql-config=/usr/bin/mysql_config
+
+
+gem install activerecord-mysql-adapter
+gem install activerecord-mysql2-adapter
+</code></pre></div>
+<h2>↓のコマンド実行しないとシンボリックが生成されない？？</h2>
+<div class="highlight"><pre><code class="text">rbenv rehash
+</code></pre></div></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -477,6 +535,10 @@ $(document).ready( function () {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/20/mac_disk_recover/">MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
       </li>
     
@@ -490,10 +552,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/webmin_install/">Webminをインストール</a>
       </li>
     
   </ul>
