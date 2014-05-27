@@ -9,13 +9,16 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="とりあえずインストールしておくと便利そうなものをピックアップ
-gem install sinatra
-gem install sinatra-contrib
-gem install sqlite3
-gem install bundler
-gem install haml
-gem install &hellip;">
+  <meta name="description" content="依存パッケージをインストール 1
+2
+3
+4
+5
+sudo yum -y install php-pear
+sudo yum -y install php-devel
+sudo yum -y install httpd-devel
+sudo yum -y install gcc
+sudo yum &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -89,6 +92,76 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/mongodb_for_php/">PHPでmongodbを使えるようにする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>依存パッケージをインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install php-pear
+</span><span class='line'>sudo yum -y install php-devel
+</span><span class='line'>sudo yum -y install httpd-devel
+</span><span class='line'>sudo yum -y install gcc
+</span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
+
+<h2>pcelでインストール</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
+
+<h2>mongodb用の設定ファイルを追加</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/php.d/mongo.ini</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[mongo]
+</span><span class='line'>extension=mongo.so
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>apacheを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -535,6 +608,10 @@ gem install activerecord-mysql2-adapter
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
       </li>
     
@@ -548,10 +625,6 @@ gem install activerecord-mysql2-adapter
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>

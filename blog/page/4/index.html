@@ -9,7 +9,11 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト https://github.com/ruby/ruby/pull/308/files 概要 Rubyでブログ投稿しようと頑張っていたら、ハマった。 xml-rpcで投稿していた所、 jugemやseesaaは問題なく投稿や情報の取得ができていたのだが、 &hellip;">
+  <meta name="description" content="参考サイト CentOS で公開鍵暗号方式を使用した SSH ログイン設定 秘密鍵と公開鍵を作成 1
+ssh-keygen -t rsa 公開鍵を転送 1
+scp -P 22 id_rsa.pub user@hostname/.ssh 公開鍵を設定 1
+2
+mv ~/.ssh/id_rsa.pub &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -83,6 +87,85 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/01/30/ssh_key/">SSHの公開鍵認証</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-30T10:21:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>参考サイト</h3>
+
+<ul>
+<li><a href="http://fnya.cocolog-nifty.com/blog/2012/03/centos-ssh-8291.html">CentOS で公開鍵暗号方式を使用した SSH ログイン設定</a></li>
+</ul>
+
+<h2>秘密鍵と公開鍵を作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -t rsa</span></code></pre></td></tr></table></div></figure>
+
+<h2>公開鍵を転送</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>scp -P 22 id_rsa.pub user@hostname/.ssh</span></code></pre></td></tr></table></div></figure>
+
+<h2>公開鍵を設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
+</span><span class='line'>chmod 600 ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
+
+<h2>SSHで公開鍵認証を設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/ssh/sshd_config</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
+
+<h2>sshdを再起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service sshd restart</span></code></pre></td></tr></table></div></figure>
+
+<h2>公開鍵でSSH接続する</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i ~/.ssh/id_rsa user@hostname</span></code></pre></td></tr></table></div></figure>
+
+<p>~/.ssh/id_rsa であれば省略可能</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -971,197 +1054,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/unicorn_insatll/">Unicornのインストール</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Gedでユニコーンをインストールすろ</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>gem install unicorn-rails
-</span><span class='line'>
-</span><span class='line'>gem install unicorn
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>ユニコーンの設定ファイルを作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
-
-<h5>RAILS_ROOT/config/unicorn.rb</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>APP_PATH = "/var/www/ruby/rss"
-</span><span class='line'>
-</span><span class='line'>worker_processes 2
-</span><span class='line'>
-</span><span class='line'>working_directory "/var/www/ruby/rss"
-</span><span class='line'>
-</span><span class='line'>listen 3000
-</span><span class='line'>
-</span><span class='line'>pid APP_PATH + "/tmp/pids/unicorn.pid"
-</span><span class='line'>stderr_path APP_PATH + "/log/unicorn.log"
-</span><span class='line'>stdout_path APP_PATH + "/log/unicorn.log"
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>preload_app true
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>ユニコーンでRailsを起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
-
-<h2>Nginxの設定ファイルを作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/nginx/nginx.conf</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>upstream abgata.org {
-</span><span class='line'>    #server 127.0.0.1:3000;
-</span><span class='line'>  server unix:/var/tmp/rss.sock;
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>server {
-</span><span class='line'>    listen 80;
-</span><span class='line'>    server_name abgata.org;
-</span><span class='line'>
-</span><span class='line'>    root /var/www/ruby/rss/public;
-</span><span class='line'>
-</span><span class='line'>    access_log /var/log/rss_access.log;
-</span><span class='line'>    error_log  /var/log/rss_error.log;
-</span><span class='line'>
-</span><span class='line'>    location / {
-</span><span class='line'>      if (-f $request_filename) {
-</span><span class='line'>        break;
-</span><span class='line'>      }
-</span><span class='line'>
-</span><span class='line'>      proxy_set_header X-Real-IP  $remote_addr;
-</span><span class='line'>      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-</span><span class='line'>      proxy_set_header Host $http_host;
-</span><span class='line'>      proxy_pass http://abgata.org;
-</span><span class='line'>    }
-</span><span class='line'>
-</span><span class='line'>    location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
-</span><span class='line'>      # expires 1y;
-</span><span class='line'>    }
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>ヴァーチャルホストの設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/nginx/sites-avalable/default</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>server {
-</span><span class='line'>        listen 80 default_server;
-</span><span class='line'>        server_name _;
-</span><span class='line'>        deny all;
-</span><span class='line'>}
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>Nginxを再起動して設定を反映</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig nginx on
-</span><span class='line'>
-</span><span class='line'>service nginx start
-</span><span class='line'>
-</span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/5/">&larr; Older</a>
@@ -1179,6 +1071,10 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
       </li>
     
@@ -1192,10 +1088,6 @@ ln -s /Users/(ユーザー名)/Dropbox/SublimeText2/Installed\ Packages /Users/(
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>

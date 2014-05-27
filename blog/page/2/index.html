@@ -9,10 +9,10 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="起動 1
-unicorn -c config/unicorn.rb -D 現在実行中のプロセスを探す 1
-ps ax | grep unicorn 停止 1
-kill process_id
+  <meta name="description" content="バックグランドで実行 1
+nohup ruby sample.rb & 実行中のスクリプトを確認
+ps ax | grep ruby 実行中のスクリプトを停止
+kill processid
 ">
   
 
@@ -87,6 +87,51 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/run_background/">バックグラウンドでプログラムを実行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>バックグランドで実行</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>nohup ruby sample.rb &</span></code></pre></td></tr></table></div></figure>
+
+<h2>実行中のスクリプトを確認</h2>
+<div class="highlight"><pre><code class="text">ps ax | grep ruby
+</code></pre></div>
+<h2>実行中のスクリプトを停止</h2>
+<div class="highlight"><pre><code class="text">kill processid
+</code></pre></div></div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -983,99 +1028,6 @@ $(document).ready( function () {
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/04/28/epel_remi_install/">Epel、remiのリポジトリを導入</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>epel</h2>
-
-<h3>ダウンロードサイトから最新版を取得</h3>
-
-<h4>URL:</h4>
-
-<ul>
-<li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
-</ul>
-
-<p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
-
-<p>設定ファイルを変更</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
-</span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/yum.repos.d/epel.repo</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
-</span><span class='line'>
-</span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
-
-<h2>remi</h2>
-
-<h3>ダウンロードサイトから最新版を取得</h3>
-
-<h4>URL:</h4>
-
-<ul>
-<li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
-</ul>
-
-<p>※centosで検索</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-</span><span class='line'>
-</span><span class='line'>rpm -Uvh remi-release-6.rpm
-</span></code></pre></td></tr></table></div></figure>
-
-<p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1093,6 +1045,10 @@ $(document).ready( function () {
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
       </li>
     
@@ -1106,10 +1062,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>

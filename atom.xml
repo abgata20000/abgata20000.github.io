@@ -4,7 +4,7 @@
   <title><![CDATA[AB Lab]]></title>
   <link href="http://blog.abgata.org/atom.xml" rel="self"/>
   <link href="http://blog.abgata.org/"/>
-  <updated>2014-05-25T14:54:30+09:00</updated>
+  <updated>2014-05-27T09:53:37+09:00</updated>
   <id>http://blog.abgata.org/</id>
   <author>
     <name><![CDATA[abgata20000]]></name>
@@ -12,6 +12,272 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RailsのScaffoldのテンプレートをカスタマイズする]]></title>
+    <link href="http://blog.abgata.org/blog/2014/05/27/rails_scaffold_template/"/>
+    <updated>2014-05-27T17:50:00+09:00</updated>
+    <id>http://blog.abgata.org/blog/2014/05/27/rails_scaffold_template</id>
+    <content type="html"><![CDATA[<h2>Scaffoldで生成されるテンプレートをSlimに変更する</h2>
+
+<p>Railsの<strong>Scaffold</strong>を使う際にテンプレートを<strong>slim</strong>で、</p>
+
+<p>生成してさらに中身をカスタマイズできるようにしたくなったのでいろいろ調べてみました。</p>
+
+<p>テンプレートエンジンを<strong>slim</strong>に変更するのは、簡単そうです。</p>
+
+<p>Gemfileに <code>gem &#39;slim-rails&#39;</code> を追加して <code>bundle install</code> を実行して、</p>
+
+<p><code>config/application.rb</code>に</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.generators do |g|
+</span><span class='line'>  g.template_engine :slim
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+<p>を追加するだけで出来ました。</p>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/6447d37569b96333c8981ebcab978d70.png" alt="img"></p>
+
+<h2>さらに、これの中身をカスタマイズしたい</h2>
+
+<p>参考サイト: <a href="http://qiita.com/labocho/items/387e7592b8e388fd9ca5">rails g scaffold のカスタマイズ</a></p>
+
+<p>現在利用しているテンプレートのコピーを作成します</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake rails:templates:copy</span></code></pre></td></tr></table></div></figure>
+
+<p>これで <code>lib/templates</code> が生成されます</p>
+
+<p><code>lib/.template/scaffold</code> 作成して、</p>
+
+<p><code>index.html.erb</code> などのテンプレートファイルを作成すれば</p>
+
+<p><code>rails g scaffold</code> 時に反映されるようです。</p>
+
+<h3>テンプレートのカスタマイズもSlimで書きたい</h3>
+
+<p>デフォルトでは、テンプレートエンジンは <code>erb</code> になっています。</p>
+
+<p>このままでも良かったのですが、折角なので、</p>
+
+<p>テンプレートのカスタマイズも<strong>slim</strong>で出来るようにしました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g generator slim/scaffold</span></code></pre></td></tr></table></div></figure>
+
+<p>で、<code>lib/generators/slim/scaffold</code> が生成されます。</p>
+
+<p>生成されたフォルダ内の</p>
+
+<p><code>scaffold_generator.rb</code></p>
+
+<p>を編集します。</p>
+
+<h5>scaffold_generator.rb</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>require "rails/generators/erb/scaffold/scaffold_generator"
+</span><span class='line'>class Slim::ScaffoldGenerator &lt; Erb::Generators::ScaffoldGenerator
+</span><span class='line'>  source_root File.expand_path('../templates', __FILE__)
+</span><span class='line'>
+</span><span class='line'>  protected
+</span><span class='line'>  def handler
+</span><span class='line'>    :slim
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+<p>これで、scaffold時に <code>lib/generators/slim/scaffold/template</code> 内のファイルが利用されるようになります。</p>
+
+<h5>index.html.slim</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>h1
+</span><span class='line'>  | &lt;%= plural_table_name %&gt;
+</span><span class='line'>
+</span><span class='line'>table class=("table table-boderd table-striped table-hover")
+</span><span class='line'>  thead
+</span><span class='line'>    tr
+</span><span class='line'>&lt;% attributes.reject(&:password_digest?).each do |attribute| -%&gt;
+</span><span class='line'>      th &lt;%= attribute.human_name %&gt;
+</span><span class='line'>&lt;% end -%&gt;
+</span><span class='line'>      th
+</span><span class='line'>      th
+</span><span class='line'>      th
+</span><span class='line'>
+</span><span class='line'>  tbody
+</span><span class='line'>    - @&lt;%= plural_table_name %&gt;.each do |&lt;%= singular_table_name %&gt;|
+</span><span class='line'>      tr
+</span><span class='line'>&lt;% attributes.reject(&:password_digest?).each do |attribute| -%&gt;
+</span><span class='line'>        td= &lt;%= singular_table_name %&gt;.&lt;%= attribute.name %&gt;
+</span><span class='line'>&lt;% end -%&gt;
+</span><span class='line'>        td= link_to 'Show', &lt;%= singular_table_name %&gt;, :class =&gt; 'btn btn-info'
+</span><span class='line'>        td= link_to 'Edit', edit_&lt;%= singular_table_name %&gt;_path(&lt;%= singular_table_name %&gt;), :class =&gt; 'btn btn-success'
+</span><span class='line'>        td
+</span><span class='line'>          = link_to('Destroy',
+</span><span class='line'>            &lt;%= singular_table_name %&gt;,
+</span><span class='line'>            method: :delete,
+</span><span class='line'>            :remote =&gt; true,
+</span><span class='line'>            :onclick =&gt; 'if(window.confirm("are you sure?")){$(this).closest("tr").fadeOut()}',
+</span><span class='line'>            data: {},
+</span><span class='line'>            :class =&gt; 'btn btn-danger')
+</span></code></pre></td></tr></table></div></figure>
+
+<p>こんな感じですね。</p>
+
+<p>ちょっとハマったのは、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;% attributes.reject(&:password_digest?).each do |attribute| -%&gt;
+</span><span class='line'>      th &lt;%= attribute.human_name %&gt;
+</span><span class='line'>&lt;% end -%&gt;</span></code></pre></td></tr></table></div></figure>
+
+<p>のようなscaffold時に生成される箇所にインデントがあると、</p>
+
+<p>生成されたslimファイルのインデントがおかしくなるという点です。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tbody
+</span><span class='line'>  - @&lt;%= plural_table_name %&gt;.each do |&lt;%= singular_table_name %&gt;|
+</span><span class='line'>    tr
+</span><span class='line'>      &lt;% attributes.reject(&:password_digest?).each do |attribute| -%&gt;
+</span><span class='line'>      td= &lt;%= singular_table_name %&gt;.&lt;%= attribute.name %&gt;
+</span><span class='line'>      &lt;% end -%&gt;
+</span></code></pre></td></tr></table></div></figure>
+
+<p>のように記述すると</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>tr
+</span><span class='line'>    td
+</span></code></pre></td></tr></table></div></figure>
+
+<p>とインデントが余分に入ってしまいました。</p>
+
+<h2>折角なのでcontrollerとmodelもカスタマイズする</h2>
+
+<p>controllerは、<code>lib/templates/rails/scaffold_controller/controller.rb</code>を編集すればいいようです。</p>
+
+<p>このファイルは、最初に実行した</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake rails:templates:copy</span></code></pre></td></tr></table></div></figure>
+
+<p>で生成されていました。</p>
+
+<p>modelは、<code>lib/templates/active_record/model/model.rb</code>を作成する必要があります。</p>
+
+<p>サンプルは、</p>
+
+<h5>ruby:model.rb</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;% module_namespacing do -%&gt;
+</span><span class='line'>class &lt;%= class_name %&gt; &lt; &lt;%= parent_class_name.classify %&gt;
+</span><span class='line'>&lt;% attributes.select {|attr| attr.reference? }.each do |attribute| -%&gt;
+</span><span class='line'>  belongs_to :&lt;%= attribute.name %&gt;&lt;%= ', polymorphic: true' if attribute.polymorphic? %&gt;
+</span><span class='line'>&lt;% end -%&gt;
+</span><span class='line'>&lt;% if !accessible_attributes.empty? -%&gt;
+</span><span class='line'>  # attr_accessible &lt;%= accessible_attributes.map {|a| ":#{a.name}" }.sort.join(', ') %&gt;
+</span><span class='line'>&lt;% else -%&gt;
+</span><span class='line'>  # attr_accessible :title, :body # rails4 だとエラー出ます
+</span><span class='line'>&lt;% end -%&gt;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>  def to_s
+</span><span class='line'>    &lt;%- if attributes.map{ |a| a.name }.include?('name') -%&gt;
+</span><span class='line'>    name
+</span><span class='line'>    &lt;%- else -%&gt;
+</span><span class='line'>    "&lt;%= class_name %&gt; #{id}"
+</span><span class='line'>    &lt;%- end -%&gt;
+</span><span class='line'>  end
+</span><span class='line'>
+</span><span class='line'>end
+</span><span class='line'>&lt;% end -%&gt;
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>こんな感じです。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails g scaffold sample name comment:text</span></code></pre></td></tr></table></div></figure>
+
+<p><img src="https://abgata.s3-ap-northeast-1.amazonaws.com/44c06e14945c626cc741f6a04dac0314.png" alt="img"></p>
+
+<p>で生成されるファイルが変更されたのを確認できます。</p>
+
+<p>さて、どんなテンプレートにしようかな。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Expressを使ってみる（Jade、LESS、CoffeeScript）]]></title>
@@ -159,7 +425,7 @@
 </span><span class='line'>  }
 </span><span class='line'>));</span></code></pre></td></tr></table></div></figure>
 
-<p>これで asets/stylesheets にless ファイルを配置すればOK </p>
+<p>これで asets/stylesheets にless ファイルを配置すればOK</p>
 
 <h2>CoffeeScriptで記述できるようにしたい</h2>
 
@@ -1529,72 +1795,6 @@ Whenever以外で登録されていたジョブが上書きされることはな
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>chmod 700 images_backup.sh</span></code></pre></td></tr></table></div></figure>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Epel、remiのリポジトリを導入]]></title>
-    <link href="http://blog.abgata.org/blog/2014/04/28/epel_remi_install/"/>
-    <updated>2014-04-28T09:00:00+09:00</updated>
-    <id>http://blog.abgata.org/blog/2014/04/28/epel_remi_install</id>
-    <content type="html"><![CDATA[<h2>epel</h2>
-
-<h3>ダウンロードサイトから最新版を取得</h3>
-
-<h4>URL:</h4>
-
-<ul>
-<li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
-</ul>
-
-<p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
-
-<p>設定ファイルを変更</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
-</span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/yum.repos.d/epel.repo</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
-</span><span class='line'>
-</span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
-
-<h2>remi</h2>
-
-<h3>ダウンロードサイトから最新版を取得</h3>
-
-<h4>URL:</h4>
-
-<ul>
-<li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
-</ul>
-
-<p>※centosで検索</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-</span><span class='line'>
-</span><span class='line'>rpm -Uvh remi-release-6.rpm
-</span></code></pre></td></tr></table></div></figure>
-
-<p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
 ]]></content>
   </entry>
   

@@ -9,14 +9,11 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="参考サイト ActiveRecord::Locking::Pessimistic
-MySQL MySQL 5.1 リファレンスマニュアル (オンラインヘルプ) SELECT FOR UPDATEとロックの挙動 サンプル 1
+  <meta name="description" content="Gedでユニコーンをインストールすろ 1
 2
 3
-4
-5
-6
-begin; select * from &hellip;">
+gem install unicorn-rails gem install unicorn ユニコーンの設定ファイルを作成 1
+vim RAILS_ROOT/config/unicorn.rb RAILS_ROOT/config/unicorn. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +87,197 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/22/unicorn_insatll/">Unicornのインストール</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>Gedでユニコーンをインストールすろ</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gem install unicorn-rails
+</span><span class='line'>
+</span><span class='line'>gem install unicorn
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>ユニコーンの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim RAILS_ROOT/config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+<h5>RAILS_ROOT/config/unicorn.rb</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>APP_PATH = "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>worker_processes 2
+</span><span class='line'>
+</span><span class='line'>working_directory "/var/www/ruby/rss"
+</span><span class='line'>
+</span><span class='line'>listen 3000
+</span><span class='line'>
+</span><span class='line'>pid APP_PATH + "/tmp/pids/unicorn.pid"
+</span><span class='line'>stderr_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>stdout_path APP_PATH + "/log/unicorn.log"
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>preload_app true
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>ユニコーンでRailsを起動</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>bundle exec unicorn_rails -E development -c config/unicorn.rb</span></code></pre></td></tr></table></div></figure>
+
+<h2>Nginxの設定ファイルを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/nginx/nginx.conf</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/nginx/nginx.conf</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>upstream abgata.org {
+</span><span class='line'>    #server 127.0.0.1:3000;
+</span><span class='line'>  server unix:/var/tmp/rss.sock;
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>server {
+</span><span class='line'>    listen 80;
+</span><span class='line'>    server_name abgata.org;
+</span><span class='line'>
+</span><span class='line'>    root /var/www/ruby/rss/public;
+</span><span class='line'>
+</span><span class='line'>    access_log /var/log/rss_access.log;
+</span><span class='line'>    error_log  /var/log/rss_error.log;
+</span><span class='line'>
+</span><span class='line'>    location / {
+</span><span class='line'>      if (-f $request_filename) {
+</span><span class='line'>        break;
+</span><span class='line'>      }
+</span><span class='line'>
+</span><span class='line'>      proxy_set_header X-Real-IP  $remote_addr;
+</span><span class='line'>      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span class='line'>      proxy_set_header Host $http_host;
+</span><span class='line'>      proxy_pass http://abgata.org;
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    location ~* \.(ico|css|js|gif|jpe?g|png)(\?[0-9]+)?$ {
+</span><span class='line'>      # expires 1y;
+</span><span class='line'>    }
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>ヴァーチャルホストの設定</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/nginx/sites-avalable/default</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/nginx/sites-avalable/default</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>server {
+</span><span class='line'>        listen 80 default_server;
+</span><span class='line'>        server_name _;
+</span><span class='line'>        deny all;
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>設定を反映させるファイルのシンボリックリンクを作成</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo ln -s /etc/nginx/sites-avalable/default /etc/nginx/sites-enabled/
+</span></code></pre></td></tr></table></div></figure>
+
+<h2>Nginxを再起動して設定を反映</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>chkconfig nginx on
+</span><span class='line'>
+</span><span class='line'>service nginx start
+</span><span class='line'>
+</span><span class='line'>service nginx reload</span></code></pre></td></tr></table></div></figure>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1177,76 +1365,6 @@ activerecordのバージョンを3.2.14に落とす
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/12/22/mongodb_for_php/">PHPでmongodbを使えるようにする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-22T09:00:00+09:00" pubdate data-updated="true">Dec 22<span>nd</span>, 2013</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>依存パッケージをインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo yum -y install php-pear
-</span><span class='line'>sudo yum -y install php-devel
-</span><span class='line'>sudo yum -y install httpd-devel
-</span><span class='line'>sudo yum -y install gcc
-</span><span class='line'>sudo yum -y install make</span></code></pre></td></tr></table></div></figure>
-
-<h2>pcelでインストール</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>pecl install mongo</span></code></pre></td></tr></table></div></figure>
-
-<h2>mongodb用の設定ファイルを追加</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>vim /etc/php.d/mongo.ini</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/php.d/mongo.ini</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[mongo]
-</span><span class='line'>extension=mongo.so
-</span></code></pre></td></tr></table></div></figure>
-
-<h2>apacheを再起動して設定を反映</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>service httpd restart</span></code></pre></td></tr></table></div></figure>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/6/">&larr; Older</a>
@@ -1264,6 +1382,10 @@ activerecordのバージョンを3.2.14に落とす
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
       </li>
     
@@ -1277,10 +1399,6 @@ activerecordのバージョンを3.2.14に落とす
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>

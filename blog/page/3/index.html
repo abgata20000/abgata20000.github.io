@@ -9,14 +9,11 @@
   <meta name="author" content="abgata20000">
 
   
-  <meta name="description" content="apache 1
+  <meta name="description" content="epel ダウンロードサイトから最新版を取得 URL: http://dl.fedoraproject.org/pub/epel/6/x86_64/ ※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm) 1
 2
 3
 4
-sudo yum install httpd
-sudo chkconfig httpd on
-cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.org
-vim /etc/httpd/conf/httpd. &hellip;">
+wget http &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -90,6 +87,99 @@ $(document).ready( function () {
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/28/epel_remi_install/">Epel、remiのリポジトリを導入</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-28T09:00:00+09:00" pubdate data-updated="true">Apr 28<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>epel</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://dl.fedoraproject.org/pub/epel/6/x86_64/">http://dl.fedoraproject.org/pub/epel/6/x86_64/</a></li>
+</ul>
+
+<p>※ epel-releaseで検索する(執筆時点では、epel-release-6-8.noarch.rpm)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh epel-release-6-8.noarch.rpm</span></code></pre></td></tr></table></div></figure>
+
+<p>設定ファイルを変更</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cp /etc/yum.repos.d/epel.repo /etc/yum.repos.d/epel.repo.org
+</span><span class='line'>vim /etc/yum.repos.d/epel.repo</span></code></pre></td></tr></table></div></figure>
+
+<h5>/etc/yum.repos.d/epel.repo</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>enabled=0
+</span><span class='line'>
+</span><span class='line'># enabled=0で利用する</span></code></pre></td></tr></table></div></figure>
+
+<h2>remi</h2>
+
+<h3>ダウンロードサイトから最新版を取得</h3>
+
+<h4>URL:</h4>
+
+<ul>
+<li><a href="http://rpms.famillecollet.com/">http://rpms.famillecollet.com/</a></li>
+</ul>
+
+<p>※centosで検索</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+</span><span class='line'>
+</span><span class='line'>rpm -Uvh remi-release-6.rpm
+</span></code></pre></td></tr></table></div></figure>
+
+<p>remiはデフォルトで設定がenabled=0なので設定ファイルは変更しない</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1162,85 +1252,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/30/ssh_key/">SSHの公開鍵認証</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-30T10:21:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>参考サイト</h3>
-
-<ul>
-<li><a href="http://fnya.cocolog-nifty.com/blog/2012/03/centos-ssh-8291.html">CentOS で公開鍵暗号方式を使用した SSH ログイン設定</a></li>
-</ul>
-
-<h2>秘密鍵と公開鍵を作成</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ssh-keygen -t rsa</span></code></pre></td></tr></table></div></figure>
-
-<h2>公開鍵を転送</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>scp -P 22 id_rsa.pub user@hostname/.ssh</span></code></pre></td></tr></table></div></figure>
-
-<h2>公開鍵を設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
-</span><span class='line'>chmod 600 ~/.ssh/authorized_keys</span></code></pre></td></tr></table></div></figure>
-
-<h2>SSHで公開鍵認証を設定</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vim /etc/ssh/sshd_config</span></code></pre></td></tr></table></div></figure>
-
-<h5>/etc/ssh/sshd_config</h5>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>PubkeyAuthentication yes</span></code></pre></td></tr></table></div></figure>
-
-<h2>sshdを再起動</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>sudo service sshd restart</span></code></pre></td></tr></table></div></figure>
-
-<h2>公開鍵でSSH接続する</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>ssh -i ~/.ssh/id_rsa user@hostname</span></code></pre></td></tr></table></div></figure>
-
-<p>~/.ssh/id_rsa であれば省略可能</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1258,6 +1269,10 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
       </li>
     
@@ -1271,10 +1286,6 @@ PUT と POST の場合は、モデルのメソッド作成の際に指定して�
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>

@@ -253,7 +253,7 @@ $(document).ready( function () {
 </span><span class='line'>  }
 </span><span class='line'>));</span></code></pre></td></tr></table></div></figure>
 
-<p>これで asets/stylesheets にless ファイルを配置すればOK </p>
+<p>これで asets/stylesheets にless ファイルを配置すればOK</p>
 
 <h2>CoffeeScriptで記述できるようにしたい</h2>
 
@@ -442,9 +442,17 @@ $(document).ready( function () {
         <a class="basic-alignment left" href="/blog/2014/05/20/mac_disk_recover/" title="Previous Post: MacBookPro が頻繁にフリーズするのでディスクを修正してみた">&laquo; MacBookPro が頻繁にフリーズするのでディスクを修正してみた</a>
       
       
+        <a class="basic-alignment right" href="/blog/2014/05/27/rails_scaffold_template/" title="Next Post: RailsのScaffoldのテンプレートをカスタマイズする">RailsのScaffoldのテンプレートをカスタマイズする &raquo;</a>
+      
     </p>
   </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -453,6 +461,10 @@ $(document).ready( function () {
     <section>
   <h1>最近の記事</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/27/rails_scaffold_template/">RailsのScaffoldのテンプレートをカスタマイズする</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/05/25/express_install/">Expressを使ってみる（Jade、LESS、CoffeeScript）</a>
@@ -468,10 +480,6 @@ $(document).ready( function () {
     
       <li class="post">
         <a href="/blog/2014/05/02/vagrant-packege-vb_version_diff/">Vagrantでpackage作成した際にVirtualBoxのVersionが異なる場合の対処法</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/04/28/whenever/">wheneverでRailsのタスクをcronで実行する</a>
       </li>
     
   </ul>
@@ -528,7 +536,10 @@ $(document).ready( function () {
       var disqus_shortname = 'abgata20000';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.abgata.org/blog/2014/05/25/express_install/';
+        var disqus_url = 'http://blog.abgata.org/blog/2014/05/25/express_install/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
